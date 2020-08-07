@@ -72,8 +72,13 @@
                     </form>
                     </div> 
                     <center><br>
-                    <a href="index.php"><< Back</a></center>  
+                    <a href="##" onclick="history.go(-1); return false;"><< back</a>
                 </div>
+            <script>
+           function goBack() {
+                window.history.back();
+                      }
+                </script>
                 <div class="rightHalf">
                     <div class="notegray">
                         <h1>Badges</h1>
