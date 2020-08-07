@@ -1,0 +1,41 @@
+body {
+    background-color: #181818;
+    color: white;
+    font-family: sans-serif;
+}
+
+a {
+    color: #F5F5F5;
+    text-decoration: none;
+}
+
+.container {
+    width: 40em;
+    margin: auto;
+}
+
+.leftHalf {
+    float: left;
+    width: calc(50% - 20px);
+}
+
+.rightHalf {
+    float: right;
+    width: calc(50% - 20px);
+}
+
+.note {
+    background-color: darkred;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.notegray {
+    background-color: #202020;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.note h1, .notegray h1 {
+    margin: 0px;
+}
