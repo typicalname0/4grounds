@@ -1,6 +1,4 @@
 <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
-
-
 <?php
 require("bbcode.php");
 
@@ -83,5 +81,24 @@ function checkIfFriended($friend1, $friend2, $connection)
 //thanks dzhaugasharov https://gist.github.com/afsalrahim/bc8caf497a4b54c5d75d
 function replaceBBcodes($text) {
 	return bbcode_to_html($text);
+}
+
+function getUser($id) {
+	$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if($result->num_rows === 0) echo('That user does not exist.');
+	while($row = $result->fetch_assoc()) {
+		$username = $row['username'];
+		$id = $row['id'];
+		$date = $row['date'];
+		$bio = $row['bio'];
+		$css = $row['css'];
+		$pfp = $row['pfp'];
+		$badges = explode(';', $row['badges']);
+		$music = $row['music'];
+	}
+	$stmt->close();
 }
 ?>
