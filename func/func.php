@@ -13,9 +13,9 @@ if(DEBUG_MODE == true) {
 }
 
 function validateCSS($validate) {
-	$searchVal = array("<", ">", "<?php", "?>", "behavior: url", ".php", "@import", "@\import", "@/import"); 
-	$replaceVal = array("", "", "", "", "", "", "", "", ""); 
-	$validated = str_replace($searchVal, $replaceVal, $validate); 
+	$DISALLOWED = array("<", ">", "<?php", "?>", "behavior: url", ".php", "@import", "@\import", "@/import"); 
+
+	$validated = str_replace($DISALLOWED, "", $validate);
     return $validated;
 }
 
@@ -26,7 +26,9 @@ function validateCaptcha($privatekey, $response) {
 
 function requireLogin()
 {
-	if(!isset($_SESSION['user'])){ header("Location: /login.php"); die(); }
+	if (!isset($_SESSION['user'])) {
+		header("Location: /login.php?r_login"); die();
+	}
 }
 
 function getID($user, $connection) {
@@ -34,7 +36,7 @@ function getID($user, $connection) {
 	$stmt->bind_param("s", $user);
 	$stmt->execute();
 	$result = $stmt->get_result();
-	if($result->num_rows === 0) return('error');
+	if($result->num_rows === 0) return 'error';
 	while($row = $result->fetch_assoc()) {
 		$id = $row['id'];
 	} 
