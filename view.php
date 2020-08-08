@@ -54,19 +54,27 @@
                 if(isset($error)) {
                     echo "<span style='color: red;'><small>" . $error . "</small></span><br>";
                 }
+
+                echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($author, $conn) . "'>
+                <small>
+                <a href='view.php?id=" . $id . "'><span style='float:right;color: gold;'><i>" . $title . "</a></i></span><br>
+                <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($author, $conn) . "'>" . $author . "</a></i></span><br>
+                <span style='float:right;'>" . $date . "</small></span><br>
+                <br><br>" . $extrainfo . "</small><hr>";
             ?>
-            <h1 style="display: inline-block; margin-bottom: 0px;"><?php echo $title; ?></h1><br><small>[Uploaded at <b><?php echo $date?></b> by <b><?php echo $author; ?></b>]</small><br>
-            <?php echo $extrainfo; ?><br><br>
             <?php 
             if($type == "song") {
                 echo '<audio controls>
                 <source src="musicfiles/' . $filename . '">
                 </audio>';
+            } else if($type == "image") {
+              echo "<img style='width: 10em;height: 10em;' src='images/" . $filename . "'>";
             } else if($type == "midi") {
                 echo "Note: It may take a few seconds for the MIDI to load.<br>";
                 echo "<a href='#' onClick=\"MIDIjs.play('midis/" . $filename . "');\">Play " . $title . "</a>";
                 echo "<br><a href='#' onClick='MIDIjs.stop();'>Stop MIDI Playback</a>";
             } else if($type == "chiptune") {
+                //the way i did this absolutely sucks and im
                 echo '<script type="text/javascript">
                 window["libopenmpt"] = {};
                 libopenmpt.locateFile = function (filename) {
@@ -192,13 +200,19 @@
             <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/libopenmpt.js"></script>
             <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"></script>';
             echo '<a class="song" data-modurl="midis/' . $filename . '" href="#">Play ' . $title . '</a>';
+            } else if($type == "news" || $type == "review") {
+              //do nothing
+            } else if($type == "video") {
+              echo ' <video width="640" height="400" controls>
+                  <source src="videos/' . $filename . '" type="video/mp4">
+                </video> ';
             } else {
                 echo '<embed src="gamefiles/' . $filename . '"  height="300px" width="500px"> </embed>';
             }
             ?>
             <h2>User Submitted Comments</h2>
             <form method="post" enctype="multipart/form-data" id="submitform">
-                <textarea required cols="59" placeholder="Comment" name="comment"></textarea><br>
+                <textarea required cols="77" placeholder="Comment" name="comment"></textarea><br>
                 <input type="submit" value="Post" class="g-recaptcha" data-sitekey="<?php echo CAPTCHA_SITEKEY; ?>" data-callback="onLogin"> <small>max limit: 500 characters | bbcode supported</small>
             </form>
             <?php
@@ -211,7 +225,7 @@
                 <?php while($row = $result->fetch_assoc()) { ?>
                 <div class='commentRight' style='display: grid; grid-template-columns: auto 85%; padding:5px;'>
                     <div>
-                        <a style='float: left;' href='/profile.php?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                        <a style='float: left;' href='/index.php?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
                         <br>
                         <img class='commentPictures' style='float: left;' height='80px;'width='80px;'src='/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                     </div>
