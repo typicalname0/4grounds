@@ -12,7 +12,10 @@
     <body> 
         <?php require("important/header.php"); ?>
         <center><h1 style="display: inline-block;">4Grounds - Login</h1><br>
-            <?php 
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET["r_login"]) {
+                    $error = "The page you tried to access requires you to be logged in.";
+                }
                 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['password'] && $_POST['username']) 
                 {
                     if(isset($_POST['remember'])) {

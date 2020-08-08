@@ -9,57 +9,8 @@
             require("func/conn.php"); 
 
             if(isset($_GET['id'])) {
-                $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-                $stmt->bind_param("i", $_GET['id']);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if($result->num_rows === 0) echo('There are no users.');
-                while($row = $result->fetch_assoc()) {
-                    $username = $row['username'];
-                    $id = $row['id'];
-                    $date = $row['date'];
-                    $bio = $row['bio'];
-                    $css = $row['css'];
-                    $pfp = htmlspecialchars($row['pfp']);
-                    $rank = $row['rank'];
-                    $badges = explode(';', $row['badges']);
-                    $music = $row['music'];
-                    echo '<style>' . $css . '</style>';
-                }
-                $stmt->close();
-
-                $stmt = $conn->prepare("SELECT * FROM gamecomments WHERE author = ?");
-                $stmt->bind_param("s", $username);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                $comments = 0;
-                while($row = $result->fetch_assoc()) {
-                    $comments++;
-                }
-                $stmt->close();
-
-                $stmt = $conn->prepare("SELECT * FROM comments WHERE author = ?");
-                $stmt->bind_param("s", $username);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                $profilecomments = 0;
-                while($row = $result->fetch_assoc()) {
-                    $profilecomments++;
-                }
-                $stmt->close();
-
-                $stmt = $conn->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
-                $stmt->bind_param("s", $username);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                $filesuploaded = 0;
-                while($row = $result->fetch_assoc()) {
-                    $filesuploaded++;
-                }
-                $stmt->close();
+                getUser($_GET['id']);
+                echo '<style>' . $css . '</style>';
             }
         ?>
         <title>4Grounds - Hub</title>
@@ -72,16 +23,17 @@
             <?php
             if($_SERVER['REQUEST_METHOD'] == 'POST') 
             {
-                if(!isset($_SESSION['user'])){ $error = "you are not logged in"; goto skipcomment; }
-                if(!$_POST['comment']){ $error = "your comment cannot be blank"; goto skipcomment; }
-                if(strlen($_POST['comment']) > 500){ $error = "your comment must be shorter than 500 characters"; goto skipcomment; }
-
-                $stmt = $conn->prepare("INSERT INTO `comments` (toid, author, text) VALUES (?, ?, ?)");
-                $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
-                $unprocessedText = replaceBBcodes($_POST['comment']);
-                $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
-                $stmt->execute();
-                $stmt->close();
+                if(!isset($_SESSION['user'])){ $error = "you are not logged in"; }
+                if(!$_POST['comment']){ $error = "your comment cannot be blank"; }
+                if(strlen($_POST['comment']) > 500){ $error = "your comment must be shorter than 500 characters"; }
+                if (!isset($error)) {
+                    $stmt = $conn->prepare("INSERT INTO `comments` (toid, author, text) VALUES (?, ?, ?)");
+                    $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
+                    $unprocessedText = replaceBBcodes($_POST['comment']);
+                    $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+                    $stmt->execute();
+                    $stmt->close();
+                }
             }
             skipcomment:
 
@@ -118,19 +70,12 @@
                     <center><br>
                     <a href="##" onclick="history.go(-1); return false;"><< back</a>
                 </div>
-            <script>
-           function goBack() {
-                window.history.back();
-                      }
-                </script>
                 <div class="rightHalf">
                     <div id="badges" class="notegray">
                         <h1>Badges</h1>
                         <?php
                             foreach($badges as $badge) {
-                                if($badge == "good") {
-                                    echo "<img width='70px;' height='70px;' src='https://cdn.discordapp.com/attachments/740680780740821105/740776214523936808/340juojg3h.png'>";
-                                }
+                                echo "<img width='70px' height='70px' src='". $badge ."'>";
                             }
                         ?>
                     </div><br>

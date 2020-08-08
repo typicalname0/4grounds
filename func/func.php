@@ -1,6 +1,4 @@
 <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
-
-
 <?php
 require("bbcode.php");
 
@@ -13,9 +11,9 @@ if(DEBUG_MODE == true) {
 }
 
 function validateCSS($validate) {
-	$searchVal = array("<", ">", "<?php", "?>", "behavior: url", ".php", "@import", "@\import", "@/import"); 
-	$replaceVal = array("", "", "", "", "", "", "", "", ""); 
-	$validated = str_replace($searchVal, $replaceVal, $validate); 
+	$DISALLOWED = array("<", ">", "<?php", "?>", "behavior: url", ".php", "@import", "@\import", "@/import"); 
+
+	$validated = str_replace($DISALLOWED, "", $validate);
     return $validated;
 }
 
@@ -26,7 +24,9 @@ function validateCaptcha($privatekey, $response) {
 
 function requireLogin()
 {
-	if(!isset($_SESSION['user'])){ header("Location: /login.php"); die(); }
+	if (!isset($_SESSION['user'])) {
+		header("Location: /login.php?r_login"); die();
+	}
 }
 
 function getID($user, $connection) {
@@ -34,7 +34,7 @@ function getID($user, $connection) {
 	$stmt->bind_param("s", $user);
 	$stmt->execute();
 	$result = $stmt->get_result();
-	if($result->num_rows === 0) return('error');
+	if($result->num_rows === 0) return 'error';
 	while($row = $result->fetch_assoc()) {
 		$id = $row['id'];
 	} 
@@ -81,5 +81,57 @@ function checkIfFriended($friend1, $friend2, $connection)
 //thanks dzhaugasharov https://gist.github.com/afsalrahim/bc8caf497a4b54c5d75d
 function replaceBBcodes($text) {
 	return bbcode_to_html($text);
+}
+
+function getUser($id) {
+	$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if($result->num_rows === 0) echo('That user does not exist.');
+	while($row = $result->fetch_assoc()) {
+		$username = $row['username'];
+		$id = $row['id'];
+		$date = $row['date'];
+		$bio = $row['bio'];
+		$css = $row['css'];
+		$pfp = $row['pfp'];
+		$badges = explode(';', $row['badges']);
+		$music = $row['music'];
+	}
+	$stmt->close();
+
+	$stmt = $conn->prepare("SELECT * FROM gamecomments WHERE author = ?");
+	$stmt->bind_param("s", $username);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	$comments = 0;
+	while($row = $result->fetch_assoc()) {
+		$comments++;
+	}
+	$stmt->close();
+
+	$stmt = $conn->prepare("SELECT * FROM comments WHERE author = ?");
+	$stmt->bind_param("s", $username);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	$profilecomments = 0;
+	while($row = $result->fetch_assoc()) {
+		$profilecomments++;
+	}
+	$stmt->close();
+
+	$stmt = $conn->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
+	$stmt->bind_param("s", $username);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	$filesuploaded = 0;
+	while($row = $result->fetch_assoc()) {
+		$filesuploaded++;
+	}
+	$stmt->close();
 }
 ?>
