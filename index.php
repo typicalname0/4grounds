@@ -11,39 +11,6 @@
             if(isset($_GET['id'])) {
                 getUser($_GET['id']);
                 echo '<style>' . $css . '</style>';
-              
-                $stmt = $conn->prepare("SELECT * FROM gamecomments WHERE author = ?");
-                $stmt->bind_param("s", $username);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                $comments = 0;
-                while($row = $result->fetch_assoc()) {
-                    $comments++;
-                }
-                $stmt->close();
-
-                $stmt = $conn->prepare("SELECT * FROM comments WHERE author = ?");
-                $stmt->bind_param("s", $username);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                $profilecomments = 0;
-                while($row = $result->fetch_assoc()) {
-                    $profilecomments++;
-                }
-                $stmt->close();
-
-                $stmt = $conn->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
-                $stmt->bind_param("s", $username);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                $filesuploaded = 0;
-                while($row = $result->fetch_assoc()) {
-                    $filesuploaded++;
-                }
-                $stmt->close();
             }
         ?>
         <title>4Grounds - Hub</title>
