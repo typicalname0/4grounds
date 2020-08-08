@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/index.css">
         <?php
             require("func/func.php");
             require("func/conn.php"); 
@@ -20,9 +21,43 @@
                     $bio = $row['bio'];
                     $css = $row['css'];
                     $pfp = htmlspecialchars($row['pfp']);
+                    $rank = $row['rank'];
                     $badges = explode(';', $row['badges']);
                     $music = $row['music'];
                     echo '<style>' . $css . '</style>';
+                }
+                $stmt->close();
+
+                $stmt = $conn->prepare("SELECT * FROM gamecomments WHERE author = ?");
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $comments = 0;
+                while($row = $result->fetch_assoc()) {
+                    $comments++;
+                }
+                $stmt->close();
+
+                $stmt = $conn->prepare("SELECT * FROM comments WHERE author = ?");
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $profilecomments = 0;
+                while($row = $result->fetch_assoc()) {
+                    $profilecomments++;
+                }
+                $stmt->close();
+
+                $stmt = $conn->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $filesuploaded = 0;
+                while($row = $result->fetch_assoc()) {
+                    $filesuploaded++;
                 }
                 $stmt->close();
             }
@@ -51,16 +86,25 @@
             skipcomment:
 
             if(isset($_GET['id'])) {?>
-                <center><h1><?php echo $username; ?>'s Ground</h1></center>
+                <div id="groundtext"><center><h1><?php echo $username; ?>'s Ground</h1></center></div>
                 <div class="leftHalf">
                     <div class="notegray">
                         <center>
                         <br>
-                        <img style="width: 15em;" src="pfp/<?php echo $pfp; ?>"><br>
-                        <audio controls>
-                        <source src="music/<?php echo $music; ?>">
-                        </audio> 
+                        <img style="border: 1px solid white; width: 15em;" src="pfp/<?php echo $pfp; ?>">
                         </center>
+                        <hr style="border-top: 1px dashed gray;">
+                        <div id="userinfo" style="padding-left: 20px;">
+                            <span style="color: gold;">Rank:</span> <?php echo $rank;?><br>
+                            <span style="color: gold;">ID:</span> <?php echo $id;?><br>
+                            <span style="color: gold;">Other Comments:</span> <?php echo $comments;?><br>
+                            <span style="color: gold;">Profile Comments:</span> <?php echo $profilecomments;?><br>
+                            <span style="color: gold;">Files Uploaded:</span> <?php echo $filesuploaded;?>
+                        </div><br>
+                        <audio controls>
+                            <source src="music/<?php echo $music; ?>">
+                        </audio> 
+                        
                     </div>
                     <br>
                     <div class="notegray">
@@ -72,10 +116,15 @@
                     </form>
                     </div> 
                     <center><br>
-                    <a href="index.php"><< Back</a></center>  
+                    <a href="##" onclick="history.go(-1); return false;"><< back</a>
                 </div>
+            <script>
+           function goBack() {
+                window.history.back();
+                      }
+                </script>
                 <div class="rightHalf">
-                    <div class="notegray">
+                    <div id="badges" class="notegray">
                         <h1>Badges</h1>
                         <?php
                             foreach($badges as $badge) {
@@ -85,7 +134,7 @@
                             }
                         ?>
                     </div><br>
-                    <div class="notegray">
+                    <div id="files" class="notegray">
                         <?php
                         $stmt = $conn->prepare("SELECT * FROM `files` WHERE author = ? AND status='y' ORDER BY id DESC ");
                         $stmt->bind_param("s", $username);
@@ -97,42 +146,46 @@
                             echo '<a href="view.php?id=' . $row['id'] . '">' . $row['title'] . ' [' , $row['type'] . ']</a><br>';
                         }?> 
                     </div><br>
-                    <div class="notegray">
+                    <div id="bio" class="notegray">
                         <h1>Bio</h1>
                         <?php echo $bio; ?>
                     </div><br><br>
-                    <?php
-                        $stmt = $conn->prepare("SELECT * FROM `comments` WHERE toid = ? ORDER BY id DESC");
-                        $stmt->bind_param("s", $_GET['id']);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        
-                        while($row = $result->fetch_assoc()) { ?>
-                            <div class='commentRight' style='display: grid; grid-template-columns: 75% auto; padding:5px;'>
-                                <div style="word-wrap: break-word;">
-                                    <small><?php echo $row['date']; ?></small>
-                                    <br>
-                                    <?php echo $row['text']; ?>
+                    <div id='comments'>
+                        <?php
+                            $stmt = $conn->prepare("SELECT * FROM `comments` WHERE toid = ? ORDER BY id DESC");
+                            $stmt->bind_param("s", $_GET['id']);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            
+                            while($row = $result->fetch_assoc()) { ?>
+                                <div class='commentRight' style='display: grid; grid-template-columns: 75% auto; padding:5px;'>
+                                    <div style="word-wrap: break-word;">
+                                        <small><?php echo $row['date']; ?></small>
+                                        <br>
+                                        <?php echo $row['text']; ?>
+                                    </div>
+                                    <div>
+                                        <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                                        <br>
+                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='pfp/<?php echo getPFP($row['author'], $conn); ?>'>
+                                    </div>
                                 </div>
-                                <div>
-                                    <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
-                                    <br>
-                                    <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='pfp/<?php echo getPFP($row['author'], $conn); ?>'>
-                                </div>
-                            </div>
-                    <?php } ?>
+                        <?php } ?>
+                    </div>
                 </div>
 
             <?php } else { ?>
-            <div style="width: 40em;" class="notegray">
-
-            </div>
             <div class="leftHalf">
                 <div class="note" style="background-color: #202020;">
                     <h1>4Grounds - Hub</h1>
+                    <a href="https://discord.gg/4YVGbND">Join Our Discord</a><br>
+                    <a href="viewitems.php?type=news">News</a> or <a href="newnews.php">Make a News Post</a><br>
+                    <a href="viewitems.php?type=review">Reviews</a> or <a href="newreview.php">Make a Review Post</a><hr>
                     <a href="viewitems.php?type=midi">MIDIs</a> or <a href="uploadmidi.php">Upload MIDI</a><br>
                     <a href="viewitems.php?type=song">Songs</a> or <a href="uploadmusic.php">Upload Song</a><br>
                     <a href="viewitems.php?type=game">Games</a> or <a href="uploadgame.php">Upload Game</a><br>
+                    <a href="viewitems.php?type=video">Videos</a> or <a href="uploadanimation.php">Upload Video</a><br>
+                    <a href="viewitems.php?type=image">Images</a> or <a href="uploadart.php">Upload Image</a><br>
                     <a href="viewitems.php?type=chiptune">Chiptunes</a> or <a href="uploadchiptune.php">Upload a Chiptune</a>
                     <hr>
                     <a href="register.php">Register</a><br>
@@ -143,29 +196,75 @@
                     ?>
                 </div>
                 <br>
-                <div class="note" style="background-color: #202020;">
+                <div style='width: 18em;word-wrap: break-word;' class="note">
+                    <h1>Reviews</h1>
                     <?php
-                        $stmt = $conn->prepare("SELECT * FROM users");
+                        $stmt = $conn->prepare("SELECT * FROM files WHERE type='review' AND status='y' ORDER BY RAND() LIMIT 1");
                         $stmt->execute();
                         $result = $stmt->get_result();
-                        if($result->num_rows === 0) echo('There are no users.');
                         while($row = $result->fetch_assoc()) {
-                            echo "<a href='?id=" . $row['id'] . "'>" . $row['username'] . "</a><br>";
+                            echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                            <small>
+                            <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>" . $row['title'] . "</a></i></span><br>
+                            <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                            <span style='float:right;'>" . $row['date'] . "</small></span><br>
+                            <br><br>" . $row['extrainfo'] . "</small><hr>";
                         }
-                        $stmt->close();
                     ?>
+                </div><br>
+                <div style='width: 18em;word-wrap: break-word;' class="note">
+                    <h1>News</h1>
+                    <?php
+                        $stmt = $conn->prepare("SELECT * FROM files WHERE type='news' AND status='y' ORDER BY RAND() LIMIT 1");
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        while($row = $result->fetch_assoc()) {
+                            echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                            <small>
+                            <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>" . $row['title'] . "</a></i></span><br>
+                            <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                            <span style='float:right;'>" . $row['date'] . "</small></span><br>
+                            <br><br>" . $row['extrainfo'] . "</small><hr>";
+                        }
+                    ?>
+                </div><br>
+                <div class="note" style="width:39em;background-color: #202020;">
+                    <div class="grid-container">                
+                        <?php
+                            $stmt = $conn->prepare("SELECT * FROM users ORDER BY id DESC");
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            if($result->num_rows === 0) echo('There are no users.');
+                            while($row = $result->fetch_assoc()) {
+                                $id = 1;
+                                echo "<div class='item" . $id . "'><img style='width: 8em;' src='pfp/" . getPFP($row['username'], $conn) . "'><br><a href='?id=" . $row['id'] . "'>" . $row['username'] . "</a></div>";
+                                $id = $id + 1;
+                            }
+                            $stmt->close();
+                        ?>
+                    </div>
                 </div>
             </div>
             <div class="rightHalf">
                 <div class="note">
-                    <h1>Featured Media</h1>
-                    hhgregginspace PLUS! by <b>worldcash</b><br>
-                    <embed src="gamefiles/hhgregginspaceplus.swf"  height="150px" width="290px"> </embed>
+                    <h1>Images</h1>
+                    <?php
+                    //<a href="view.php?id=3">hhgregginspace PLUS! by <b>worldcash</b></a><br>
+                    $stmt = $conn->prepare("SELECT * FROM files WHERE type='image' AND status='y' ORDER BY RAND() LIMIT 6");
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    while($row = $result->fetch_assoc()) {
+                        echo "<div style='display: inline-block;' class='notegray'>
+                            <a href='view.php?id=" . $row['id'] . "'><img style='width: 7.5em;height: 7.5em;' src='images/" . $row['filename'] . "'>
+                            <br><center><b>" . htmlspecialchars($row['title']) . "</b><br><span style='color: gray;'>By " . $row['author'] . "</span></center>
+                            </a>
+                        </div> ";  
+                    }
+                    $stmt->close();
+
+                    ?>
                 </div><br>
-                <div class="note">
-                    <h1>News</h1>
-                    Loads of money!
-                </div>
+
             </div>
             <?php } ?>
         </div>
