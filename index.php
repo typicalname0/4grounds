@@ -93,7 +93,7 @@
                     </div><br>
                     <div id="bio" class="notegray">
                         <h1>Bio</h1>
-                        <?php echo $bio; ?>
+                        <?php echo str_replace(PHP_EOL, "<br>", replaceBBcodes($bio)); ?>
                     </div><br><br>
                     <div id='comments'>
                         <?php
