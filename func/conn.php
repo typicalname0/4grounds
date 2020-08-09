@@ -14,7 +14,7 @@
             $DESC = "PHP failed to connect to the SQL database at $SERVER.<br>Error description: " . mysqli_connect_error();
             $CHOICES = array(
                 "Is the password correct in `/func/conn.php`?",
-                "Does the database `fourground` exist?",
+                "Did you import fourground.sql?",
                 "Make sure the MySQL server is running and working properly."
             );
             require("error.php");
