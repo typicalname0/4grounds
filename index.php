@@ -9,8 +9,62 @@
             require("func/conn.php"); 
 
             if(isset($_GET['id'])) {
-                getUser($_GET['id']);
-                echo '<style>' . $css . '</style>';
+                $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+                $stmt->bind_param("i", $_GET['id']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if($result->num_rows === 0) echo('There are no users.');
+                while($row = $result->fetch_assoc()) {
+                    $username = $row['username'];
+                    $id = $row['id'];
+                    $date = $row['date'];
+                    $bio = $row['bio'];
+                    $css = $row['css'];
+                    $pfp = htmlspecialchars($row['pfp']);
+                    $rank = $row['rank'];
+                    $badges = explode(';', $row['badges']);
+                    $music = $row['music'];
+                    echo '<style>' . $css . '</style>';
+                    echo '<meta property="og:title" content="' . $username . '" />';
+                    echo '<meta property="og:description" content="' . $bio . '" />';
+                    echo '<meta property="og:image" content="https://spacemy.xyz/pfp/' . $pfp . '" />';
+                    echo '<meta property="og:site_name" content="4grounds.spacemy.xyz" />';
+
+                }
+                $stmt->close();
+
+                $stmt = $conn->prepare("SELECT * FROM gamecomments WHERE author = ?");
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $comments = 0;
+                while($row = $result->fetch_assoc()) {
+                    $comments++;
+                }
+                $stmt->close();
+
+                $stmt = $conn->prepare("SELECT * FROM comments WHERE author = ?");
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $profilecomments = 0;
+                while($row = $result->fetch_assoc()) {
+                    $profilecomments++;
+                }
+                $stmt->close();
+
+                $stmt = $conn->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $filesuploaded = 0;
+                while($row = $result->fetch_assoc()) {
+                    $filesuploaded++;
+                }
+                $stmt->close();
             }
         ?>
         <title>4Grounds - Hub</title>
@@ -23,17 +77,16 @@
             <?php
             if($_SERVER['REQUEST_METHOD'] == 'POST') 
             {
-                if(!isset($_SESSION['user'])){ $error = "you are not logged in"; }
-                if(!$_POST['comment']){ $error = "your comment cannot be blank"; }
-                if(strlen($_POST['comment']) > 500){ $error = "your comment must be shorter than 500 characters"; }
-                if (!isset($error)) {
-                    $stmt = $conn->prepare("INSERT INTO `comments` (toid, author, text) VALUES (?, ?, ?)");
-                    $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
-                    $unprocessedText = replaceBBcodes($_POST['comment']);
-                    $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
-                    $stmt->execute();
-                    $stmt->close();
-                }
+                if(!isset($_SESSION['user'])){ $error = "you are not logged in"; goto skipcomment; }
+                if(!$_POST['comment']){ $error = "your comment cannot be blank"; goto skipcomment; }
+                if(strlen($_POST['comment']) > 500){ $error = "your comment must be shorter than 500 characters"; goto skipcomment; }
+
+                $stmt = $conn->prepare("INSERT INTO `comments` (toid, author, text) VALUES (?, ?, ?)");
+                $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
+                $unprocessedText = replaceBBcodes($_POST['comment']);
+                $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+                $stmt->execute();
+                $stmt->close();
             }
             skipcomment:
 
@@ -53,7 +106,7 @@
                             <span style="color: gold;">Profile Comments:</span> <?php echo $profilecomments;?><br>
                             <span style="color: gold;">Files Uploaded:</span> <?php echo $filesuploaded;?>
                         </div><br>
-                        <audio controls>
+                        <audio autoplay controls>
                             <source src="music/<?php echo $music; ?>">
                         </audio> 
                         
@@ -70,12 +123,19 @@
                     <center><br>
                     <a href="##" onclick="history.go(-1); return false;"><< back</a>
                 </div>
+            <script>
+           function goBack() {
+                window.history.back();
+                      }
+                </script>
                 <div class="rightHalf">
                     <div id="badges" class="notegray">
                         <h1>Badges</h1>
                         <?php
                             foreach($badges as $badge) {
-                                echo "<img width='70px' height='70px' src='". $badge ."'>";
+                                if($badge == "good") {
+                                    echo "<img width='70px;' height='70px;' src='https://cdn.discordapp.com/attachments/740680780740821105/740776214523936808/340juojg3h.png'>";
+                                }
                             }
                         ?>
                     </div><br>
@@ -93,7 +153,7 @@
                     </div><br>
                     <div id="bio" class="notegray">
                         <h1>Bio</h1>
-                        <?php echo $bio; ?>
+                        <?php echo str_replace(PHP_EOL, "<br>", replaceBBcodes($bio)); ?>
                     </div><br><br>
                     <div id='comments'>
                         <?php
@@ -137,7 +197,7 @@
                     <a href="login.php">Login</a><br>
                     <a href="media.php">Featured</a><br>
                     <?php 
-                    if(isset($_SESSION['user'])) { echo "<a href='home.php'>Manage</a>"; }
+                    if(isset($_SESSION['user'])) { echo "<a href='home.php'>Manage</a><br><a href='files.php'>Files<a>"; }
                     ?>
                 </div>
                 <br>
@@ -150,7 +210,7 @@
                         while($row = $result->fetch_assoc()) {
                             echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
                             <small>
-                            <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>" . $row['title'] . "</a></i></span><br>
+                            <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
                             <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                             <span style='float:right;'>" . $row['date'] . "</small></span><br>
                             <br><br>" . $row['extrainfo'] . "</small><hr>";
@@ -166,7 +226,7 @@
                         while($row = $result->fetch_assoc()) {
                             echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
                             <small>
-                            <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>" . $row['title'] . "</a></i></span><br>
+                            <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
                             <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                             <span style='float:right;'>" . $row['date'] . "</small></span><br>
                             <br><br>" . $row['extrainfo'] . "</small><hr>";
@@ -191,7 +251,7 @@
                 </div>
             </div>
             <div class="rightHalf">
-                <div class="note">
+                <div class="note" style='background-color: #404040;'>
                     <h1>Images</h1>
                     <?php
                     //<a href="view.php?id=3">hhgregginspace PLUS! by <b>worldcash</b></a><br>

@@ -40,7 +40,7 @@
                     } else if($row['type'] == "news" || $row['type'] == "review") {
                         echo "<img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
                         <small>
-                        <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>" . $row['title'] . "</a></i></span><br>
+                        <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
                         <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                         <span style='float:right;'>" . $row['date'] . "</small></span><br>
                         <br><br>" . $row['extrainfo'] . "</small><hr>";
