@@ -6,25 +6,6 @@
         <?php
             require("func/func.php");
             require("func/conn.php"); 
-
-            if(isset($_GET['id'])) {
-                $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-                $stmt->bind_param("i", $_GET['id']);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if($result->num_rows === 0) echo('There are no users.');
-                while($row = $result->fetch_assoc()) {
-                    $username = $row['username'];
-                    $id = $row['id'];
-                    $date = $row['date'];
-                    $bio = $row['bio'];
-                    $css = $row['css'];
-                    $pfp = $row['pfp'];
-                    $music = $row['music'];
-                    echo '<style>' . $css . '</style>';
-                }
-                $stmt->close();
-            }
         ?>
         <title>4Grounds - Hub</title>
     </head>
@@ -33,21 +14,40 @@
         
         <div class="container"><br>
             <h1 style="display: inline-block;margin:0px;">Featured Music of the Day</h1>
-            <audio controls>
-                <source src="music/<?php echo $music; ?>">
-            </audio><br>
-            Uploader: <b><a href="">example</a></b><br>
-            Song title: <b>"Song"</b><br>
-            Extra Info: <b>Extra</b><br>
-            https://blahjblhab.mp3<br><br>
+
+            <?php
+                $stmt = $conn->prepare("SELECT * FROM files WHERE id = 27");
+                $stmt->execute();
+                $result = $stmt->get_result();
+                while($row = $result->fetch_assoc()) {
+                    echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                    <small>
+                    <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
+                    <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                    <span style='float:right;'>" . $row['date'] . "</small></span><br>
+                    <br><br>" . $row['extrainfo'] . "</small>";
+                    echo '<br>
+                    <audio controls>
+                        <source src="musicfiles/' . $row['filename'] . '">
+                    </audio><br>';
+                }
+            ?>
+            <hr>
             <h1 style="display: inline-block;margin:0px;">Featured Game of the Day</h1>
-            <audio controls>
-                <source src="music/<?php echo $music; ?>">
-            </audio><br>
-            Uploader: <b><a href="">example</a></b><br>
-            Game title: <b>"Song"</b><br>
-            Description: <b>Extra</b><br>
-            https://blahjblhab.mp3
+            <?php
+                $stmt = $conn->prepare("SELECT * FROM files WHERE id = 1");
+                $stmt->execute();
+                $result = $stmt->get_result();
+                while($row = $result->fetch_assoc()) {
+                    echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                    <small>
+                    <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
+                    <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                    <span style='float:right;'>" . $row['date'] . "</small></span><br>
+                    <br><br>" . $row['extrainfo'] . "</small><br>";
+                    echo '<embed src="gamefiles/' . $row['filename'] . '"  height="300px" width="500px"> </embed>';
+                }
+            ?>
         </div>
     </body>
 </html>
