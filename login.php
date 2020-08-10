@@ -35,7 +35,7 @@
                     if(!password_verify($_POST['password'], $hash)){ $error = "incorrect username or password"; goto skip; }
             
                     if($rememberMe == true) {
-                        ini_set('session.gc_maxlifetime', 360*1000);
+                        ini_set('session.cookie_lifetime', 60*60*24*31);
                         $_SESSION['user'] = htmlspecialchars($_POST["username"]);
                     } else {
                         $_SESSION['user'] = htmlspecialchars($_POST["username"]);

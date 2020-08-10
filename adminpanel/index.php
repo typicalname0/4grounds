@@ -11,11 +11,16 @@ if(isset($_SESSION['user'])) {
     die("not logged in");
 }
 
-$load = sys_getloadavg();
+if (function_exists("sys_getloadavg")) {
+    $load = sys_getloadavg();
+} else {
+    // PHP on windows doesn't have the sys_getloadavg() function
+    $load = false;
+}
 ?>
 <h2>Server Status</h2>
 <?php
-echo $load[0] . " Load Average<br>";
+if ($load) echo $load[0] . " Load Average<br>";
 echo memory_get_usage() . " bytes of RAM allocated to PHP";
 ?>
 <h2>Items waiting for Approval</h2>
