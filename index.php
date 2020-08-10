@@ -106,7 +106,7 @@
                             <span style="color: gold;">Profile Comments:</span> <?php echo $profilecomments;?><br>
                             <span style="color: gold;">Files Uploaded:</span> <?php echo $filesuploaded;?>
                         </div><br>
-                        <audio controls>
+                        <audio autoplay controls>
                             <source src="music/<?php echo $music; ?>">
                         </audio> 
                         
