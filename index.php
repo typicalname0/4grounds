@@ -184,17 +184,16 @@
                 <div class="note" style="background-color: #202020;">
                     <h1>4Grounds - Hub</h1>
                     <a href="https://discord.gg/4YVGbND">Join Our Discord</a><br>
-                    <a href="viewitems.php?type=news">News</a> or <a href="newnews.php">Make a News Post</a><br>
-                    <a href="viewitems.php?type=review">Reviews</a> or <a href="newreview.php">Make a Review Post</a><hr>
-                    <a href="viewitems.php?type=midi">MIDIs</a> or <a href="uploadmidi.php">Upload MIDI</a><br>
-                    <a href="viewitems.php?type=song">Songs</a> or <a href="uploadmusic.php">Upload Song</a><br>
-                    <a href="viewitems.php?type=game">Games</a> or <a href="uploadgame.php">Upload Game</a><br>
-                    <a href="viewitems.php?type=video">Videos</a> or <a href="uploadanimation.php">Upload Video</a><br>
-                    <a href="viewitems.php?type=image">Images</a> or <a href="uploadart.php">Upload Image</a><br>
-                    <a href="viewitems.php?type=chiptune">Chiptunes</a> or <a href="uploadchiptune.php">Upload a Chiptune</a>
+                    <a href="newnews.php">Make a News Post</a><br>
+                    <a href="newreview.php">Make a Review Post</a><hr>
+                    <a href="uploadmidi.php">Upload MIDI</a><br>
+                    <a href="uploadmusic.php">Upload Song</a><br>
+                    <a href="uploadgame.php">Upload Game</a><br>
+                    <a href="uploadanimation.php">Upload Video</a><br>
+                    <a href="uploadart.php">Upload Image</a><br>
+                    <a href="uploadchiptune.php">Upload a Chiptune</a>
                     <hr>
-                    <a href="register.php">Register</a><br>
-                    <a href="login.php">Login</a><br>
+
                     <a href="media.php">Featured</a><br>
                     <?php 
                     if(isset($_SESSION['user'])) { echo "<a href='home.php'>Manage</a><br><a href='files.php'>Files<a>"; }
@@ -208,7 +207,7 @@
                         $stmt->execute();
                         $result = $stmt->get_result();
                         while($row = $result->fetch_assoc()) {
-                            echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                            echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
                             <small>
                             <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
                             <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
@@ -224,7 +223,7 @@
                         $stmt->execute();
                         $result = $stmt->get_result();
                         while($row = $result->fetch_assoc()) {
-                            echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                            echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
                             <small>
                             <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
                             <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
@@ -242,7 +241,7 @@
                             if($result->num_rows === 0) echo('There are no users.');
                             while($row = $result->fetch_assoc()) {
                                 $id = 1;
-                                echo "<div class='item" . $id . "'><img style='width: 8em;' src='pfp/" . getPFP($row['username'], $conn) . "'><br><a href='?id=" . $row['id'] . "'>" . $row['username'] . "</a></div>";
+                                echo "<div class='item" . $id . "'><img style='height: 8em;width: 8em;' src='pfp/" . getPFP($row['username'], $conn) . "'><br><a href='?id=" . $row['id'] . "'>" . $row['username'] . "</a></div>";
                                 $id = $id + 1;
                             }
                             $stmt->close();
