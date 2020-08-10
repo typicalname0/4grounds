@@ -26,7 +26,7 @@
                     $music = $row['music'];
                     echo '<style>' . $css . '</style>';
                     echo '<meta property="og:title" content="' . $username . '" />';
-                    echo '<meta property="og:description" content="' . $bio . '" />';
+                    echo '<meta property="og:description" content="' . replaceBBcodes($bio) . '" />';
                     echo '<meta property="og:image" content="https://spacemy.xyz/pfp/' . $pfp . '" />';
                     echo '<meta property="og:site_name" content="4grounds.spacemy.xyz" />';
 
