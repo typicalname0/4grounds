@@ -16,7 +16,7 @@
             if (isset($_POST['unset2fa'])) {
                 $temptotp = OTPHP\TOTP::create($result['otpsecret']);
                 if ($temptotp->verify($_POST["unset2fa"])) {
-                    $stmt = $conn->prepare("UPDATE `users` SET `otpsecret` = NULL WHERE `username` = ?");
+                    $stmt = $conn->prepare("UPDATE `users` SET `otpsecret` = NULL, `otpbackupcode` = NULL WHERE `username` = ?");
                     $stmt->bind_param("s", $_SESSION['user']);
                     $stmt->execute();
                     header("Location: /2fa.php"); die();

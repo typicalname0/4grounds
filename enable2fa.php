@@ -17,8 +17,9 @@
             if (isset($_POST["set2fa"])) {
                 $temptotp = OTPHP\TOTP::create($_SESSION['otpsecret']);
                 if ($temptotp->verify($_POST["set2fa"])) {
-                    $stmt = $conn->prepare("UPDATE `users` SET `otpsecret` = ? WHERE `username` = ?");
-                    $stmt->bind_param("ss", $_SESSION['otpsecret'], $_SESSION['user']);
+                    $stmt = $conn->prepare("UPDATE `users` SET `otpsecret` = ?, `otpbackupcode` = ? WHERE `username` = ?");
+                    $backupcode = trim(ParagonIE\ConstantTime\Base32::encodeUpper(random_bytes(8)), '=');
+                    $stmt->bind_param("sss", $_SESSION['otpsecret'], $backupcode, $_SESSION['user']);
                     $stmt->execute();
                     unset($_SESSION['otpsecret']);
                     header("Location: /2fa.php"); die();
