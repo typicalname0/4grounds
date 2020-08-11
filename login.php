@@ -35,13 +35,14 @@
                         $error = "incorrect username or password"; goto skip;
                     }
 
-                    $stmt = $conn->prepare("SELECT `otpsecret` FROM `users` WHERE `username` = ?");
+                    $stmt = $conn->prepare("SELECT `otpsecret`, `otpbackupcode` FROM `users` WHERE `username` = ?");
                     $stmt->bind_param("s", $_POST['username']);
                     $stmt->execute();
                     $result = $stmt->get_result()->fetch_assoc();
                     if (isset($result['otpsecret'])) {
                         $otp = true;
                         if (isset($_POST['totp'])) {
+                            if ($_POST['totp'] === $result['otpbackupcode']) {goto skip2fa;}
                             require("vendor/autoload.php");
                             $totp = OTPHP\TOTP::create($result['otpsecret']);
                             if (!$totp->verify($_POST['totp'])) {
@@ -49,10 +50,11 @@
                                 goto skip;
                             }
                         } else {
-                            $error = "Enter the 2FA code displayed by your authenticator app below.";
+                            $error = "Enter the 2FA code displayed by your authenticator app, or a backup code below.";
                             goto skip;
                         }
                     }
+                    skip2fa:
 
                     if($rememberMe == true) {
                         session_write_close();

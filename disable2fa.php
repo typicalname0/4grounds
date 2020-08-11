@@ -5,7 +5,7 @@
             require("func/conn.php");
             require("func/func.php");
             // check 2fa status
-            $stmt = $conn->prepare("SELECT `otpsecret` FROM `users` WHERE `username` = ?");
+            $stmt = $conn->prepare("SELECT `otpsecret`, `otpbackupcode` FROM `users` WHERE `username` = ?");
             $stmt->bind_param("s", $_SESSION['user']);
             $stmt->execute();
             $result = $stmt->get_result()->fetch_assoc();
@@ -15,7 +15,7 @@
             require("vendor/autoload.php");
             if (isset($_POST['unset2fa'])) {
                 $temptotp = OTPHP\TOTP::create($result['otpsecret']);
-                if ($temptotp->verify($_POST["unset2fa"])) {
+                if ($temptotp->verify($_POST["unset2fa"]) || $_POST['unset2fa'] === $result['otpbackupcode']) {
                     $stmt = $conn->prepare("UPDATE `users` SET `otpsecret` = NULL, `otpbackupcode` = NULL WHERE `username` = ?");
                     $stmt->bind_param("s", $_SESSION['user']);
                     $stmt->execute();
@@ -31,7 +31,7 @@
     <body>
         <?php require("important/header.php"); ?>
         <div class="container">
-             To disable 2FA, please type the 6-digit code your app generates below and click 'Submit'.<br><br>
+             To disable 2FA, please type the 6-digit code your app generates or a backup code below and click 'Submit'.<br><br>
              <form method="post" enctype="multipart/form-data">
                  <input type="text" name="unset2fa" id="unset2fa"><br>
                  <input name="submit" type="submit" value="Submit">
