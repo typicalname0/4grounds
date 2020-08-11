@@ -16,8 +16,7 @@
                 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["r_login"])) {
                     $error = "The page you tried to access requires you to be logged in.";
                 }
-                if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['password'] && $_POST['username']) 
-                {
+                if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['password'] && $_POST['username']) {
                     if(isset($_POST['remember'])) {
                         $rememberMe = true;
                     } else {
@@ -32,8 +31,29 @@
                     $row = $result->fetch_assoc();
                     $hash = $row['password'];
                     
-                    if(!password_verify($_POST['password'], $hash)){ $error = "incorrect username or password"; goto skip; }
-            
+                    if(!password_verify($_POST['password'], $hash)) {
+                        $error = "incorrect username or password"; goto skip;
+                    }
+
+                    $stmt = $conn->prepare("SELECT `otpsecret` FROM `users` WHERE `username` = ?");
+                    $stmt->bind_param("s", $_POST['username']);
+                    $stmt->execute();
+                    $result = $stmt->get_result()->fetch_assoc();
+                    if (isset($result['otpsecret'])) {
+                        $otp = true;
+                        if (isset($_POST['totp'])) {
+                            require("vendor/autoload.php");
+                            $totp = OTPHP\TOTP::create($result['otpsecret']);
+                            if (!$totp->verify($_POST['totp'])) {
+                                $error = "Invalid 2FA code. Please try again.";
+                                goto skip;
+                            }
+                        } else {
+                            $error = "Enter the 2FA code displayed by your authenticator app below.";
+                            goto skip;
+                        }
+                    }
+
                     if($rememberMe == true) {
                         session_write_close();
                         session_set_cookie_params("2678400");
@@ -52,11 +72,14 @@
             ?>
             <form method="post">
                 <input required placeholder="Username" type="text" name="username"><br>
-                <input required placeholder="Password" type="password" name="password"><br><br>
+                <input required placeholder="Password" type="password" name="password"><br>
+                <?php if (isset($otp) && $otp) { ?>
+                <input required placeholder="2FA code" type="text" name="totp"><br><br>
+                <?php } ?>
                 <input type="checkbox" name="remember"> Remember me<br><br>
                 <input type="submit" value="Login">
             </form>
-            <a href="index.php"><< Back</a>
+            <a href="index.php"><&lt; Back</a>
         </center>
     </body>
 </html>
