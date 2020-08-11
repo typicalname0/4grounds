@@ -13,7 +13,7 @@
         <?php require("important/header.php"); ?>
         <center><h1 style="display: inline-block;">4Grounds - Login</h1><br>
             <?php
-                if ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET["r_login"]) {
+                if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["r_login"])) {
                     $error = "The page you tried to access requires you to be logged in.";
                 }
                 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['password'] && $_POST['username']) 
@@ -35,7 +35,11 @@
                     if(!password_verify($_POST['password'], $hash)){ $error = "incorrect username or password"; goto skip; }
             
                     if($rememberMe == true) {
-                        ini_set('session.gc_maxlifetime', 360*1000);
+                        session_write_close();
+                        session_set_cookie_params("2678400");
+                        ini_set('session.gc_maxlifetime', 2678400);
+                        ini_set('session.cookie_lifetime', 2678400);
+                        session_start();
                         $_SESSION['user'] = htmlspecialchars($_POST["username"]);
                     } else {
                         $_SESSION['user'] = htmlspecialchars($_POST["username"]);
