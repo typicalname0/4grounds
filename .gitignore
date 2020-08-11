@@ -1,6 +1,8 @@
 # emacs backup files (ezist)
 *~
+\#*\#
 
 # Composer files
-vendor
+/vendor/
+composer.phar
 composer.lock
