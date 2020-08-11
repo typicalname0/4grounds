@@ -37,6 +37,8 @@
                     if($rememberMe == true) {
                         session_write_close();
                         session_set_cookie_params("2678400");
+                        ini_set('session.gc_maxlifetime', 2678400);
+                        ini_set('session.cookie_lifetime', 2678400);
                         session_start();
                         $_SESSION['user'] = htmlspecialchars($_POST["username"]);
                     } else {
