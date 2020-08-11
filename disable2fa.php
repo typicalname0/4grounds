@@ -4,6 +4,7 @@
         <?php
             require("func/conn.php");
             require("func/func.php");
+            requireLogin();
             // check 2fa status
             $stmt = $conn->prepare("SELECT `otpsecret`, `otpbackupcode` FROM `users` WHERE `username` = ?");
             $stmt->bind_param("s", $_SESSION['user']);
