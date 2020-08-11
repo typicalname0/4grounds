@@ -144,7 +144,7 @@
 <!-- CSS Editor -->
 <script>
 	// Constants (should be defined by PHP)
-	let webroot = "http://127.0.0.1"; //"https://spacemy.xyz";
+	let webroot = "https://spacemy.xyz";
 	let profile_id = <?php echo getID($_SESSION['user'], $conn) ?>;
 
 	// Global vars
