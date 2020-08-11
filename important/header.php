@@ -19,7 +19,7 @@ if(isset($_SESSION['user'])) {
     <b>
     <?php
     if(isset($_SESSION['user'])) {
-        echo "Logged in as <b>" . $_SESSION['user'] . "</b>";
+        echo "Logged in as <a href='/index.php?id=" . getID($_SESSION['user'], $conn) . "'><b>" . $_SESSION['user'] . "</b></a>";
     } else {
         echo "Not logged in";
     }
