@@ -131,11 +131,57 @@
             </form>
             <br>
             <b>CSS</b>
-			<form method="post" enctype="multipart/form-data">
-				<textarea required rows="15" cols="58" placeholder="Your CSS" name="css"><?php echo $css;?></textarea><br>
+            <button onclick="loadpfwin()" id="prevbtn">Show Live CSS Preview</button>
+            <form method="post" enctype="multipart/form-data">
+				<textarea required rows="15" cols="58" placeholder="Your CSS" name="css" id="css_code"><?php echo $css;?></textarea><br>
 				<input name="cssset" type="submit" value="Set"> <small>max limit: 5000 characters</small>
             </form>
             <br>
         </div>
     </body>
 </html>
+
+<!-- CSS Editor -->
+<script>
+	// Constants (should be defined by PHP)
+	let webroot = "https://spacemy.xyz";
+	let profile_id = <?php echo getID($_SESSION['user'], $conn) ?>;
+
+	// Global vars
+	var profile_window;
+	var chkclose_timer;
+
+	function freepfwin() {
+		// Enable Open Preview button
+		document.getElementById("prevbtn").style.display = null;
+
+		// Disable changes being sent to preview
+		document.getElementById("css_code").onkeyup = null;
+	}
+
+	function loadpfwin() {
+		profile_window = window.open( `${webroot}/index.php?id=${profile_id}&ed`, "4gpreviewCSS", "width=920,height=600" );
+
+		profile_window.window.onload = () => {
+			// Disable Open Preview button
+			document.getElementById("prevbtn").style.display = "none";
+
+			// Get style from window
+			document.getElementById("css_code").innerHTML = profile_window.document.getElementsByTagName("style")[0].innerHTML;
+
+			// Any changes change css on preview
+			document.getElementById("css_code").onkeyup = () => {
+				profile_window.document.getElementsByTagName("style")[0].innerHTML = document.getElementById("css_code").value;
+			};
+		};
+
+		chkclose_timer = setInterval(()=>{
+			if (profile_window.closed) {
+                console.log("closed")
+				clearInterval(chkclose_timer);
+				freepfwin();
+			}
+		}, 100);
+	};
+
+</script>
