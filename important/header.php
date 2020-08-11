@@ -13,7 +13,7 @@
     <br>
     <center>
         <a href="index.php">
-            <img height="80px;" src="https://cdn.discordapp.com/attachments/740680780740821105/741174208121405510/4grunds.png">
+            <img height="80px;" src="/static/logo.png">
         </a>
     </center>
 </div>
