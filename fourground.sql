@@ -69,7 +69,9 @@ CREATE TABLE `users` (
   `pfp` varchar(255) NOT NULL DEFAULT 'default.jpg',
   `music` varchar(255) NOT NULL DEFAULT 'default.mp3',
   `badges` varchar(255) NOT NULL DEFAULT ';',
-  `rank` varchar(255) NOT NULL DEFAULT 'Newcomer'
+  `rank` varchar(255) NOT NULL DEFAULT 'Newcomer',
+  `otpsecret` varchar(255) NULL DEFAULT NULL,
+  `otpbackupcode` varchar(255) NULL DEFAULT NULL
 );
 
 --
