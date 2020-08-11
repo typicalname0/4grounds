@@ -43,6 +43,6 @@ echo memory_get_usage() . " bytes of RAM allocated to PHP";
     $result = $stmt->get_result();
     if($result->num_rows === 0) echo('There are no items waiting for approval.');
     while($row = $result->fetch_assoc()) {
-        echo "" . $row['username'] . " | <a href='ban.php?id=" . $row['id'] . "'>Ban</a><br>";
+        echo "<a href='/index.php?id=" . $row['id'] . "'>" . $row['username'] . "</a> | <a href='ban.php?id=" . $row['id'] . "'>Ban</a><br>";
     }
 ?>
