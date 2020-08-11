@@ -25,11 +25,9 @@
                     $badges = explode(';', $row['badges']);
                     $music = $row['music'];
                     echo '<style>' . $css . '</style>';
-                    echo '<meta property="og:title" content="' . $username . '" />';
+                    echo '<meta property="og:title" content="' . $username . ' \'s 4Grounds profile" />';
                     echo '<meta property="og:description" content="' . htmlspecialchars($bio) . '" />';
                     echo '<meta property="og:image" content="https://spacemy.xyz/pfp/' . $pfp . '" />';
-                    echo '<meta property="og:site_name" content="4grounds.spacemy.xyz" />';
-
                 }
                 $stmt->close();
 
@@ -65,9 +63,15 @@
                     $filesuploaded++;
                 }
                 $stmt->close();
+            } else {
+                echo '<meta property="og:title" content="Hub" />'; // PHP can suck a dick - bloxxite (f)
+                echo '<meta property="og:description" content="4Grounds is an open-source newgrounds revival." />';
+                echo '<meta name="twitter:card" content="https://spacemy.xyz/static/logo.png" />';
             }
         ?>
         <title>4Grounds - Hub</title>
+        <meta name="theme-color" content="#8b0000">
+        <meta content="4Grounds" property="og:site_name">
     </head>
     <body> 
         <?php require("important/header.php"); ?>
