@@ -26,7 +26,7 @@
                     $music = $row['music'];
                     echo '<style>' . $css . '</style>';
                     echo '<meta property="og:title" content="' . $username . '" />';
-                    echo '<meta property="og:description" content="' . replaceBBcodes($bio) . '" />';
+                    echo '<meta property="og:description" content="' . htmlspecialchars($bio) . '" />';
                     echo '<meta property="og:image" content="https://spacemy.xyz/pfp/' . $pfp . '" />';
                     echo '<meta property="og:site_name" content="4grounds.spacemy.xyz" />';
 
@@ -106,10 +106,11 @@
                             <span style="color: gold;">Profile Comments:</span> <?php echo $profilecomments;?><br>
                             <span style="color: gold;">Files Uploaded:</span> <?php echo $filesuploaded;?>
                         </div><br>
-                        <audio autoplay controls>
-                            <source src="music/<?php echo $music; ?>">
-                        </audio> 
-                        
+                        <?php if (!isset($_GET["ed"])) { ?>
+                            <audio autoplay controls>
+                                <source src="music/<?php echo $music; ?>">
+                            </audio> 
+                        <?php } ?>
                     </div>
                     <br>
                     <div class="notegray">
