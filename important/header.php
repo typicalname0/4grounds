@@ -31,17 +31,15 @@
     &bull; <a href="viewgroups.php">Groups</a>
 
     <span style="float:right;">
-        <?php
-            if(isset($_SESSION['user'])) {
-                echo "Logged in as <a href='/index.php?id=" . getID($_SESSION['user'], $conn) . "'><b>" . $_SESSION['user'] . "</b></a> &bull;";
-            } else {
-                echo "Not logged in &bull;";
-            }
-        ?>
-        <?php if(isset($_SESSION['user'])) { ?>
-        <a href="logout.php">Logout</a>
-        <?php } else {?>
-        <a href="register.php">Register</a> &bull; <a href="login.php">Login</a>
+        <?php if(isset($_SESSION['user'])) {?>
+        Logged in as 
+        <a href='/index.php?id=<?php echo(getID($_SESSION['user'], $conn));?>'>
+            <?php echo($_SESSION['user']);?>
+        </a>
+        &bull; <a href='/home.php'>Manage</a>
+        &bull; <a href='/logout.php'>Logout</a>
+        <?php } else { ?>
+        Not logged in &bull; <a href='register.php'>Register</a> &bull; <a href='login.php'>Login</a>
         <?php } ?>
     </span>
     </b>
