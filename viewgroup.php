@@ -54,7 +54,7 @@
                         $id = $row['id'];
                         ?>
                         <img style='border: 1px solid white; width: 5em;'
-                             src='pfp/<?php getPFP($row["author"], $conn);?>'>
+                             src='pfp/<?php echo getPFP($row["author"], $conn);?>'>
                         <span style='float: right;text-align: right;'>
                             <a href='viewgroup.php?id=<?php echo $row["id"];?>' style='color: gold;font-size:1.5em'>
                                 <?php echo $row['title'];?>
