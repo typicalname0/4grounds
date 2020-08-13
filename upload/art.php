@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             $upload = require('../func/upload.php');
-            $upload('images', 'image', ["gif", "png", "jpg", "jpeg"]);
+            $upload('image', ["gif", "png", "jpg", "jpeg"]);
         }
         ?>
         

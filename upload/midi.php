@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             $upload = require('../func/upload.php');
-            $upload('midis', 'midi', ["mid"]);
+            $upload('midi', ["mid"]);
         }
         ?>
         

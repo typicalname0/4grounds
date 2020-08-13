@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             $upload = require('../func/upload.php');
-            $upload('music', 'song', ["ogg", "mp3"]);
+            $upload('song', ["ogg", "mp3"]);
         }
         ?>
         

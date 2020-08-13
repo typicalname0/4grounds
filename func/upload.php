@@ -1,12 +1,13 @@
 <?php
-return function($folder, $type, $filetypes) // PHP IS SO DUMB
+return function($type, $filetypes) // PHP IS SO DUMB
 {
     require("conn.php");
 
     if(isset($_SESSION['user'])) {
         $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
-        $target_dir = "../usergenerated/" . $folder . "/";
-        $target_file = $target_dir . md5_file($_FILES["fileToUpload"]["tmp_name"]) . "." . $fileType;
+        $target_dir = "../usergenerated/" . $type . "/";
+        $target_name = md5_file($_FILES["fileToUpload"]["tmp_name"]) . "." . $fileType;
+        $target_file = $target_dir . $target_name;
         $uploadOk = 1;
         $movedFile = 0;
 
@@ -24,7 +25,7 @@ return function($folder, $type, $filetypes) // PHP IS SO DUMB
 
             if ($movedFile == 1) {
                 $stmt = $conn->prepare("INSERT INTO files (type, title, extrainfo, author, filename) VALUES (?, ?, ?, ?, ?)");
-                $stmt->bind_param("sssss", $type, $title, $description, $_SESSION['user'], $filename);
+                $stmt->bind_param("sssss", $type, $title, $description, $_SESSION['user'], $target_name);
 
                 $filename = htmlspecialchars(basename($_FILES["fileToUpload"]["name"]));
                 $title = htmlspecialchars($_POST['title']);

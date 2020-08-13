@@ -279,7 +279,7 @@
                     $result = $stmt->get_result();
                     while($row = $result->fetch_assoc()) {
                         echo "<div style='display: inline-block;' class='notegray'>
-                            <a href='view.php?id=" . $row['id'] . "'><img style='width: 7.5em;height: 7.5em;' src='images/" . $row['filename'] . "'>
+                            <a href='view.php?id=" . $row['id'] . "'><img style='width: 7.5em;height: 7.5em;' src='/usergenerated/" . $row['type'] . "/"  . $row['filename'] . '>
                             <br><center><b>" . htmlspecialchars($row['title']) . "</b><br><span style='color: gray;'>By " . $row['author'] . "</span></center>
                             </a>
                         </div> ";  

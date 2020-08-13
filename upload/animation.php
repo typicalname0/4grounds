@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             $upload = require('../func/upload.php');
-            $upload('animations', 'video', ["mp4"]);
+            $upload('video', ["mp4"]);
         }
         ?>
         

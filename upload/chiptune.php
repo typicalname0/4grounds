@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             $upload = require('../func/upload.php');
-            $upload('chiptune', 'chiptune', ["xm", "mod", "s3m", "it"]);
+            $upload('chiptune', ["xm", "mod", "s3m", "it"]);
         }
         ?>
         
