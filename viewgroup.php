@@ -14,11 +14,19 @@
         
         <div class="container">
             <?php
-                if($_SERVER['REQUEST_METHOD'] == 'POST') 
-                {
-                    if(!isset($_SESSION['user'])){ $error = "you are not logged in"; goto skipcomment; }
-                    if(!$_POST['comment']){ $error = "your comment cannot be blank"; goto skipcomment; }
-                    if(strlen($_POST['comment']) > 500){ $error = "your comment must be shorter than 500 characters"; goto skipcomment; }
+                if($_SERVER['REQUEST_METHOD'] == 'POST')  {
+                    if(!isset($_SESSION['user'])) {
+                        $error = "you are not logged in";
+                        goto skipcomment;
+                    }
+                    if(!$_POST['comment']) {
+                        $error = "your comment cannot be blank";
+                        goto skipcomment;
+                    }
+                    if(strlen($_POST['comment']) > 500) {
+                        $error = "your comment must be shorter than 500 characters";
+                        goto skipcomment;
+                    }
     
                     $stmt = $conn->prepare("INSERT INTO `groupcomments` (toid, author, text, date) VALUES (?, ?, ?, now())");
                     $stmt->bind_param("iss", $_GET['id'], $_SESSION['user'], $text);
@@ -37,12 +45,27 @@
                     if($result->num_rows === 0) echo('Group doesnt exist.');
                     while($row = $result->fetch_assoc()) {
                         $id = $row['id'];
-                        echo "<img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                        ?>
+                        <img style='border: 1px solid white; width: 5em;'
+                             src='pfp/<?php getPFP($row["author"], $conn);?>'>
                         <small>
-                        <a href='viewgroup.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>" . $row['title'] . "</a></i></span><br>
-                        <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
-                        <span style='float:right;'>" . $row['date'] . "</small></span><br>
-                        <br><br>" . $row['description'] . "</small>";
+                            <span style='float: right;text-align: right;'>
+                                <i>
+                                    <a href='viewgroup.php?id=<?php echo $row["id"];?>' style='color: gold;'>
+                                        <?php echo $row['title'];?>
+                                    </a><br>
+                                    Created by
+                                    <a href='index.php?id=<?php echo getID($row["author"], $conn);?>'>
+                                        <?php echo $row['author'];?>
+                                    </a>
+                                </i><br>
+                                <?php echo $row['date']?>
+                            </span>
+                        </small><br>
+                        <small>
+                            <?php echo $row['description']?>
+                        </small>
+                        <?php
                     }
 
                     $stmt = $conn->prepare("SELECT * FROM `users` WHERE currentgroup = ?");
