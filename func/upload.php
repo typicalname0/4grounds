@@ -1,4 +1,7 @@
 <?php
+require("conn.php");
+require("func.php");
+
 return function($folder, $type, $filetypes) // PHP IS SO DUMB
 {
     if(isset($_SESSION['user'])) {
