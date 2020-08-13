@@ -1,8 +1,9 @@
 <?php
-require("conn.php");
-
 return function($folder, $type, $filetypes) // PHP IS SO DUMB
 {
+    require("conn.php");
+    require("func.php");
+
     if(isset($_SESSION['user'])) {
         $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
         $target_dir = "../usergenerated/" . $folder . "/";
