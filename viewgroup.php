@@ -6,6 +6,7 @@
         <?php
             require("func/func.php");
             require("func/conn.php"); 
+            require("vendor/autoload.php");
         ?>
         <title>4Grounds - Hub</title>
         <style type="text/css">
@@ -38,7 +39,8 @@
                     $stmt = $conn->prepare("INSERT INTO `groupcomments` (toid, author, text, date) VALUES (?, ?, ?, now())");
                     $stmt->bind_param("iss", $_GET['id'], $_SESSION['user'], $text);
                     $unprocessedText = replaceBBcodes($_POST['comment']);
-                    $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+//                    $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+                    $text = $_POST['comment'];
                     $stmt->execute();
                     $stmt->close();
                 }
@@ -114,8 +116,7 @@
                                 <div class='commentRight' style='display: grid; grid-template-columns: 75% auto; padding:5px;'>
                                     <div style="word-wrap: break-word;">
                                         <small><?php echo $row['date']; ?></small>
-                                        <br>
-                                        <?php echo $row['text']; ?>
+                                        <?php echo Michelf\Markdown::defaultTransform($row['text']); ?>
                                     </div>
                                     <div>
                                         <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>

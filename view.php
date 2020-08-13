@@ -6,6 +6,7 @@
         <?php
             require("func/func.php");
             require("func/conn.php"); 
+            require("vendor/autoload.php");
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM files WHERE id = ?");
@@ -46,7 +47,8 @@
                     $stmt = $conn->prepare("INSERT INTO `gamecomments` (toid, author, text, date) VALUES (?, ?, ?, now())");
                     $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
                     $unprocessedText = replaceBBcodes($_POST['comment']);
-                    $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+//                    $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+                    $text = $_POST['comment'];
                     $stmt->execute();
                     $stmt->close();
                 }
@@ -231,8 +233,7 @@
                     </div>
                     <div style="word-wrap: break-word;">
                         <small><?php echo $row['date']; ?></small>
-                        <br>
-                        <?php echo $row['text']; ?>
+                        <?php echo Michelf\Markdown::defaultTransform($row['text']); ?>
                     </div>
                 </div>
                 <?php } ?>

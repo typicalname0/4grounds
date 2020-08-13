@@ -7,6 +7,7 @@
         <?php
             require("func/func.php");
             require("func/conn.php"); 
+            require("vendor/autoload.php");
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
@@ -100,7 +101,8 @@
                 $stmt = $conn->prepare("INSERT INTO `comments` (toid, author, text) VALUES (?, ?, ?)");
                 $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
                 $unprocessedText = replaceBBcodes($_POST['comment']);
-                $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+//                $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+                $text = $_POST['comment'];
                 $stmt->execute();
                 $stmt->close();
             }
@@ -185,7 +187,7 @@
                                     <div style="word-wrap: break-word;">
                                         <small><?php echo $row['date']; ?></small>
                                         <br>
-                                        <?php echo $row['text']; ?>
+                                        <?php echo Michelf\Markdown::defaultTransform($row['text']); ?>
                                     </div>
                                     <div>
                                         <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
