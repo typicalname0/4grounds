@@ -8,11 +8,7 @@ return function($folder, $type, $filetypes) // PHP IS SO DUMB
         $target_dir = "../usergenerated/" . $folder . "/";
         $target_file = $target_dir . md5_file($_FILES["fileToUpload"]["tmp_name"]) . "." . $fileType;
         $uploadOk = 1;
-
-        if (file_exists($target_file)) {
-            echo 'a duplicate file has been detected.<hr>';
-            $uploadOk = 0;
-        }
+        $movedFile = 0;
 
         if(!in_array($fileType, $filetypes)) {
             echo 'unsupported file type. must be one of .' . join(", .", $filetypes) . '<hr>';
@@ -20,7 +16,13 @@ return function($folder, $type, $filetypes) // PHP IS SO DUMB
         }
 
         if ($uploadOk == 1) {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            if (file_exists($target_file)) {
+                $movedFile = 1;
+            } else {
+                $movedFile = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+            }
+            
+            if ($movedFile) {
                 $stmt = $conn->prepare("INSERT INTO files (type, title, extrainfo, author, filename) VALUES (?, ?, ?, ?, ?)");
                 $stmt->bind_param("sssss", $type, $title, $description, $_SESSION['user'], $filename);
 
