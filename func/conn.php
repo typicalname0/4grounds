@@ -17,7 +17,7 @@
                 "Did you import fourground.sql?",
                 "Make sure the MySQL server is running and working properly."
             );
-            require("error.php");
+            require(__DIR__ . "/error.php");
     }
 
     error_reporting($lasterr);

@@ -2,8 +2,8 @@
 <html>
     <head>
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
         <link rel="stylesheet" href="/css/global.css">

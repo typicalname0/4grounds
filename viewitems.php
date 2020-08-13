@@ -5,8 +5,8 @@
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/images.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
             $featured = array(1, 3, 12);
             $newlines = array("<br>", " <br>", "<br>" , " <br> ");
         ?>

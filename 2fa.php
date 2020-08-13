@@ -2,8 +2,8 @@
 <html>
     <head>
         <?php
-            require("func/conn.php");
-            require("func/func.php");
+            require(__DIR__ . "/func/conn.php");
+            require(__DIR__ . "/func/func.php");
             requireLogin();
 
             $stmt = $conn->prepare("SELECT `otpsecret`, `otpbackupcode` FROM `users` WHERE `username` = ?");

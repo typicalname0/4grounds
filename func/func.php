@@ -1,6 +1,6 @@
 <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
 <?php
-require("bbcode.php");
+require(__DIR__ . "/bbcode.php");
 require(__DIR__ . "/../vendor/autoload.php");
 
 define("DEBUG_MODE", true);

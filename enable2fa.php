@@ -2,8 +2,8 @@
 <html>
     <head>
         <?php
-            require("func/conn.php");
-            require("func/func.php");
+            require(__DIR__ . "/func/conn.php");
+            require(__DIR__ . "/func/func.php");
             requireLogin();
             // check 2fa status
             $stmt = $conn->prepare("SELECT `otpsecret` FROM `users` WHERE `username` = ?");

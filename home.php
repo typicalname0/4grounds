@@ -2,8 +2,8 @@
 <html>
     <head>
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
 
             $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
             $stmt->bind_param("s", $_SESSION['user']);

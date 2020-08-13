@@ -1,6 +1,6 @@
 <?php
-require("func/func.php");
-require("func/conn.php"); 
+require(__DIR__ . "/func/func.php");
+require(__DIR__ . "/func/conn.php"); 
 
 if(isset($_SESSION['user'])) {
     if(isset($_GET['id'])) {
@@ -23,7 +23,7 @@ if(isset($_SESSION['user'])) {
         header("Location: viewgroups.php");
     }
 } else {
-    die("your not loged in");
+    die("you're not loged in");
 }
 
 ?>
