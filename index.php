@@ -191,12 +191,12 @@
                     <a href="https://discord.gg/4YVGbND">Join Our Discord</a><br>
                     <a href="newnews.php">Make a News Post</a><br>
                     <a href="newreview.php">Make a Review Post</a><hr>
-                    <a href="uploadmidi.php">Upload MIDI</a><br>
-                    <a href="uploadmusic.php">Upload Song</a><br>
-                    <a href="uploadgame.php">Upload Game</a><br>
-                    <a href="uploadanimation.php">Upload Video</a><br>
-                    <a href="uploadart.php">Upload Image</a><br>
-                    <a href="uploadchiptune.php">Upload a Chiptune</a>
+                    <a href="upload/midi.php">Upload MIDI</a><br>
+                    <a href="upload/music.php">Upload Song</a><br>
+                    <a href="upload/game.php">Upload Game</a><br>
+                    <a href="upload/animation.php">Upload Video</a><br>
+                    <a href="upload/art.php">Upload Image</a><br>
+                    <a href="upload/chiptune.php">Upload a Chiptune</a>
                     <hr>
 
                     <a href="media.php">Featured</a><br>
