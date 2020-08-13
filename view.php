@@ -233,7 +233,11 @@
                     </div>
                     <div style="word-wrap: break-word;">
                         <small><?php echo $row['date']; ?></small>
-                        <?php echo Michelf\Markdown::defaultTransform($row['text']); ?>
+                        <?php 
+                            $markdown = new Michelf\Markdown;
+                            $markdown->no_markup = "true";
+                            echo $markdown->transform($row['text']);
+                        ?>
                     </div>
                 </div>
                 <?php } ?>
