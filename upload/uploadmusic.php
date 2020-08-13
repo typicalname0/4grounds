@@ -4,17 +4,17 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require("../func/func.php");
+            require("../func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); 
+        <?php require("../important/header.php"); 
         
         if(@$_POST['submit']) {
             if(isset($_SESSION['user'])) {
-                $target_dir = "midis/";
+                $target_dir = "../music/";
                 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -23,13 +23,13 @@
                     echo 'file with the same name already exists<hr>';
                     $uploadOk = 0;
                 }
-                if($imageFileType != "mid") {
-                    echo 'unsupported file type. must be .mid<hr>';
+                if($imageFileType != "ogg" && $imageFileType != "mp3") {
+                    echo 'unsupported file type. must be ogg or mp3<hr>';
                     $uploadOk = 0;
                 }
                 if ($uploadOk == 0) { } else {
                     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                        $stmt = $conn->prepare("INSERT INTO files (type, title, extrainfo, author, filename) VALUES ('midi', ?, ?, ?, ?)");
+                        $stmt = $conn->prepare("INSERT INTO files (type, title, extrainfo, author, filename) VALUES ('song', ?, ?, ?, ?)");
                         $stmt->bind_param("ssss", $title, $description, $_SESSION['user'], $filename);
 
                         $filename = htmlspecialchars(basename($_FILES["fileToUpload"]["name"]));
@@ -51,13 +51,13 @@
         
         <div class="container"><br>
             <form method="post" enctype="multipart/form-data">
-				<small>Select a MIDI file:</small>
+				<small>Select a music file:</small>
 				<input type="file" name="fileToUpload" id="fileToUpload"><br>
                 <input type="checkbox" name="remember"><small>This song will not infringe any copyright laws</small>
                 <hr>
                 <input size="69" type="text" placeholder="Song Title" name="title"><br><br>
                 <textarea required cols="81" placeholder="Information about your song" name="description"></textarea><br><br>
-                <input type="submit" value="Upload MIDI file" name="submit">  <small>Note: Songs are manually approved.</small>
+                <input type="submit" value="Upload Song" name="submit">  <small>Note: Songs are manually approved.</small>
             </form>
         </div>
     </body>

@@ -10,11 +10,11 @@
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); 
+        <?php require("../important/header.php"); 
         
         if(@$_POST['submit']) {
             if(isset($_SESSION['user'])) {
-                $target_dir = "gamefiles/";
+                $target_dir = "../gamefiles/";
                 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
