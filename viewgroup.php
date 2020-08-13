@@ -8,6 +8,13 @@
             require("func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
+        <style type="text/css">
+            .left, .right {
+                width: calc(50% - 10px);
+            }
+            .left {float: left;}
+            .right {float: right;}
+        </style>
     </head>
     <body> 
         <?php require("important/header.php"); ?>
@@ -48,20 +55,20 @@
                         ?>
                         <img style='border: 1px solid white; width: 5em;'
                              src='pfp/<?php getPFP($row["author"], $conn);?>'>
-                        <small>
-                            <span style='float: right;text-align: right;'>
+                        <span style='float: right;text-align: right;'>
+                            <a href='viewgroup.php?id=<?php echo $row["id"];?>' style='color: gold;font-size:1.5em'>
+                                <?php echo $row['title'];?>
+                            </a><br>
+                            <small>
                                 <i>
-                                    <a href='viewgroup.php?id=<?php echo $row["id"];?>' style='color: gold;'>
-                                        <?php echo $row['title'];?>
-                                    </a><br>
                                     Created by
                                     <a href='index.php?id=<?php echo getID($row["author"], $conn);?>'>
                                         <?php echo $row['author'];?>
                                     </a>
                                 </i><br>
                                 <?php echo $row['date']?>
-                            </span>
-                        </small><br>
+                            </small>
+                        </span><br>
                         <small>
                             <?php echo $row['description']?>
                         </small>
@@ -84,34 +91,57 @@
 
             ?><br>
             <hr>
-            <?php if(isset($error)) { echo "<small style='color:red'>".$error."</small>"; } ?>
-            <h2>Comment</h2>
-            <form method="post" enctype="multipart/form-data">
-                <textarea required cols="80" placeholder="Comment" name="comment"></textarea><br>
-                <input type="submit" value="Post"> <small>max limit: 500 characters | bbcode supported</small>
-            </form>
-            <hr>
-            <div id='comments'>
-            <?php
-                $stmt = $conn->prepare("SELECT * FROM `groupcomments` WHERE toid = ? ORDER BY id DESC");
-                $stmt->bind_param("s", $_GET['id']);
-                $stmt->execute();
-                $result = $stmt->get_result();
+            <div>
+                <div class="left">
+                    <?php if(isset($error)) {echo "<small style='color:red'>" . $error . "</small>";}?>
+                    <h2>Comments</h2>
+                    <?php if (isset($_SESSION['user'])) { ?>
+                        <form method="post" enctype="multipart/form-data">
+                            <textarea required cols="35" placeholder="Comment" name="comment"></textarea><br>
+                            <input type="submit" value="Post">
+                            <small>max limit: 500 characters | bbcode supported</small>
+                        </form>
+                        <hr>
+                    <?php } ?>
+                    <div id='comments'>
+                        <?php
+                            $stmt = $conn->prepare("SELECT * FROM `groupcomments` WHERE toid = ? ORDER BY id DESC");
+                            $stmt->bind_param("s", $_GET['id']);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
                 
-                while($row = $result->fetch_assoc()) { ?>
-                    <div class='commentRight' style='display: grid; grid-template-columns: 75% auto; padding:5px;'>
-                        <div style="word-wrap: break-word;">
-                            <small><?php echo $row['date']; ?></small>
-                            <br>
-                            <?php echo $row['text']; ?>
-                        </div>
-                        <div>
-                            <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
-                            <br>
-                            <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='pfp/<?php echo getPFP($row['author'], $conn); ?>'>
-                        </div>
+                            while($row = $result->fetch_assoc()) { ?>
+                                <div class='commentRight' style='display: grid; grid-template-columns: 75% auto; padding:5px;'>
+                                    <div style="word-wrap: break-word;">
+                                        <small><?php echo $row['date']; ?></small>
+                                        <br>
+                                        <?php echo $row['text']; ?>
+                                    </div>
+                                    <div>
+                                        <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                                        <br>
+                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='pfp/<?php echo getPFP($row['author'], $conn); ?>'>
+                                    </div>
+                                </div>
+                        <?php } ?>
                     </div>
-            <?php } ?>
+                </div>
+                <div class="right">
+                    <h2>Members</h2>
+                    <?php
+                        $stmt = $conn->prepare("SELECT `username`, `id` FROM `users` WHERE `currentgroup` = ?");
+                        $stmt->bind_param("i", $id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        echo "<ul>";
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<li><a href='/index.php?id=" . $row['id'] . "'>". $row['username'] . "</a></li>";
+                        }
+                        echo "</ul>";
+                    ?>
+                </div>
+            </div>
         </div>
     </body>
 </html>
