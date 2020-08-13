@@ -84,7 +84,7 @@
                     while($row = $result->fetch_assoc()) {
                         $members++;
                     }
-                    echo "<hr>" . $members . " members are in this group.<span style='float:right;'><a href='joingroup.php?id=" . $id. "'><button>Join</button></a></span>";
+                    echo "<span style='float:right;'><a href='joingroup.php?id=" . $id. "'><button>Join</button></a></span>";
                 } else {
                     header("Location: viewgroups.php");
                 }
@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <h2>Members</h2>
+                    <h2>Members (<?php echo $members;?>)</h2>
                     <?php
                         $stmt = $conn->prepare("SELECT `username`, `id` FROM `users` WHERE `currentgroup` = ?");
                         $stmt->bind_param("i", $id);
