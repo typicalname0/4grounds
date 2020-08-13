@@ -68,6 +68,7 @@
                 $uploadOk = 0;
             }
             if ($uploadOk == 0) { } else {
+                $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $stmt = $conn->prepare("UPDATE users SET pfp = ? WHERE `users`.`username` = ?;");
                     $stmt->bind_param("ss", $filename, $_SESSION['user']);
@@ -100,6 +101,7 @@
                 $uploadOk = 0;
             }
             if ($uploadOk == 0) { } else {
+                $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $stmt = $conn->prepare("UPDATE users SET music = ? WHERE `users`.`username` = ?;");
                     $stmt->bind_param("ss", $filename, $_SESSION['user']);
