@@ -21,8 +21,8 @@ return function($folder, $type, $filetypes) // PHP IS SO DUMB
             } else {
                 $movedFile = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
             }
-            
-            if ($movedFile) {
+
+            if ($movedFile == 1) {
                 $stmt = $conn->prepare("INSERT INTO files (type, title, extrainfo, author, filename) VALUES (?, ?, ?, ?, ?)");
                 $stmt->bind_param("sssss", $type, $title, $description, $_SESSION['user'], $filename);
 
