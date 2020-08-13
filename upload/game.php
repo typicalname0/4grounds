@@ -4,8 +4,8 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require("../func/func.php");
+            require("../func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
     </head>

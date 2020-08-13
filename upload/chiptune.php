@@ -4,13 +4,13 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require("../func/func.php");
+            require("../func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); 
+        <?php require("../important/header.php"); 
         
         if(@$_POST['submit']) {
             $upload = require('../func/upload.php');
