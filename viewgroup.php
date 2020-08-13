@@ -17,7 +17,7 @@
         </style>
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         
         <div class="container">
             <?php

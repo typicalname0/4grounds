@@ -13,7 +13,7 @@
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         <div class="container"><br>
             <h1>Search results for type '<?php echo htmlspecialchars($_GET['type']); ?>'</h1>
             <?php

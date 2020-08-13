@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body>
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         <div class="container">
              To disable 2FA, please type the 6-digit code your app generates or a backup code below and click 'Submit'.<br><br>
              <form method="post" enctype="multipart/form-data">

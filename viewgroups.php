@@ -10,7 +10,7 @@
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         
         <div class="container">
             <h1 style="margin-bottom:0px;">4Grounds Groups</h1><a href="newgroup.php">New Group</a><hr>

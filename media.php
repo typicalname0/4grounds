@@ -10,7 +10,7 @@
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         
         <div class="container"><br>
             <h1 style="display: inline-block;margin:0px;">Featured Music of the Day</h1>

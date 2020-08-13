@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         <center><h1 style="display: inline-block;">4Grounds - Login</h1><br>
             <?php
                 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET["r_login"])) {

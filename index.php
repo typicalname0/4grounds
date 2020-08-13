@@ -86,7 +86,7 @@
         <meta content="4Grounds" property="og:site_name">
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         
         <div class="container">
             <br>   

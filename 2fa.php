@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body>
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         <div class="container">
              <h1>2-Factor Authentication</h1>
              2FA status: <?php if ($otpstatus) {echo "enabled";} else {echo "disabled";}?><br>

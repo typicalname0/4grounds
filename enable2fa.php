@@ -41,7 +41,7 @@
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body>
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         <div class="container">
             <?php if (isset($err)) {echo "<b style='color:red;'>" . $err . "</b><br><br>";}?>
             To enable 2FA, scan the following QR code with your authenticator app:<br><br>

@@ -10,7 +10,7 @@
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); 
+        <?php require(__DIR__ . "/important/header.php"); 
         
         if(@$_POST['submit']) {
             if(isset($_SESSION['user'])) {
