@@ -46,9 +46,10 @@
             header("Location: home.php");
         } else if(@$_POST['submit']) {
             $target_dir = "pfp/";
-            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-            $uploadOk = 1;
+            $target_file = basename($_FILES["fileToUpload"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
+            $uploadOk = 1;
             if(isset($_POST["submit"])) {
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
                 if($check !== false) {
@@ -67,6 +68,7 @@
                 $uploadOk = 0;
             }
             if ($uploadOk == 0) { } else {
+                $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $stmt = $conn->prepare("UPDATE users SET pfp = ? WHERE `users`.`username` = ?;");
                     $stmt->bind_param("ss", $filename, $_SESSION['user']);
@@ -79,9 +81,9 @@
             }
         } else if(@$_POST['photoset']) {
             $target_dir = "music/";
-            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-            $uploadOk = 1;
+            $target_file = basename($_FILES["fileToUpload"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
             if(isset($_POST["submit"])) {
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
                 if($check !== false) {
@@ -99,6 +101,7 @@
                 $uploadOk = 0;
             }
             if ($uploadOk == 0) { } else {
+                $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $stmt = $conn->prepare("UPDATE users SET music = ? WHERE `users`.`username` = ?;");
                     $stmt->bind_param("ss", $filename, $_SESSION['user']);
@@ -113,30 +116,29 @@
         ?>
         
         <div class="container">
-        <form method="post" enctype="multipart/form-data">
-				<small>Select photo:</small>
-				<input type="file" name="fileToUpload" id="fileToUpload">
-				<input type="submit" value="Upload Image" name="submit">
+            <form method="post" enctype="multipart/form-data">
+                <small>Select photo:</small>
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <input type="submit" value="Upload Image" name="submit">
             </form>
             <form method="post" enctype="multipart/form-data">
-				<small>Select song:</small>
-				<input type="file" name="fileToUpload" id="fileToUpload">
-				<input type="submit" value="Upload Song" name="photoset">
-			</form>
-            <br>
+                <small>Select song:</small>
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <input type="submit" value="Upload Song" name="photoset">
+            </form><br>
+            <button><a href="2fa.php">Manage 2-Factor Authentication</a></button><br><br>
             <b>Bio</b>
-			<form method="post" enctype="multipart/form-data">
-				<textarea required cols="58" placeholder="Bio" name="bio"><?php echo $bio;?></textarea><br>
-				<input name="bioset" type="submit" value="Set"> <small>max limit: 500 characters | supports bbcode</small>
-            </form>
-            <br>
+            <form method="post" enctype="multipart/form-data">
+                <textarea required cols="58" placeholder="Bio" name="bio"><?php echo $bio;?></textarea><br>
+                <input name="bioset" type="submit" value="Set">
+                <small>max limit: 500 characters | supports bbcode</small>
+            </form><br>
             <b>CSS</b>
             <button onclick="loadpfwin()" id="prevbtn">Show Live CSS Preview</button>
             <form method="post" enctype="multipart/form-data">
-				<textarea required rows="15" cols="58" placeholder="Your CSS" name="css" id="css_code"><?php echo $css;?></textarea><br>
-				<input name="cssset" type="submit" value="Set"> <small>max limit: 5000 characters</small>
-            </form>
-            <br>
+                <textarea required rows="15" cols="58" placeholder="Your CSS" name="css" id="css_code"><?php echo $css;?></textarea><br>
+                <input name="cssset" type="submit" value="Set"> <small>max limit: 5000 characters</small>
+            </form><br>
         </div>
     </body>
 </html>

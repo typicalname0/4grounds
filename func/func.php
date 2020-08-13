@@ -11,7 +11,7 @@ if(DEBUG_MODE == true) {
 }
 
 function validateCSS($validate) {
-	$DISALLOWED = array("<", ">", "<?php", "?>", "behavior: url", ".php", "@import", "@\import", "@/import"); 
+	$DISALLOWED = array("<?php", "?>", "behavior: url", ".php", "@import", "@\import", "@/import"); 
 
 	$validated = str_replace($DISALLOWED, "", $validate);
     return $validated;

@@ -1,7 +1,6 @@
 <?php
-if (isset($_SESSION['user'])) {
-	$_SESSION = [];
-	session_destroy();
-}
+session_destroy();
+$_SESSION = array();
+setcookie("PHPSESSID", "", time() - 3600);
 header("Location: index.php");
 ?>
