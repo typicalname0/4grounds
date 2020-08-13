@@ -46,9 +46,10 @@
             header("Location: home.php");
         } else if(@$_POST['submit']) {
             $target_dir = "pfp/";
-            $target_file = $target_dir .  uniqid() . "-" . basename($_FILES["fileToUpload"]["name"]);
-            $uploadOk = 1;
+            $target_file = basename($_FILES["fileToUpload"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
+            $uploadOk = 1;
             if(isset($_POST["submit"])) {
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
                 if($check !== false) {
@@ -79,9 +80,9 @@
             }
         } else if(@$_POST['photoset']) {
             $target_dir = "music/";
-            $target_file = $target_dir .  uniqid() . "-" . basename($_FILES["fileToUpload"]["name"]);
-            $uploadOk = 1;
+            $target_file = basename($_FILES["fileToUpload"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
             if(isset($_POST["submit"])) {
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
                 if($check !== false) {
