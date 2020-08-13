@@ -13,7 +13,7 @@
             if (!isset($result['otpsecret'])) {
                 header("Location: /2fa.php"); die();
             }
-            require("vendor/autoload.php");
+
             if (isset($_POST['unset2fa'])) {
                 $temptotp = OTPHP\TOTP::create($result['otpsecret']);
                 if ($temptotp->verify($_POST["unset2fa"]) || $_POST['unset2fa'] === $result['otpbackupcode']) {

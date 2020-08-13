@@ -6,7 +6,6 @@
         <?php
             require("func/func.php");
             require("func/conn.php"); 
-            require("vendor/autoload.php");
         ?>
         <title>4Grounds - Hub</title>
         <style type="text/css">
@@ -116,11 +115,7 @@
                                 <div class='commentRight' style='display: grid; grid-template-columns: 75% auto; padding:5px;'>
                                     <div style="word-wrap: break-word;">
                                         <small><?php echo $row['date']; ?></small>
-                                        <?php 
-                                            $markdown = new Michelf\Markdown;
-                                            $markdown->no_markup = "true";
-                                            echo $markdown->transform($row['text']);
-                                        ?>
+                                        <?php echo validateMarkdown($row['text']);?>
                                     </div>
                                     <div>
                                         <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>

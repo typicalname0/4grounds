@@ -5,7 +5,6 @@
             require("func/conn.php");
             require("func/func.php");
             requireLogin();
-            require("vendor/autoload.php");
 
             $stmt = $conn->prepare("SELECT `otpsecret`, `otpbackupcode` FROM `users` WHERE `username` = ?");
             $stmt->bind_param("s", $_SESSION['user']);

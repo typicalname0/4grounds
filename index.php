@@ -7,7 +7,6 @@
         <?php
             require("func/func.php");
             require("func/conn.php"); 
-            require("vendor/autoload.php");
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
@@ -173,7 +172,7 @@
                     </div><br>
                     <div id="bio" class="notegray">
                         <h1>Bio</h1>
-                        <?php echo Michelf\Markdown::defaultTransform($bio); ?>
+                        <?php echo validateMarkdown($bio); ?>
                     </div><br><br>
                     <div id='comments'>
                         <?php
@@ -187,11 +186,7 @@
                                     <div style="word-wrap: break-word;">
                                         <small><?php echo $row['date']; ?></small>
                                         <br>
-                                        <?php 
-                                            $markdown = new Michelf\Markdown;
-                                            $markdown->no_markup = "true";
-                                            echo $markdown->transform($row['text']);
-                                        ?>
+                                        <?php echo validateMarkdown($row['text']); ?>
                                     </div>
                                     <div>
                                         <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>

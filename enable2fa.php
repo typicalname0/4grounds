@@ -13,7 +13,6 @@
             if (isset($result->fetch_assoc()['otpsecret'])) {
                 header("Location: /2fa.php"); die();
             }
-            require("vendor/autoload.php");
 
             if (isset($_POST["set2fa"])) {
                 $temptotp = OTPHP\TOTP::create($_SESSION['otpsecret']);

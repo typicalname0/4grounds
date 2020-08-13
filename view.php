@@ -6,7 +6,6 @@
         <?php
             require("func/func.php");
             require("func/conn.php"); 
-            require("vendor/autoload.php");
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM files WHERE id = ?");
@@ -233,11 +232,7 @@
                     </div>
                     <div style="word-wrap: break-word;">
                         <small><?php echo $row['date']; ?></small>
-                        <?php 
-                            $markdown = new Michelf\Markdown;
-                            $markdown->no_markup = "true";
-                            echo $markdown->transform($row['text']);
-                        ?>
+                        <?php echo validateMarkdown($row['text']);?>
                     </div>
                 </div>
                 <?php } ?>
