@@ -113,7 +113,7 @@
                     <div class="notegray">
                         <center>
                         <br>
-                        <img style="border: 1px solid white; width: 15em;" src="pfp/<?php echo $pfp; ?>">
+                        <img style="border: 1px solid white; width: 15em;" src="/pfp/<?php echo $pfp; ?>">
                         </center>
                         <hr style="border-top: 1px dashed gray;">
                         <div id="userinfo" style="padding-left: 20px;">
@@ -126,7 +126,7 @@
                         </div><br>
                         <?php if (!isset($_GET["ed"])) { ?>
                             <audio autoplay controls>
-                                <source src="music/<?php echo $music; ?>">
+                                <source src="/music/<?php echo $music; ?>">
                             </audio> 
                         <?php } ?>
                     </div>
@@ -167,7 +167,7 @@
                         if($result->num_rows > 0) echo('<h1>Files</h1>');
                         
                         while($row = $result->fetch_assoc()) { 
-                            echo '<a href="view.php?id=' . $row['id'] . '">' . $row['title'] . ' [' , $row['type'] . ']</a><br>';
+                            echo '<a href="/view?id=' . $row['id'] . '">' . $row['title'] . ' [' , $row['type'] . ']</a><br>';
                         }?> 
                     </div><br>
                     <div id="bio" class="notegray">
@@ -189,9 +189,9 @@
                                         <?php echo validateMarkdown($row['text']); ?>
                                     </div>
                                     <div>
-                                        <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                                        <a style='float: right;' href='/?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
                                         <br>
-                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='pfp/<?php echo getPFP($row['author'], $conn); ?>'>
+                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                                     </div>
                                 </div>
                         <?php } ?>
@@ -203,19 +203,19 @@
                 <div class="note" style="background-color: #202020;">
                     <h1>4Grounds - Hub</h1>
                     <a href="https://discord.gg/4YVGbND">Join Our Discord</a><br>
-                    <a href="newnews.php">Make a News Post</a><br>
-                    <a href="newreview.php">Make a Review Post</a><hr>
-                    <a href="uploadmidi.php">Upload MIDI</a><br>
-                    <a href="uploadmusic.php">Upload Song</a><br>
-                    <a href="uploadgame.php">Upload Game</a><br>
-                    <a href="uploadanimation.php">Upload Video</a><br>
-                    <a href="uploadart.php">Upload Image</a><br>
-                    <a href="uploadchiptune.php">Upload a Chiptune</a>
+                    <a href="/newnews">Make a News Post</a><br>
+                    <a href="/newreview">Make a Review Post</a><hr>
+                    <a href="/uploadmidi">Upload MIDI</a><br>
+                    <a href="/uploadmusic">Upload Song</a><br>
+                    <a href="/uploadgame">Upload Game</a><br>
+                    <a href="/uploadanimation">Upload Video</a><br>
+                    <a href="/uploadart">Upload Image</a><br>
+                    <a href="/uploadchiptune">Upload a Chiptune</a>
                     <hr>
 
-                    <a href="media.php">Featured</a><br>
+                    <a href="/media">Featured</a><br>
                     <?php 
-                    if(isset($_SESSION['user'])) { echo "<a href='home.php'>Manage</a><br><a href='files.php'>Files<a>"; }
+                    if(isset($_SESSION['user'])) { echo "<a href='/home'>Manage</a><br><a href='/files'>Files<a>"; }
                     ?>
                 </div>
                 <br>
@@ -226,10 +226,10 @@
                         $stmt->execute();
                         $result = $stmt->get_result();
                         while($row = $result->fetch_assoc()) {
-                            echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                            echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='/pfp/" . getPFP($row['author'], $conn) . "'>
                             <small>
-                            <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
-                            <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                            <a href='/view?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
+                            <span style='float:right;'><small><i>Posted by <a href='/?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                             <span style='float:right;'>" . $row['date'] . "</small></span><br>
                             <br><br>" . $row['extrainfo'] . "</small><hr>";
                         }
@@ -242,10 +242,10 @@
                         $stmt->execute();
                         $result = $stmt->get_result();
                         while($row = $result->fetch_assoc()) {
-                            echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                            echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='/pfp/" . getPFP($row['author'], $conn) . "'>
                             <small>
-                            <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
-                            <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                            <a href='/view?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
+                            <span style='float:right;'><small><i>Posted by <a href='/?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                             <span style='float:right;'>" . $row['date'] . "</small></span><br>
                             <br><br>" . $row['extrainfo'] . "</small><hr>";
                         }
@@ -260,7 +260,7 @@
                             if($result->num_rows === 0) echo('There are no users.');
                             while($row = $result->fetch_assoc()) {
                                 $id = 1;
-                                echo "<div class='item" . $id . "'><img style='height: 8em;width: 8em;' src='pfp/" . getPFP($row['username'], $conn) . "'><br><a href='?id=" . $row['id'] . "'>" . $row['username'] . "</a></div>";
+                                echo "<div class='item" . $id . "'><img style='height: 8em;width: 8em;' src='/pfp/" . getPFP($row['username'], $conn) . "'><br><a href='/?id=" . $row['id'] . "'>" . $row['username'] . "</a></div>";
                                 $id = $id + 1;
                             }
                             $stmt->close();
@@ -272,13 +272,12 @@
                 <div class="note" style='background-color: #404040;'>
                     <h1>Images</h1>
                     <?php
-                    //<a href="view.php?id=3">hhgregginspace PLUS! by <b>worldcash</b></a><br>
                     $stmt = $conn->prepare("SELECT * FROM files WHERE type='image' AND status='y' ORDER BY RAND() LIMIT 6");
                     $stmt->execute();
                     $result = $stmt->get_result();
                     while($row = $result->fetch_assoc()) {
                         echo "<div style='display: inline-block;' class='notegray'>
-                            <a href='view.php?id=" . $row['id'] . "'><img style='width: 7.5em;height: 7.5em;' src='images/" . $row['filename'] . "'>
+                            <a href='/view?id=" . $row['id'] . "'><img style='width: 7.5em;height: 7.5em;' src='/images/" . $row['filename'] . "'>
                             <br><center><b>" . htmlspecialchars($row['title']) . "</b><br><span style='color: gray;'>By " . $row['author'] . "</span></center>
                             </a>
                         </div> ";  
