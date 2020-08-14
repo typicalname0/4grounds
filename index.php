@@ -13,23 +13,24 @@
                 $stmt->bind_param("i", $_GET['id']);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                if($result->num_rows === 0) echo('There are no users.');
-                while($row = $result->fetch_assoc()) {
-                    $username = $row['username'];
-                    $id = $row['id'];
-                    $date = $row['date'];
-                    $currentgroup = $row['currentgroup'];
-                    $bio = $row['bio'];
-                    $css = $row['css'];
-                    $pfp = htmlspecialchars($row['pfp']);
-                    $rank = $row['rank'];
-                    $badges = explode(';', $row['badges']);
-                    $currentgroup = $row['currentgroup'];
-                    $music = $row['music'];
-                    echo '<style>' . $css . '</style>';
-                    echo '<meta property="og:title" content="' . $username . ' \'s 4Grounds profile" />';
-                    echo '<meta property="og:description" content="' . htmlspecialchars($bio) . '" />';
-                    echo '<meta property="og:image" content="https://spacemy.xyz/pfp/' . $pfp . '" />';
+                if($result->num_rows !== 0){ // echo('There are no users.'); // please just refuse to give a user if this is the case
+                    while($row = $result->fetch_assoc()) { // you dont need to use a loop if its only ever gonna return 1 or 0
+                        $username = $row['username']; // you dont actually need all of these variables oh my god just use an array
+                        $id = $row['id'];
+                        $date = $row['date'];
+                        $currentgroup = $row['currentgroup'];
+                        $bio = $row['bio'];
+                        $css = $row['css'];
+                        $pfp = htmlspecialchars($row['pfp']);
+                        $rank = $row['rank'];
+                        $badges = explode(';', $row['badges']);
+                        $currentgroup = $row['currentgroup'];
+                        $music = $row['music'];
+                        echo '<style>' . $css . '</style>';
+                        echo '<meta property="og:title" content="' . $username . ' \'s 4Grounds profile" />';
+                        echo '<meta property="og:description" content="' . htmlspecialchars($bio) . '" />';
+                        echo '<meta property="og:image" content="https://spacemy.xyz/pfp/' . $pfp . '" />';
+                    }
                 }
                 $stmt->close();
 
@@ -37,9 +38,12 @@
                 $stmt->bind_param("i", $currentgroup);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                if($result->num_rows === 0) echo('There are no users.');
-                while($row = $result->fetch_assoc()) {
-                    $grouptitle = $row['title'];
+                if($result->num_rows !== 0){ //echo('There are no users.'); // why again
+                    while($row = $result->fetch_assoc()) {
+                        $grouptitle = $row['title'];
+                    }
+                }else{
+                    $grouptitle = "none";
                 }
                 $stmt->close();
 
@@ -107,7 +111,7 @@
             }
             skipcomment:
 
-            if(isset($_GET['id'])) {?>
+            if(isset($id)) {?>
                 <div id="groundtext"><center><h1><?php echo $username; ?>'s Ground</h1></center></div>
                 <div class="leftHalf">
                     <div class="notegray">
