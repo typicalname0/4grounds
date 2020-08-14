@@ -140,7 +140,7 @@
                     <h2>Comment</h2>
                     <form method="post" enctype="multipart/form-data">
                         <textarea required cols="33" placeholder="Comment" name="comment"></textarea><br>
-                        <input type="submit" value="Post"> <small>max limit: 500 characters | bbcode supported</small>
+                        <input type="submit" value="Post"> <small>max limit: 500 characters | supports <a href="https://www.markdownguide.org/basic-syntax">Markdown</a></small>
                     </form>
                     </div> 
                     <center><br>

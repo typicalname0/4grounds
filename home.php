@@ -132,7 +132,7 @@
             <form method="post" enctype="multipart/form-data">
                 <textarea required cols="58" placeholder="Bio" name="bio"><?php echo $bio;?></textarea><br>
                 <input name="bioset" type="submit" value="Set">
-                <small>max limit: 500 characters | supports bbcode</small>
+                <small>max limit: 500 characters | supports <a href="https://www.markdownguide.org/basic-syntax">Markdown</a></small>
             </form><br>
             <b>CSS</b>
             <button onclick="loadpfwin()" id="prevbtn">Show Live CSS Preview</button>

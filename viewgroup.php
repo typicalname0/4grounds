@@ -100,7 +100,7 @@
                         <form method="post" enctype="multipart/form-data">
                             <textarea required cols="35" placeholder="Comment" name="comment"></textarea><br>
                             <input type="submit" value="Post">
-                            <small>max limit: 500 characters | bbcode supported</small>
+                            <small>max limit: 500 characters | supports <a href="https://www.markdownguide.org/basic-syntax">Markdown</a></small>
                         </form>
                         <hr>
                     <?php } ?>

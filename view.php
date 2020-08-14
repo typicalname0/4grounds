@@ -214,7 +214,7 @@
             <h2>User Submitted Comments</h2>
             <form method="post" enctype="multipart/form-data" id="submitform">
                 <textarea required cols="77" placeholder="Comment" name="comment"></textarea><br>
-                <input type="submit" value="Post" class="g-recaptcha" data-sitekey="<?php echo CAPTCHA_SITEKEY; ?>" data-callback="onLogin"> <small>max limit: 500 characters | bbcode supported</small>
+                <input type="submit" value="Post" class="g-recaptcha" data-sitekey="<?php echo CAPTCHA_SITEKEY; ?>" data-callback="onLogin"> <small>max limit: 500 characters | supports <a href="https://www.markdownguide.org/basic-syntax">Markdown</a></small>
             </form>
             <?php
                 $stmt = $conn->prepare("SELECT * FROM `gamecomments` WHERE toid = ? ORDER BY id DESC");
