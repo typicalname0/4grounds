@@ -25,27 +25,27 @@
 
                 while($row = $result->fetch_assoc()) { 
                     if($row['type'] == "song") {
-                        echo '<b><a href="view.php?id=' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</b></a> <span style="float:right;"><small>Uploader: <b>' . $row['author'] . '</b></small></span><br>
+                        echo '<b><a href="/view?id=' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</b></a> <span style="float:right;"><small>Uploader: <b>' . $row['author'] . '</b></small></span><br>
                         ' . $row['extrainfo'] . '<br>
                         <audio controls>
-                        <source src="musicfiles/' . $row['filename'] . '">
+                        <source src="/musicfiles/' . $row['filename'] . '">
                         </audio><hr>';
                     } else if($row['type'] == "image") {
                         //im sorry for this abomination
                         echo "<div style='display: inline-block;' class='notegray'>
-                            <a href='view.php?id=" . $row['id'] . "'><img style='width: 10em;height: 10em;' src='images/" . $row['filename'] . "'>
+                            <a href='/view?id=" . $row['id'] . "'><img style='width: 10em;height: 10em;' src='images/" . $row['filename'] . "'>
                             <br><center><b>" . htmlspecialchars($row['title']) . "</b><br><span style='color: gray;'>By " . $row['author'] . "</span></center>
                             </a>
                         </div> ";  
                     } else if($row['type'] == "news" || $row['type'] == "review") {
                         echo "<small>
-                        <img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
-                        <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
-                        <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                        <img style='position: absolute;border: 1px solid white; width: 5em;' src='/pfp/" . getPFP($row['author'], $conn) . "'>
+                        <a href='/view?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
+                        <span style='float:right;'><small><i>Posted by <a href='/?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                         <span style='float:right;'>" . $row['date'] . "</small></span><br>
                         <br><br>" . $row['extrainfo'] . "</small><hr>";
                     } else {
-                        echo "<b><a href='view.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['title']) . " by " . $row['author'] . "
+                        echo "<b><a href='/view?id=" . $row['id'] . "'>" . htmlspecialchars($row['title']) . " by " . $row['author'] . "
                         </a><small><span style='float:right;'>[" . $row['date'] . "]</small></span>";
                         if(in_array($row['id'], $featured)) {
                             echo "<span style='float:right; color: gold;margin-right: 10px;'>Featured!</span> &nbsp;";

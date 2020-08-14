@@ -58,7 +58,7 @@
 
                 echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($author, $conn) . "'>
                 <small>
-                <a href='view.php?id=" . $id . "'><span style='float:right;color: gold;'><i>" . $title . "</a></i></span><br>
+                <a href='/view?id=" . $id . "'><span style='float:right;color: gold;'><i>" . $title . "</a></i></span><br>
                 <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($author, $conn) . "'>" . $author . "</a></i></span><br>
                 <span style='float:right;'>" . $date . "</small></span><br>
                 <br><br>" . $extrainfo . "</small><hr>";
@@ -66,7 +66,7 @@
             <?php 
             if($type == "song") {
                 echo '<audio controls>
-                <source src="musicfiles/' . $filename . '">
+                <source src="/musicfiles/' . $filename . '">
                 </audio>';
             } else if($type == "image") {
               echo "<img style='width: 10em;height: 10em;' src='images/" . $filename . "'>";
@@ -205,10 +205,10 @@
               //do nothing
             } else if($type == "video") {
               echo ' <video width="640" height="400" controls>
-                  <source src="videos/' . $filename . '" type="video/mp4">
+                  <source src="/videos/' . $filename . '" type="video/mp4">
                 </video> ';
             } else {
-                echo '<embed src="gamefiles/' . $filename . '"  height="300px" width="500px"> </embed>';
+                echo '<embed src="/gamefiles/' . $filename . '"  height="300px" width="500px"> </embed>';
             }
             ?>
             <h2>User Submitted Comments</h2>
@@ -226,7 +226,7 @@
                 <?php while($row = $result->fetch_assoc()) { ?>
                 <div class='commentRight' style='display: grid; grid-template-columns: auto 85%; padding:5px;'>
                     <div>
-                        <a style='float: left;' href='/index.php?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                        <a style='float: left;' href='/?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
                         <br>
                         <img class='commentPictures' style='float: left;' height='80px;'width='80px;'src='/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                     </div>

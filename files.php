@@ -35,12 +35,12 @@
                 $result = $stmt->get_result();
 
                 while($row = $result->fetch_assoc()) { 
-                    echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                    echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='/pfp/" . getPFP($row['author'], $conn) . "'>
                     <small>
-                    <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
-                    <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                    <a href='/view?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
+                    <span style='float:right;'><small><i>Posted by <a href='/?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                     <span style='float:right;'>" . $row['date'] . "<br>
-                    <span style='float:right;'><a href='updateinfo.php?id=" . $row['id'] . "'>Edit</a></small></small></span><br>
+                    <span style='float:right;'><a href='/updateinfo?id=" . $row['id'] . "'>Edit</a></small></small></span><br>
                     <br><br>" . $row['extrainfo'] . "</small><hr>";
                 }
             ?>

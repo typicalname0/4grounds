@@ -25,9 +25,9 @@
              <?php if ($otpstatus) {echo "Backup code: " . $result->fetch_assoc()['otpbackupcode'];} ?><br><br>
              <button>
              <?php if ($otpstatus) { ?>
-             <a href="disable2fa.php">Disable 2FA</a>
+             <a href="/disable2fa">Disable 2FA</a>
              <?php } else { ?>
-             <a href="enable2fa.php">Enable 2FA</a>
+             <a href="/enable2fa">Enable 2FA</a>
              <?php } ?>
              </button>
         </div>

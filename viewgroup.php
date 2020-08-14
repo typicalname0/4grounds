@@ -55,15 +55,15 @@
                         $id = $row['id'];
                         ?>
                         <img style='border: 1px solid white; width: 5em;'
-                             src='pfp/<?php echo getPFP($row["author"], $conn);?>'>
+                             src='/pfp/<?php echo getPFP($row["author"], $conn);?>'>
                         <span style='float: right;text-align: right;'>
-                            <a href='viewgroup.php?id=<?php echo $row["id"];?>' style='color: gold;font-size:1.5em'>
+                            <a href='/viewgroup?id=<?php echo $row["id"];?>' style='color: gold;font-size:1.5em'>
                                 <?php echo $row['title'];?>
                             </a><br>
                             <small>
                                 <i>
                                     Created by
-                                    <a href='index.php?id=<?php echo getID($row["author"], $conn);?>'>
+                                    <a href='/?id=<?php echo getID($row["author"], $conn);?>'>
                                         <?php echo $row['author'];?>
                                     </a>
                                 </i><br>
@@ -85,7 +85,7 @@
                     while($row = $result->fetch_assoc()) {
                         $members++;
                     }
-                    echo "<span style='float:right;'><a href='joingroup.php?id=" . $id. "'><button>Join</button></a></span>";
+                    echo "<span style='float:right;'><a href='/joingroup?id=" . $id. "'><button>Join</button></a></span>";
                 } else {
                     header("Location: viewgroups.php");
                 }
@@ -118,9 +118,9 @@
                                         <?php echo validateMarkdown($row['text']);?>
                                     </div>
                                     <div>
-                                        <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                                        <a style='float: right;' href='/?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
                                         <br>
-                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='pfp/<?php echo getPFP($row['author'], $conn); ?>'>
+                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                                     </div>
                                 </div>
                         <?php } ?>
@@ -136,7 +136,7 @@
 
                         echo "<ul>";
                         while ($row = $result->fetch_assoc()) {
-                            echo "<li><a href='/index.php?id=" . $row['id'] . "'>". $row['username'] . "</a></li>";
+                            echo "<li><a href='/?id=" . $row['id'] . "'>". $row['username'] . "</a></li>";
                         }
                         echo "</ul>";
                     ?>

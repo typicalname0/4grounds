@@ -64,7 +64,7 @@
                 <input required placeholder="Confirm Password" type="password" name="confirm"><br><br>
                 <input type="submit" value="Register">
             </form>
-            <a href="index.php"><< Back</a>
+            <a href="/">&lt;&lt; Back</a>
         </center>
     </body>
 </html>
