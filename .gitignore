@@ -2,6 +2,14 @@
 *~
 \#*\#
 
+# oooo we're so fancy
+# we make our OS put useless files everywhere
+# ooooooooo
+.DS_Store
+._*
+desktop.ini
+thumbs.db
+
 # Composer files
 /vendor/
 composer.phar
