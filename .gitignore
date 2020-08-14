@@ -14,3 +14,9 @@ thumbs.db
 /vendor/
 composer.phar
 composer.lock
+
+# user profile pictures and songs
+/pfp/*
+!/pfp/default.jpg
+/music/*
+!/music/default.mp3
