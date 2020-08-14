@@ -4,13 +4,13 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); 
+        <?php require(__DIR__ . "/important/header.php"); 
         
         if(isset($_GET['id'])) {
             $stmt = $conn->prepare("SELECT * FROM files WHERE author = ? AND id = ?");

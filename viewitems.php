@@ -5,15 +5,15 @@
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/images.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
             $featured = array(1, 3, 12);
             $newlines = array("<br>", " <br>", "<br>" , " <br> ");
         ?>
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         <div class="container"><br>
             <h1>Search results for type '<?php echo htmlspecialchars($_GET['type']); ?>'</h1>
             <?php

@@ -4,9 +4,8 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
-            require("vendor/autoload.php");
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM files WHERE id = ?");
@@ -34,7 +33,7 @@
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         
         <div class="container">
             <?php
@@ -233,7 +232,7 @@
                     </div>
                     <div style="word-wrap: break-word;">
                         <small><?php echo $row['date']; ?></small>
-                        <?php echo Michelf\Markdown::defaultTransform($row['text']); ?>
+                        <?php echo validateMarkdown($row['text']);?>
                     </div>
                 </div>
                 <?php } ?>

@@ -4,9 +4,8 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
-            require("vendor/autoload.php");
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
         <style type="text/css">
@@ -18,7 +17,7 @@
         </style>
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         
         <div class="container">
             <?php
@@ -116,7 +115,7 @@
                                 <div class='commentRight' style='display: grid; grid-template-columns: 75% auto; padding:5px;'>
                                     <div style="word-wrap: break-word;">
                                         <small><?php echo $row['date']; ?></small>
-                                        <?php echo Michelf\Markdown::defaultTransform($row['text']); ?>
+                                        <?php echo validateMarkdown($row['text']);?>
                                     </div>
                                     <div>
                                         <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>

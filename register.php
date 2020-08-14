@@ -2,15 +2,15 @@
 <html>
     <head>
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body> 
-        <?php require("important/header.php");  ?>
+        <?php require(__DIR__ . "/important/header.php");  ?>
         <center><h1 style="display: inline-block;">4Grounds - Register</h1><br>
             <?php
                 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['password'] && $_POST['username']) 

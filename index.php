@@ -5,9 +5,8 @@
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/index.css">
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
-            require("vendor/autoload.php");
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
@@ -87,7 +86,7 @@
         <meta content="4Grounds" property="og:site_name">
     </head>
     <body> 
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         
         <div class="container">
             <br>   
@@ -173,7 +172,7 @@
                     </div><br>
                     <div id="bio" class="notegray">
                         <h1>Bio</h1>
-                        <?php echo Michelf\Markdown::defaultTransform($bio); ?>
+                        <?php echo validateMarkdown($bio); ?>
                     </div><br><br>
                     <div id='comments'>
                         <?php
@@ -187,7 +186,7 @@
                                     <div style="word-wrap: break-word;">
                                         <small><?php echo $row['date']; ?></small>
                                         <br>
-                                        <?php echo Michelf\Markdown::defaultTransform($row['text']); ?>
+                                        <?php echo validateMarkdown($row['text']); ?>
                                     </div>
                                     <div>
                                         <a style='float: right;' href='?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>

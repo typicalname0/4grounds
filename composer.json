@@ -21,6 +21,7 @@
     ],
     "require": {
         "spomky-labs/otphp": "^10.0",
+        "php": "^7.0",
         "michelf/php-markdown": "^1.9"
     }
 }

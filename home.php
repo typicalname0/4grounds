@@ -2,8 +2,8 @@
 <html>
     <head>
         <?php
-            require("func/func.php");
-            require("func/conn.php"); 
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
 
             $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
             $stmt->bind_param("s", $_SESSION['user']);
@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body> 
-        <?php require("important/header.php"); 
+        <?php require(__DIR__ . "/important/header.php"); 
         
         if(@$_POST['bioset']) {
             $stmt = $conn->prepare("UPDATE users SET bio = ? WHERE `users`.`username` = ?;");

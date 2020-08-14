@@ -2,8 +2,8 @@
 <html>
     <head>
         <?php
-            require("func/conn.php");
-            require("func/func.php");
+            require(__DIR__ . "/func/conn.php");
+            require(__DIR__ . "/func/func.php");
             requireLogin();
             // check 2fa status
             $stmt = $conn->prepare("SELECT `otpsecret` FROM `users` WHERE `username` = ?");
@@ -13,7 +13,6 @@
             if (isset($result->fetch_assoc()['otpsecret'])) {
                 header("Location: /2fa.php"); die();
             }
-            require("vendor/autoload.php");
 
             if (isset($_POST["set2fa"])) {
                 $temptotp = OTPHP\TOTP::create($_SESSION['otpsecret']);
@@ -42,7 +41,7 @@
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body>
-        <?php require("important/header.php"); ?>
+        <?php require(__DIR__ . "/important/header.php"); ?>
         <div class="container">
             <?php if (isset($err)) {echo "<b style='color:red;'>" . $err . "</b><br><br>";}?>
             To enable 2FA, scan the following QR code with your authenticator app:<br><br>

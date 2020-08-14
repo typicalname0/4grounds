@@ -1,6 +1,7 @@
 <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
 <?php
-require("bbcode.php");
+require(__DIR__ . "/bbcode.php");
+require(__DIR__ . "/../vendor/autoload.php");
 
 define("DEBUG_MODE", true);
 session_start();
@@ -15,6 +16,16 @@ function validateCSS($validate) {
 
 	$validated = str_replace($DISALLOWED, "", $validate);
     return $validated;
+}
+function validateMarkdown($comment) {
+	$markdown = new Michelf\Markdown;
+	$markdown->no_markup = "true";
+	$transformed = $markdown->transform($comment);
+	return preg_replace(
+		"/<a href=(?:'|\")javascript:(.*?)(?:'|\")>(.*?)<\/a>/i",
+		"Attempted XSS: $2 ($1)",
+		$transformed
+	);
 }
 
 function validateCaptcha($privatekey, $response) {
