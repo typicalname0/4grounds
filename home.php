@@ -48,7 +48,7 @@
             $target_dir = "pfp/";
             $target_file = basename($_FILES["fileToUpload"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-            $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
+            $target_file = $target_dir . getID($_SESSION['user'], $conn) . "." . $imageFileType;
             $uploadOk = 1;
             if(isset($_POST["submit"])) {
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -58,21 +58,21 @@
                     $uploadOk = 0;
                 }
             }
-            if (file_exists($target_file)) {
-                echo 'file with the same name already exists<hr>';
-                $uploadOk = 0;
-            }
+//            if (file_exists($target_file)) {
+//                echo 'file with the same name already exists<hr>';
+//                $uploadOk = 0;
+//            }
             if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
             && $imageFileType != "gif" ) {
                 echo 'unsupported file type. must be jpg, png, jpeg, or gif<hr>';
                 $uploadOk = 0;
             }
             if ($uploadOk == 0) { } else {
-                $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
+                $target_file = $target_dir . getID($_SESSION['user'], $conn) . "." . $imageFileType;
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $stmt = $conn->prepare("UPDATE users SET pfp = ? WHERE `users`.`username` = ?;");
                     $stmt->bind_param("ss", $filename, $_SESSION['user']);
-                    $filename = basename($_FILES["fileToUpload"]["name"]);
+                    $filename = getID($_SESSION['user'], $conn) . "." . $imageFileType;
                     $stmt->execute(); 
                     $stmt->close();
                 } else {
@@ -80,32 +80,33 @@
                 }
             }
         } else if(@$_POST['photoset']) {
+            $uploadOk = true;
             $target_dir = "music/";
             $target_file = basename($_FILES["fileToUpload"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-            $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
+            $target_file = $target_dir . getID($_SESSION['user'], $conn) . "." . $imageFileType;
             if(isset($_POST["submit"])) {
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
                 if($check !== false) {
-                    $uploadOk = 1;
+                    $uploadOk = true;
                 } else {
-                    $uploadOk = 0;
+                    $uploadOk = false;
                 }
             }
-            if (file_exists($target_file)) {
-                echo 'file with the same name already exists<hr>';
-                $uploadOk = 0;
-            }
+//            if (file_exists($target_file)) {
+//                echo 'file with the same name already exists<hr>';
+//                $uploadOk = false;
+//            }
             if($imageFileType != "ogg" && $imageFileType != "mp3") {
                 echo 'unsupported file type. must be mp3 or ogg<hr>';
-                $uploadOk = 0;
+                $uploadOk = false;
             }
-            if ($uploadOk == 0) { } else {
-                $target_file = $target_dir .  uniqid() . "-" . slugify(basename($_FILES["fileToUpload"]["name"])) . "." . $imageFileType;
+            if ($uploadOk) {
+                $target_file = $target_dir . getID($_SESSION['user'], $conn) . "." . $imageFileType;
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $stmt = $conn->prepare("UPDATE users SET music = ? WHERE `users`.`username` = ?;");
                     $stmt->bind_param("ss", $filename, $_SESSION['user']);
-                    $filename = basename($_FILES["fileToUpload"]["name"]);
+                    $filename = getID($_SESSION['user'], $conn) . "." . $imageFileType;
                     $stmt->execute(); 
                     $stmt->close();
                 } else {
