@@ -13,7 +13,7 @@
 
     if (!$conn) {
             $ERROR = "Can't connect to database";
-            $DESC = "PHP failed to connect to the SQL database at $SERVER.<br>Error description: " . mysqli_connect_error();
+            $DESC = "PHP failed to connect to the SQL database at " . $config['database_host'] . ".<br>Error description: " . mysqli_connect_error();
             $CHOICES = array(
                 "Is the database info correct in `/cfg/config.inc.php`?",
                 "Did you import fourground.sql?",

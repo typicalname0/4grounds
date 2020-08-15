@@ -14,7 +14,6 @@
     <body> 
         <?php 
             require(__DIR__ . "/important/header.php"); 
-            require(__DIR__ . "/cfg/config.inc.php");
          ?>
         <center><h1 style="display: inline-block;">4Grounds - Register</h1><br>
             <?php
