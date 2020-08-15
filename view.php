@@ -43,7 +43,7 @@
                     if(!$_POST['comment']){ $error = "your comment cannot be blank"; goto skipcomment; }
                     if(strlen($_POST['comment']) > 500){ $error = "your comment must be shorter than 500 characters"; goto skipcomment; }
                     if(!isset($_POST['g-recaptcha-response'])) { $error = "captcha validation failed"; goto skipcomment; }
-                    if(!validateCaptcha(CAPTCHA_PRIVATEKEY, $_POST['g-recaptcha-response'])) { $error = "captcha validation failed"; goto skipcomment; }
+                    if($config['use_recaptcha'] && !validateCaptcha($config['recaptcha_secret'], $_POST['g-recaptcha-response'])) { $error = "captcha validation failed"; goto skipcomment; }
 
                     $stmt = $conn->prepare("INSERT INTO `gamecomments` (toid, author, text, date) VALUES (?, ?, ?, now())");
                     $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
@@ -214,7 +214,10 @@
             <h2>User Submitted Comments</h2>
             <form method="post" enctype="multipart/form-data" id="submitform">
                 <textarea required cols="77" placeholder="Comment" name="comment"></textarea><br>
-                <input type="submit" value="Post" class="g-recaptcha" data-sitekey="<?php echo CAPTCHA_SITEKEY; ?>" data-callback="onSubmit"> <small>max limit: 500 characters | supports <a href="https://www.markdownguide.org/basic-syntax">Markdown</a></small>
+                <input type="submit" value="Post" <?php 
+                  if ($config['use_recaptcha']) 
+                    echo 'class="g-recaptcha" data-sitekey="' . $config['recaptcha_sitekey'] . '" data-callback="onSubmit"'
+                ?>> <small>max limit: 500 characters | supports <a href="https://www.markdownguide.org/basic-syntax">Markdown</a></small>
             </form>
             <?php
                 $stmt = $conn->prepare("SELECT * FROM `gamecomments` WHERE toid = ? ORDER BY id DESC");

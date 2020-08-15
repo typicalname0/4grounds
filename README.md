@@ -8,8 +8,8 @@
 a newgrounds inspired website
 
 # Requirements
-* Apache/other web server
-* MySQL/other SQL server
+* Apache
+* MySQL 5.7+
 * Composer
 
 # Setup
@@ -17,8 +17,7 @@ a newgrounds inspired website
 2. Set up Composer in that directory
 3. `composer install`
 4. Run fourground.sql to set up the database
-5. Get some coffee/soda/caffeine drink.
-
+5. Configure the information in cfg/config.inc.php
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftypicalname0%2F4grounds.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftypicalname0%2F4grounds?ref=badge_large)
