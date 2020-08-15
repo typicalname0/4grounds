@@ -42,6 +42,8 @@
                     if(!isset($_SESSION['user'])){ $error = "you are not logged in"; goto skipcomment; }
                     if(!$_POST['comment']){ $error = "your comment cannot be blank"; goto skipcomment; }
                     if(strlen($_POST['comment']) > 500){ $error = "your comment must be shorter than 500 characters"; goto skipcomment; }
+                    if(!isset($_POST['g-recaptcha-response'])) { $error = "captcha validation failed"; goto skipcomment; }
+                    if(!validateCaptcha(CAPTCHA_PRIVATEKEY, $_POST['g-recaptcha-response'])) { $error = "captcha validation failed"; goto skipcomment; }
 
                     $stmt = $conn->prepare("INSERT INTO `gamecomments` (toid, author, text, date) VALUES (?, ?, ?, now())");
                     $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
