@@ -3,6 +3,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/typicalname0/4grounds/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/typicalname0/4grounds/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/typicalname0/4grounds/badges/build.png?b=master)](https://scrutinizer-ci.com/g/typicalname0/4grounds/build-status/master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/typicalname0/4grounds/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftypicalname0%2F4grounds.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftypicalname0%2F4grounds?ref=badge_shield)
 
 a newgrounds inspired website
 
