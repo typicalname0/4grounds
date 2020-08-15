@@ -18,3 +18,7 @@ a newgrounds inspired website
 3. `composer install`
 4. Run fourground.sql to set up the database
 5. Get some coffee/soda/caffeine drink.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftypicalname0%2F4grounds.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftypicalname0%2F4grounds?ref=badge_large)
