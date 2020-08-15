@@ -7,6 +7,8 @@
         ?>
         <title>4Grounds - Hub</title>
         <link rel="stylesheet" href="/css/global.css">
+        <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+        <script>function onLogin(token){ document.getElementById('submitform').submit(); }</script>
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body> 
@@ -25,7 +27,9 @@
                     if(strlen($username) > 21) { $error = "your username must be shorter than 21 characters"; goto skip; }
                     if(strlen($password) < 8) { $error = "your password must be at least 8 characters long"; goto skip; }
                     if(!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $password)) { $error = "please include both letters and numbers in your password"; goto skip; }
-
+                    if(!isset($_POST['g-recaptcha-response'])){ $error = "captcha validation failed"; goto skip; }
+                    if(!validateCaptcha(CAPTCHA_PRIVATEKEY, $_POST['g-recaptcha-response'])) { $error = "captcha validation failed"; goto skip; }
+    
                     $stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
                     $stmt->bind_param("s", $username);
                     $stmt->execute();
@@ -62,7 +66,7 @@
                 <input required placeholder="E-Mail" type="email" name="email"><br><br>
                 <input required placeholder="Password" type="password" name="password"><br>
                 <input required placeholder="Confirm Password" type="password" name="confirm"><br><br>
-                <input type="submit" value="Register">
+                <input type="submit" value="Register" class="g-recaptcha" data-sitekey="<?php echo CAPTCHA_SITEKEY; ?>" data-callback="onLogin">
             </form>
             <a href="/">&lt;&lt; Back</a>
         </center>
