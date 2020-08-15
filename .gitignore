@@ -1,0 +1,29 @@
+# emacs backup files (ezist)
+*~
+\#*\#
+
+# oooo we're so fancy
+# we make our OS put useless files everywhere
+# ooooooooo
+.DS_Store
+._*
+desktop.ini
+thumbs.db
+
+# Composer files
+/vendor/
+composer.phar
+composer.lock
+
+# user profile pictures and songs
+/pfp/*
+!/pfp/default.jpg
+/music/*
+!/music/default.mp3
+
+# uploaded images/games/midis/things
+/images/*
+/gamefiles/*
+/videos/*
+/midis/*
+/musicfiles/*

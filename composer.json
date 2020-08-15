@@ -1,0 +1,27 @@
+{
+    "name": "typicalname0/4grounds",
+    "description": "a newgrounds inspired website",
+    "type": "project",
+    "homepage": "https://github.com/typicalname0/4grounds",
+    "readme": "README.md",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "typicalname0",
+            "homepage": "https://github.com/typicalname0"
+        },
+        {
+            "name": "ezist",
+            "homepage": "https://github.com/ezist"
+        },
+        {
+            "name": "All contributors",
+            "homepage": "https://github.com/typicalname0/4grounds/contributors"
+        }
+    ],
+    "require": {
+        "spomky-labs/otphp": "^10.0",
+        "php": "^7.2",
+        "michelf/php-markdown": "^1.9"
+    }
+}
