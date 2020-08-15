@@ -1,11 +1,10 @@
 <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
 <?php
-require(__DIR__ . "/bbcode.php");
 require(__DIR__ . "/../vendor/autoload.php");
 
 define("DEBUG_MODE", true);
 session_start();
-if(isset(DEBUG_MODE) && DEBUG_MODE) {
+if(defined(DEBUG_MODE) && DEBUG_MODE) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
