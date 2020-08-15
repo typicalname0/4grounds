@@ -45,8 +45,6 @@
 
                     $stmt = $conn->prepare("INSERT INTO `gamecomments` (toid, author, text, date) VALUES (?, ?, ?, now())");
                     $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
-                    $unprocessedText = replaceBBcodes($_POST['comment']);
-//                    $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
                     $text = $_POST['comment'];
                     $stmt->execute();
                     $stmt->close();

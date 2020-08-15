@@ -37,8 +37,6 @@
     
                     $stmt = $conn->prepare("INSERT INTO `groupcomments` (toid, author, text, date) VALUES (?, ?, ?, now())");
                     $stmt->bind_param("iss", $_GET['id'], $_SESSION['user'], $text);
-                    $unprocessedText = replaceBBcodes($_POST['comment']);
-//                    $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
                     $text = $_POST['comment'];
                     $stmt->execute();
                     $stmt->close();
