@@ -17,4 +17,3 @@ function isAdmin($user, $conn) {
     }
     $stmt->close();
 }
-?>

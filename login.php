@@ -56,7 +56,7 @@
                     }
                     skip2fa:
 
-                    if($rememberMe == true) {
+                    if($rememberMe) {
                         session_write_close();
                         session_set_cookie_params("2678400");
                         ini_set('session.gc_maxlifetime', 2678400);

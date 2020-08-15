@@ -25,5 +25,3 @@ if(isset($_SESSION['user'])) {
 } else {
     die("you're not loged in");
 }
-
-?>

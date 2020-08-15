@@ -17,4 +17,3 @@ if(isset($_SESSION['user'])) {
 } else {
     die("not logged in");
 }
-?>
