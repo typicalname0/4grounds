@@ -88,63 +88,56 @@ function checkIfFriended($friend1, $friend2, $connection)
 }
 
 function getUser($id, $connection) {
+	$userResult = array();
 	$stmt = $connection->prepare("SELECT * FROM users WHERE id = ?");
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	if($result->num_rows === 0) echo('That user does not exist.');
 	while($row = $result->fetch_assoc()) {
-		$username = $row['username'];
-		$id = $row['id'];
-		$date = $row['date'];
-		$bio = $row['bio'];
-		$css = $row['css'];
-		$pfp = $row['pfp'];
-		$badges = explode(';', $row['badges']);
-		$music = $row['music'];
+		$userResult['username'] = $row['username'];
+		$userResult['id'] = $row['id'];
+		$userResult['date'] = $row['date'];
+		$userResult['bio'] = $row['bio'];
+		$userResult['css'] = $row['css'];
+		$userResult['pfp'] = $row['pfp'];
+		$userResult['badges'] = explode(';', $row['badges']);
+		$userResult['music'] = $row['music'];
 	}
 	$stmt->close();
 
 	$stmt = $connection->prepare("SELECT * FROM gamecomments WHERE author = ?");
-	$stmt->bind_param("s", $username);
+	$stmt->bind_param("s", $userResult['username']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 
-	$comments = 0;
+	$userResult['comments'] = 0;
 	while($row = $result->fetch_assoc()) {
-		$comments++;
+		$userResult['comments']++;
 	}
 	$stmt->close();
 
 	$stmt = $connection->prepare("SELECT * FROM comments WHERE author = ?");
-	$stmt->bind_param("s", $username);
+	$stmt->bind_param("s", $userResult['username']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 
-	$profilecomments = 0;
+	$userResult['profilecomments'] = 0;
 	while($row = $result->fetch_assoc()) {
-		$profilecomments++;
+		$userResult['profilecomments']++;
 	}
 	$stmt->close();
 
 	$stmt = $connection->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
-	$stmt->bind_param("s", $username);
+	$stmt->bind_param("s", $userResult['username']);
 	$stmt->execute();
 	$result = $stmt->get_result();
 
-	$filesuploaded = 0;
+	$userResult['filesuploaded'] = 0;
 	while($row = $result->fetch_assoc()) {
-		$filesuploaded++;
+		$userResult['filesuploaded']++;
 	}
 	$stmt->close();
-	return array(
-		'id' => $id,
-		'date' => $date,
-		'bio' => $bio,
-		'css' => $css,
-		'pfp' => $pfp,
-		'badges' => $badges,
-		'music' => $music
-	);
+	return $userResult;
 }
 ?>
