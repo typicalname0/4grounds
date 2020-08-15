@@ -10,12 +10,13 @@ a newgrounds inspired website
 # Requirements
 * Apache
 * MySQL 5.7+
+* PHP 7.4+
 * Composer
 
 # Setup
 1. Clone the repo to wherever documents are served (DocumentRoot)
 2. Set up Composer in that directory
-3. `composer install`
+3. `php composer.phar install`
 4. Run fourground.sql to set up the database
 5. Configure the information in cfg/config.inc.php
 
