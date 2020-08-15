@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             if(isset($_SESSION['user'])) {
-                $target_dir = "midis/";
+                $target_dir = __DIR__ . "/midis/";
                 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
