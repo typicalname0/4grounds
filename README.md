@@ -1,9 +1,10 @@
 # 4grounds
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/typicalname0/4grounds/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/typicalname0/4grounds/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/typicalname0/4grounds/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/typicalname0/4grounds/?branch=master)
-a newgrounds inspired website
 [![Build Status](https://scrutinizer-ci.com/g/typicalname0/4grounds/badges/build.png?b=master)](https://scrutinizer-ci.com/g/typicalname0/4grounds/build-status/master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/typicalname0/4grounds/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+
+a newgrounds inspired website
 
 # Requirements
 * Apache/other web server
