@@ -69,10 +69,10 @@
                 <source src="/musicfiles/' . $filename . '">
                 </audio>';
             } else if($type == "image") {
-              echo "<img style='width: 10em;height: 10em;' src='images/" . $filename . "'>";
+              echo "<img style='max-width: 100%;' src='/images/" . $filename . "'>";
             } else if($type == "midi") {
                 echo "Note: It may take a few seconds for the MIDI to load.<br>";
-                echo "<a href='#' onClick=\"MIDIjs.play('midis/" . $filename . "');\">Play " . $title . "</a>";
+                echo "<a href='#' onClick=\"MIDIjs.play('/midis/" . $filename . "');\">Play " . $title . "</a>";
                 echo "<br><a href='#' onClick='MIDIjs.stop();'>Stop MIDI Playback</a>";
             } else if($type == "chiptune") {
                 //the way i did this absolutely sucks and im
@@ -200,7 +200,7 @@
             </script>
             <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/libopenmpt.js"></script>
             <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"></script>';
-            echo '<a class="song" data-modurl="midis/' . $filename . '" href="#">Play ' . $title . '</a>';
+            echo '<a class="song" data-modurl="/midis/' . $filename . '" href="#">Play ' . $title . '</a>';
             } else if($type == "news" || $type == "review") {
               //do nothing
             } else if($type == "video") {
