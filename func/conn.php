@@ -1,5 +1,5 @@
 <?php
-    require(__DIR__ . "../cfg/config.inc.php");
+    require(__DIR__ . "/../cfg/config.inc.php");
     
     $lasterr = error_reporting();
     error_reporting(0); // make sure to comment this line out if you're debugging
