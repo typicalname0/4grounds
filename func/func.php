@@ -137,5 +137,14 @@ function getUser($id, $connection) {
 		$filesuploaded++;
 	}
 	$stmt->close();
+	return array(
+		'id' => $id,
+		'date' => $date,
+		'bio' => $bio,
+		'css' => $css,
+		'pfp' => $pfp,
+		'badges' => $badges,
+		'music' => $music
+	);
 }
 ?>
