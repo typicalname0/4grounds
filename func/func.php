@@ -5,7 +5,7 @@ require(__DIR__ . "/../vendor/autoload.php");
 
 define("DEBUG_MODE", true);
 session_start();
-if(DEBUG_MODE == true) {
+if(isset(DEBUG_MODE) && DEBUG_MODE) {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
@@ -19,7 +19,7 @@ function validateCSS($validate) {
 }
 function validateMarkdown($comment) {
 	$markdown = new Michelf\Markdown;
-	$markdown->no_markup = "true";
+	$markdown->no_markup = true;
 	$transformed = $markdown->transform($comment);
 	return preg_replace(
 		"/<a href=(?:'|\")javascript:(.*?)(?:'|\")>(.*?)<\/a>/i",
@@ -88,13 +88,8 @@ function checkIfFriended($friend1, $friend2, $connection)
 	return false;
 }
 
-//thanks dzhaugasharov https://gist.github.com/afsalrahim/bc8caf497a4b54c5d75d
-function replaceBBcodes($text) {
-	return bbcode_to_html($text);
-}
-
-function getUser($id) {
-	$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+function getUser($id, $connection) {
+	$stmt = $connection->prepare("SELECT * FROM users WHERE id = ?");
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
 	$result = $stmt->get_result();
@@ -111,7 +106,7 @@ function getUser($id) {
 	}
 	$stmt->close();
 
-	$stmt = $conn->prepare("SELECT * FROM gamecomments WHERE author = ?");
+	$stmt = $connection->prepare("SELECT * FROM gamecomments WHERE author = ?");
 	$stmt->bind_param("s", $username);
 	$stmt->execute();
 	$result = $stmt->get_result();
@@ -122,7 +117,7 @@ function getUser($id) {
 	}
 	$stmt->close();
 
-	$stmt = $conn->prepare("SELECT * FROM comments WHERE author = ?");
+	$stmt = $connection->prepare("SELECT * FROM comments WHERE author = ?");
 	$stmt->bind_param("s", $username);
 	$stmt->execute();
 	$result = $stmt->get_result();
@@ -133,7 +128,7 @@ function getUser($id) {
 	}
 	$stmt->close();
 
-	$stmt = $conn->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
+	$stmt = $connection->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
 	$stmt->bind_param("s", $username);
 	$stmt->execute();
 	$result = $stmt->get_result();

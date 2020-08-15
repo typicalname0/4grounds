@@ -23,4 +23,4 @@
     }
 
     error_reporting($lasterr);
-?>
+
