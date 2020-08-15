@@ -2,6 +2,9 @@
 *~
 \#*\#
 
+# config
+/cfg/config.inc.php
+
 # oooo we're so fancy
 # we make our OS put useless files everywhere
 # ooooooooo
