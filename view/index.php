@@ -4,8 +4,8 @@
         <link rel="stylesheet" href="../css/global.css">
         <link rel="stylesheet" href="../css/header.css">
         <?php
-            require(__DIR__ . "../func/func.php");
-            require(__DIR__ . "../func/conn.php"); 
+            require(__DIR__ . "/../func/func.php");
+            require(__DIR__ . "/../func/conn.php"); 
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM files WHERE id = ?");
@@ -33,7 +33,7 @@
         <title>4Grounds - Hub</title>
     </head>
     <body> 
-        <?php require(__DIR__ . "../important/header.php"); ?>
+        <?php require(__DIR__ . "/../important/header.php"); ?>
         
         <div class="container">
             <?php

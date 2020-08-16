@@ -4,8 +4,8 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <?php
-            require(__DIR__ . "../func/func.php");
-            require(__DIR__ . "../func/conn.php"); 
+            require(__DIR__ . "/../func/func.php");
+            require(__DIR__ . "/../func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
         <style type="text/css">
@@ -17,7 +17,7 @@
         </style>
     </head>
     <body> 
-        <?php require(__DIR__ . "../important/header.php"); ?>
+        <?php require(__DIR__ . "/../important/header.php"); ?>
         
         <div class="container">
             <?php
