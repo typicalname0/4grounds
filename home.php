@@ -43,10 +43,12 @@
             $stmt->close();
             header("Location: home.php");
         } else if(@$_POST['submit']) {
-            $target_dir = "pfp/";
-            $target_file = basename($_FILES["fileToUpload"]["name"]);
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-            $target_file = $target_dir . getID($_SESSION['user'], $conn) . "." . $imageFileType;
+            $target_dir = "dynamic/pfp/";
+            $target_name = md5_file($_FILES["fileToUpload"]["tmp_name"]);
+            $imageFileType = strtolower(pathinfo($$_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
+
+            $target_file = $target_dir . $target_name . "." . $imageFileType;
+            
             $uploadOk = 1;
             if(isset($_POST["submit"])) {
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -65,7 +67,7 @@
                 echo 'unsupported file type. must be jpg, png, jpeg, or gif<hr>';
                 $uploadOk = 0;
             }
-            if ($uploadOk == 0) { } else {
+            if ($uploadOk == 1) {
                 $target_file = $target_dir . getID($_SESSION['user'], $conn) . "." . $imageFileType;
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $stmt = $conn->prepare("UPDATE users SET pfp = ? WHERE `users`.`username` = ?;");

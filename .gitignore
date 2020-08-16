@@ -19,7 +19,7 @@ composer.phar
 composer.lock
 
 # user profile pictures and songs
-/pfp/*
-!/pfp/default.jpg
+/dynamic/pfp/*
+!/dynamic/pfp/default.jpg
 /music/*
 !/music/default.mp3

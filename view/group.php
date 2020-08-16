@@ -53,7 +53,7 @@
                         $id = $row['id'];
                         ?>
                         <img style='border: 1px solid white; width: 5em;'
-                             src='/pfp/<?php echo getPFP($row["author"], $conn);?>'>
+                             src='/dynamic/pfp/<?php echo getPFP($row["author"], $conn);?>'>
                         <span style='float: right;text-align: right;'>
                             <a href='/view/group?id=<?php echo $row["id"];?>' style='color: gold;font-size:1.5em'>
                                 <?php echo $row['title'];?>
@@ -118,7 +118,7 @@
                                     <div>
                                         <a style='float: right;' href='/view/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
                                         <br>
-                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
+                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='/dynamic/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                                     </div>
                                 </div>
                         <?php } ?>

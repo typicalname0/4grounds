@@ -39,7 +39,7 @@
                         </div> ";  
                     } else if($row['type'] == "news" || $row['type'] == "review") {
                         echo "<small>
-                        <img style='position: absolute;border: 1px solid white; width: 5em;' src='/pfp/" . getPFP($row['author'], $conn) . "'>
+                        <img style='position: absolute;border: 1px solid white; width: 5em;' src='/dynamic/pfp/" . getPFP($row['author'], $conn) . "'>
                         <a href='/view?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
                         <span style='float:right;'><small><i>Posted by <a href='/view/profile?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                         <span style='float:right;'>" . $row['date'] . "</small></span><br>

@@ -32,7 +32,7 @@
                 echo '<style>' . $css . '</style>';
                 echo '<meta property="og:title" content="' . $username . ' \'s 4Grounds profile" />';
                 echo '<meta property="og:description" content="' . htmlspecialchars($bio) . '" />';
-                echo '<meta property="og:image" content="https://spacemy.xyz/pfp/' . $pfp . '" />';
+                echo '<meta property="og:image" content="https://spacemy.xyz/dynamic/pfp/' . $pfp . '" />';
             }
         }
         $stmt->close();
@@ -92,7 +92,7 @@
                     <div class="notegray">
                         <center>
                         <br>
-                        <img style="border: 1px solid white; width: 15em;" src="/pfp/<?php echo $pfp; ?>">
+                        <img style="border: 1px solid white; width: 15em;" src="/dynamic/pfp/<?php echo $pfp; ?>">
                         </center>
                         <hr style="border-top: 1px dashed gray;">
                         <div id="userinfo" style="padding-left: 20px;">
@@ -170,7 +170,7 @@
                                     <div>
                                         <a style='float: right;' href='/view/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
                                         <br>
-                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
+                                        <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='/dynamic/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                                     </div>
                                 </div>
                         <?php } ?>
