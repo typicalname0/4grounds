@@ -210,10 +210,10 @@
                     <a href="/newnews">Make a News Post</a><br>
                     <a href="/newreview">Make a Review Post</a><hr>
                     <a href="/upload/midi">Upload MIDI</a><br>
-                    <a href="/upload/music">Upload Song</a><br>
+                    <a href="/upload/song">Upload Song</a><br>
                     <a href="/upload/game">Upload Game</a><br>
-                    <a href="/upload/animation">Upload Video</a><br>
-                    <a href="/upload/art">Upload Image</a><br>
+                    <a href="/upload/video">Upload Video</a><br>
+                    <a href="/upload/image">Upload Image</a><br>
                     <a href="/upload/chiptune">Upload a Chiptune</a>
                     <hr>
 
