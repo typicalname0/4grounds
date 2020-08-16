@@ -38,11 +38,9 @@
                 $stmt->close();
             }
             skipcomment:
-
-            if(isset($id)) {?>
+            ?>
                 
 
-            <?php } else { ?>
             <div class="leftHalf">
                 <div class="note" style="background-color: #202020;">
                     <h1>4Grounds - Hub</h1>
@@ -132,7 +130,6 @@
                 </div><br>
 
             </div>
-            <?php } ?>
         </div>
     </body>
 </html>
