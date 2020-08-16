@@ -2,7 +2,7 @@
     require(__DIR__ . "/../cfg/config.inc.php");
     
     $lasterr = error_reporting();
-    if ($config['debug_sql']) {
+    if (!$config['debug_sql']) {
         error_reporting(0);
     }
 
