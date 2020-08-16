@@ -23,10 +23,3 @@ composer.lock
 !/pfp/default.jpg
 /music/*
 !/music/default.mp3
-
-# uploaded images/games/midis/things
-/images/*
-/gamefiles/*
-/videos/*
-/midis/*
-/musicfiles/*

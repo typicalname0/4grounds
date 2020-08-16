@@ -28,7 +28,7 @@
                         echo '<b><a href="/view?id=' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</b></a> <span style="float:right;"><small>Uploader: <b>' . $row['author'] . '</b></small></span><br>
                         ' . $row['extrainfo'] . '<br>
                         <audio controls>
-                        <source src="/musicfiles/' . $row['filename'] . '">
+                        <source src="/dynamic/song/' . $row['filename'] . '">
                         </audio><hr>';
                     } else if($row['type'] == "image") {
                         //im sorry for this abomination

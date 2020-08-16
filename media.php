@@ -28,7 +28,7 @@
                     <br><br>" . $row['extrainfo'] . "</small>";
                     echo '<br>
                     <audio controls>
-                        <source src="musicfiles/' . $row['filename'] . '">
+                        <source src="/dynamic/song/' . $row['filename'] . '">
                     </audio><br>';
                 }
             ?>
@@ -45,7 +45,7 @@
                     <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                     <span style='float:right;'>" . $row['date'] . "</small></span><br>
                     <br><br>" . $row['extrainfo'] . "</small><br>";
-                    echo '<embed src="gamefiles/' . $row['filename'] . '"  height="300px" width="500px"> </embed>';
+                    echo '<embed src="/dynamic/game/' . $row['filename'] . '"  height="300px" width="500px"> </embed>';
                 }
             ?>
         </div>

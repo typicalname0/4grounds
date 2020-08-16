@@ -209,12 +209,12 @@
                     <a href="https://discord.gg/4YVGbND">Join Our Discord</a><br>
                     <a href="/newnews">Make a News Post</a><br>
                     <a href="/newreview">Make a Review Post</a><hr>
-                    <a href="/uploadmidi">Upload MIDI</a><br>
-                    <a href="/uploadmusic">Upload Song</a><br>
-                    <a href="/uploadgame">Upload Game</a><br>
-                    <a href="/uploadanimation">Upload Video</a><br>
-                    <a href="/uploadart">Upload Image</a><br>
-                    <a href="/uploadchiptune">Upload a Chiptune</a>
+                    <a href="/upload/midi">Upload MIDI</a><br>
+                    <a href="/upload/music">Upload Song</a><br>
+                    <a href="/upload/game">Upload Game</a><br>
+                    <a href="/upload/animation">Upload Video</a><br>
+                    <a href="/upload/art">Upload Image</a><br>
+                    <a href="/upload/chiptune">Upload a Chiptune</a>
                     <hr>
 
                     <a href="/media">Featured</a><br>

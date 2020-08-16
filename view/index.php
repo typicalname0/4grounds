@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+e<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="../css/global.css">
@@ -66,13 +66,13 @@
             <?php 
             if($type == "song") {
                 echo '<audio controls>
-                <source src="/musicfiles/' . $filename . '">
+va                <source src="/dynamic/song/' . $filename . '">
                 </audio>';
             } else if($type == "image") {
-              echo "<img style='max-width: 100%;' src='/images/" . $filename . "'>";
+              echo "<img style='max-width: 100%;' src='/dynamic/image/" . $filename . "'>";
             } else if($type == "midi") {
                 echo "Note: It may take a few seconds for the MIDI to load.<br>";
-                echo "<a href='#' onClick=\"MIDIjs.play('/midis/" . $filename . "');\">Play " . $title . "</a>";
+                echo "<a href='#' onClick=\"MIDIjs.play('/dynamic/midi/" . $filename . "');\">Play " . $title . "</a>";
                 echo "<br><a href='#' onClick='MIDIjs.stop();'>Stop MIDI Playback</a>";
             } else if($type == "chiptune") {
                 //the way i did this absolutely sucks and im
@@ -200,15 +200,15 @@
             </script>
             <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/libopenmpt.js"></script>
             <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"></script>';
-            echo '<a class="song" data-modurl="/midis/' . $filename . '" href="#">Play ' . $title . '</a>';
+            echo '<a class="song" data-modurl="/dynamic/chiptune/' . $filename . '" href="#">Play ' . $title . '</a>';
             } else if($type == "news" || $type == "review") {
               //do nothing
             } else if($type == "video") {
               echo ' <video width="640" height="400" controls>
-                  <source src="/videos/' . $filename . '" type="video/mp4">
+                  <source src="/dynamic/video/' . $filename . '" type="video/mp4">
                 </video> ';
             } else {
-                echo '<embed src="/gamefiles/' . $filename . '"  height="300px" width="500px"> </embed>';
+                echo '<embed src="/dynamic/game/' . $filename . '"  height="300px" width="500px"> </embed>';
             }
             ?>
             <h2>User Submitted Comments</h2>
