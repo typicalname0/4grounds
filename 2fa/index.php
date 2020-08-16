@@ -2,8 +2,8 @@
 <html>
     <head>
         <?php
-            require(__DIR__ . "/func/conn.php");
-            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/../func/conn.php");
+            require(__DIR__ . "/../func/func.php");
             requireLogin();
 
             $stmt = $conn->prepare("SELECT `otpsecret`, `otpbackupcode` FROM `users` WHERE `username` = ?");
@@ -18,16 +18,16 @@
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body>
-        <?php require(__DIR__ . "/important/header.php"); ?>
+        <?php require(__DIR__ . "/../important/header.php"); ?>
         <div class="container">
              <h1>2-Factor Authentication</h1>
              2FA status: <?php if ($otpstatus) {echo "enabled";} else {echo "disabled";}?><br>
              <?php if ($otpstatus) {echo "Backup code: " . $result->fetch_assoc()['otpbackupcode'];} ?><br><br>
              <button>
              <?php if ($otpstatus) { ?>
-             <a href="/disable2fa">Disable 2FA</a>
+             <a href="/2fa/disable">Disable 2FA</a>
              <?php } else { ?>
-             <a href="/enable2fa">Enable 2FA</a>
+             <a href="/2fa/enable">Enable 2FA</a>
              <?php } ?>
              </button>
         </div>
