@@ -1,8 +1,8 @@
 <?php
 return function($type, $allowedFileTypes) {
     if(isset($_SESSION['user'])) {
-        $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $target_dir = __DIR__ . "/dynamic/" . $type . "/";
+        $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
+        $target_dir = __DIR__ . "/../dynamic/" . $type . "/";
         $target_name = md5_file($_FILES["fileToUpload"]["tmp_name"]) . "." . $fileType;
         $target_file = $target_dir . $target_name;
         $uploadOk = 1;
