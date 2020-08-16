@@ -33,7 +33,7 @@
     <span style="float:right;">
         <?php if(isset($_SESSION['user'])) {?>
         Logged in as 
-        <a href='/?id=<?php echo(getID($_SESSION['user'], $conn));?>'>
+        <a href='/profile?id=<?php echo(getID($_SESSION['user'], $conn));?>'>
             <?php echo($_SESSION['user']);?>
         </a>
         &bull; <a href='/home'>Manage</a>

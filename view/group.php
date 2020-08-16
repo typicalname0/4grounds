@@ -61,7 +61,7 @@
                             <small>
                                 <i>
                                     Created by
-                                    <a href='/?id=<?php echo getID($row["author"], $conn);?>'>
+                                    <a href='/profile?id=<?php echo getID($row["author"], $conn);?>'>
                                         <?php echo $row['author'];?>
                                     </a>
                                 </i><br>
@@ -116,7 +116,7 @@
                                         <?php echo validateMarkdown($row['text']);?>
                                     </div>
                                     <div>
-                                        <a style='float: right;' href='/?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                                        <a style='float: right;' href='/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
                                         <br>
                                         <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                                     </div>
@@ -134,7 +134,7 @@
 
                         echo "<ul>";
                         while ($row = $result->fetch_assoc()) {
-                            echo "<li><a href='/?id=" . $row['id'] . "'>". $row['username'] . "</a></li>";
+                            echo "<li><a href='/profile?id=" . $row['id'] . "'>". $row['username'] . "</a></li>";
                         }
                         echo "</ul>";
                     ?>
