@@ -1,5 +1,4 @@
 <?php
-require(__DIR__ . "/func.php");
 require(__DIR__ . "/conn.php"); 
 
 return function($type, $allowedFileTypes) {
