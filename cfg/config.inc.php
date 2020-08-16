@@ -11,7 +11,7 @@
 */
     $config = array();
 
-    include("config.inc.php");
+    include("defaults.inc.php");
 
     // $config['database_host'] = 'localhost';
     // $config['database_database'] = 'fourground';
