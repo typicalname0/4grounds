@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             $register = require(__DIR__ . "/../func/upload.php");
-            $register("image", ["gif", "png", "jpg", "jpeg"]);
+            $register("image", ["gif", "png", "jpg", "jpeg"], $conn);
         }
         ?>
         

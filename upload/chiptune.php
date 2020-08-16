@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             $register = require(__DIR__ . "/../func/upload.php");
-            $register("chiptune", ["xm", "mod", "s3m", "it"]);
+            $register("chiptune", ["xm", "mod", "s3m", "it"], $conn);
         }
         ?>
         

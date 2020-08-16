@@ -1,5 +1,5 @@
 <?php
-return function($type, $allowedFileTypes) {
+return function($type, $allowedFileTypes, $conn) {
     if(isset($_SESSION['user'])) {
         $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
         $target_dir = __DIR__ . "/../dynamic/" . $type . "/";

@@ -14,7 +14,7 @@
         
         if(@$_POST['submit']) {
             $register = require(__DIR__ . "/../func/upload.php");
-            $register("midi", ["mid"]);
+            $register("midi", ["mid"], $conn);
         }
         ?>
         
