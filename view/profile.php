@@ -168,7 +168,7 @@
                                         <?php echo validateMarkdown($row['text']); ?>
                                     </div>
                                     <div>
-                                        <a style='float: right;' href='/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                                        <a style='float: right;' href='/view/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
                                         <br>
                                         <img class='commentPictures' style='float: right;' height='80px;'width='80px;'src='/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                                     </div>

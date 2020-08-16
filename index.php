@@ -73,7 +73,7 @@
                             echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='/pfp/" . getPFP($row['author'], $conn) . "'>
                             <small>
                             <a href='/view?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
-                            <span style='float:right;'><small><i>Posted by <a href='/profile?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                            <span style='float:right;'><small><i>Posted by <a href='/view/profile?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                             <span style='float:right;'>" . $row['date'] . "</small></span><br>
                             <br><br>" . $row['extrainfo'] . "</small><hr>";
                         }
@@ -89,7 +89,7 @@
                             echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='/pfp/" . getPFP($row['author'], $conn) . "'>
                             <small>
                             <a href='/view?id=" . $row['id'] . "'><span style='float:right;color: gold;'>[" . $row['agerating'] . "] <i>" . $row['title'] . "</a></i></span><br>
-                            <span style='float:right;'><small><i>Posted by <a href='/profile?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
+                            <span style='float:right;'><small><i>Posted by <a href='/view/profile?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                             <span style='float:right;'>" . $row['date'] . "</small></span><br>
                             <br><br>" . $row['extrainfo'] . "</small><hr>";
                         }
@@ -104,7 +104,7 @@
                             if($result->num_rows === 0) echo('There are no users.');
                             while($row = $result->fetch_assoc()) {
                                 $id = 1;
-                                echo "<div class='item" . $id . "'><img style='height: 8em;width: 8em;' src='/pfp/" . getPFP($row['username'], $conn) . "'><br><a href='/profile?id=" . $row['id'] . "'>" . $row['username'] . "</a></div>";
+                                echo "<div class='item" . $id . "'><img style='height: 8em;width: 8em;' src='/pfp/" . getPFP($row['username'], $conn) . "'><br><a href='/view/profile?id=" . $row['id'] . "'>" . $row['username'] . "</a></div>";
                                 $id = $id + 1;
                             }
                             $stmt->close();
