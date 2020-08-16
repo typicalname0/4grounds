@@ -1,6 +1,5 @@
 <?php
 require(__DIR__ . "/conn.php"); 
-require(__DIR__ . "/func.php");
 
 return function($type, $allowedFileTypes) {
     if(isset($_SESSION['user'])) {
