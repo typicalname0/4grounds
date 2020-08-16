@@ -1,6 +1,4 @@
 <?php
-require(__DIR__ . "/conn.php"); 
-
 return function($type, $allowedFileTypes) {
     if(isset($_SESSION['user'])) {
         $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
