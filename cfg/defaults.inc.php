@@ -19,4 +19,6 @@ $config['use_recaptcha'] = false;
 $config['recaptcha_secret'] = '';
 $config['recaptcha_sitekey'] = '';
 
+$config['debug_sql'] = false;
+
 ?>
