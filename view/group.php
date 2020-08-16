@@ -4,8 +4,8 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <?php
-            require(__DIR__ . "/func/func.php");
-            require(__DIR__ . "/func/conn.php"); 
+            require(__DIR__ . "../func/func.php");
+            require(__DIR__ . "../func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
         <style type="text/css">
@@ -17,7 +17,7 @@
         </style>
     </head>
     <body> 
-        <?php require(__DIR__ . "/important/header.php"); ?>
+        <?php require(__DIR__ . "../important/header.php"); ?>
         
         <div class="container">
             <?php
@@ -55,7 +55,7 @@
                         <img style='border: 1px solid white; width: 5em;'
                              src='/pfp/<?php echo getPFP($row["author"], $conn);?>'>
                         <span style='float: right;text-align: right;'>
-                            <a href='/viewgroup?id=<?php echo $row["id"];?>' style='color: gold;font-size:1.5em'>
+                            <a href='/view/group?id=<?php echo $row["id"];?>' style='color: gold;font-size:1.5em'>
                                 <?php echo $row['title'];?>
                             </a><br>
                             <small>
@@ -85,7 +85,7 @@
                     }
                     echo "<span style='float:right;'><a href='/joingroup?id=" . $id. "'><button>Join</button></a></span>";
                 } else {
-                    header("Location: viewgroups.php");
+                    header("Location: view/groups.php");
                 }
 
             ?><br>
