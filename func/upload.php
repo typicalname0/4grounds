@@ -5,7 +5,7 @@ return function($type, $allowedFileTypes, $conn) {
         $target_dir = __DIR__ . "/../dynamic/" . $type . "/";
         $target_name = md5_file($_FILES["fileToUpload"]["tmp_name"]) . "." . $fileType;
         $target_file = $target_dir . $target_name;
-        $uploadOk = 1;
+        $uploadOk = true;
         $movedFile = 0;
         
     
@@ -17,10 +17,10 @@ return function($type, $allowedFileTypes, $conn) {
 
         if(!in_array($fileType, $allowedFileTypes)) {
             echo 'unsupported file type. must be one of ' . join(", ", $allowedFileTypes) . '<hr>';
-            $uploadOk = 0;
+            $uploadOk = false;
         }
 
-        if ($uploadOk == 1) {
+        if ($uploadOk) {
             if ($movedFile) {
                 $stmt = $conn->prepare("INSERT INTO files (type, title, extrainfo, author, filename) VALUES (?, ?, ?, ?, ?)");
                 $stmt->bind_param("sssss", $type, $title, $description, $_SESSION['user'], $filename);

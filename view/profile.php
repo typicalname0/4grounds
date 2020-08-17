@@ -105,7 +105,7 @@
                         </div><br>
                         <?php if (!isset($_GET["ed"])) { ?>
                             <audio autoplay controls>
-                                <source src="/music/<?php echo $music; ?>">
+                                <source src="/dynamic/song/<?php echo $music; ?>">
                             </audio> 
                         <?php } ?>
                     </div>
