@@ -38,6 +38,15 @@ function requireLogin() {
 	}
 }
 
+function getGroup($id, $conn) {
+	$stmt = $conn->prepare("SELECT * FROM `groups` WHERE `id` = ?");
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	if ($result->num_rows === 0) return 'error';
+	return $result->fetch_assoc();
+}
+
 function getID($user, $connection) {
 	$stmt = $connection->prepare("SELECT * FROM users WHERE username = ?");
 	$stmt->bind_param("s", $user);
@@ -103,6 +112,8 @@ function getUser($id, $connection) {
 		$userResult['pfp'] = $row['pfp'];
 		$userResult['badges'] = explode(';', $row['badges']);
 		$userResult['music'] = $row['music'];
+		$userResult['rank'] = $row['rank'];
+		$userResult['currentgroup'] = $row['currentgroup'];
 	}
 	$stmt->close();
 

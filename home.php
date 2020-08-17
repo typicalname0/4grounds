@@ -163,11 +163,11 @@
 			document.getElementById("prevbtn").style.display = "none";
 
 			// Get style from window
-			document.getElementById("css_code").innerHTML = profile_window.document.getElementsByTagName("style")[0].innerHTML;
+			document.getElementById("css_code").innerHTML = profile_window.document.getElementById("userCSS").innerHTML;
 
 			// Any changes change css on preview
 			document.getElementById("css_code").onkeyup = () => {
-				profile_window.document.getElementsByTagName("style")[0].innerHTML = document.getElementById("css_code").value;
+				profile_window.document.getElementById("userCSS").innerHTML = document.getElementById("css_code").value;
 			};
 		};
 

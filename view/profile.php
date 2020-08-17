@@ -5,7 +5,13 @@
         <link rel="stylesheet" href="/static/css/header.css">
         <?php
             require(__DIR__ . "/../func/func.php");
-            require(__DIR__ . "/../func/conn.php"); 
+            require(__DIR__ . "/../func/conn.php");
+
+            $user = getUser($_GET['id'], $conn);
+            echo '<style id="userCSS">' . $user['css'] . '</style>';
+            echo '<meta property="og:title" content="' . $user['username'] . ' \'s 4Grounds profile" />';
+            echo '<meta property="og:description" content="' . htmlspecialchars($user['bio']) . '" />';
+            echo '<meta property="og:image" content="https://spacemy.xyz/dynamic/pfp/' . $user['pfp'] . '" />';
         ?>
         <title>4Grounds - Hub</title>
     </head>
@@ -26,101 +32,32 @@
             $stmt->close();
         }
         skipcomment:
-
-        $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-        $stmt->bind_param("i", $_GET['id']);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if($result->num_rows !== 0){ // echo('There are no users.'); // please just refuse to give a user if this is the case
-            while($row = $result->fetch_assoc()) { // you dont need to use a loop if its only ever gonna return 1 or 0
-                $username = $row['username']; // you dont actually need all of these variables oh my god just use an array
-                $id = $row['id'];
-                $date = $row['date'];
-                $currentgroup = $row['currentgroup'];
-                $bio = $row['bio'];
-                $css = $row['css'];
-                $pfp = htmlspecialchars($row['pfp']);
-                $rank = $row['rank'];
-                $badges = explode(';', $row['badges']);
-                $currentgroup = $row['currentgroup'];
-                $music = $row['music'];
-                echo '<style>' . $css . '</style>';
-                echo '<meta property="og:title" content="' . $username . ' \'s 4Grounds profile" />';
-                echo '<meta property="og:description" content="' . htmlspecialchars($bio) . '" />';
-                echo '<meta property="og:image" content="https://spacemy.xyz/dynamic/pfp/' . $pfp . '" />';
-            }
-        }
-        $stmt->close();
-
-        $stmt = $conn->prepare("SELECT * FROM `groups` WHERE id = ?");
-        $stmt->bind_param("i", $currentgroup);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if($result->num_rows !== 0){ //echo('There are no users.'); // why again
-            while($row = $result->fetch_assoc()) {
-                $grouptitle = $row['title'];
-            }
-        }else{
-            $grouptitle = "none";
-        }
-        $stmt->close();
-
-        $stmt = $conn->prepare("SELECT * FROM gamecomments WHERE author = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $comments = 0;
-        while($row = $result->fetch_assoc()) {
-            $comments++;
-        }
-        $stmt->close();
-
-        $stmt = $conn->prepare("SELECT * FROM comments WHERE author = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $profilecomments = 0;
-        while($row = $result->fetch_assoc()) {
-            $profilecomments++;
-        }
-        $stmt->close();
-
-        $stmt = $conn->prepare("SELECT * FROM files WHERE author = ? AND status='y'");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $filesuploaded = 0;
-        while($row = $result->fetch_assoc()) {
-            $filesuploaded++;
-        }
-        $stmt->close();
-
-
         ?>
-        
         <div class="container"><br>
-        <div id="groundtext"><center><h1><?php echo $username; ?>'s Ground</h1></center></div>
-                <div class="leftHalf">
-                    <div class="notegray">
-                        <center>
+            <div id="groundtext">
+                <center>
+                    <h1><?php echo $user['username']; ?>'s Ground</h1>
+                </center>
+            </div>
+            <div class="leftHalf">
+                <div class="notegray">
+                    <center>
                         <br>
-                        <img style="border: 1px solid white; width: 15em;" src="/dynamic/pfp/<?php echo $pfp; ?>">
-                        </center>
-                        <hr style="border-top: 1px dashed gray;">
-                        <div id="userinfo" style="padding-left: 20px;">
-                            <span style="color: gold;">Rank:</span> <?php echo $rank;?><br>
-                            <span style="color: gold;">ID:</span> <?php echo $id;?><br>
-                            <span style="color: gold;">Other Comments:</span> <?php echo $comments;?><br>
-                            <span style="color: gold;">Profile Comments:</span> <?php echo $profilecomments;?><br>
-                            <span style="color: gold;">Current Group:</span> <?php echo $grouptitle;?><br>
-                            <span style="color: gold;">Files Uploaded:</span> <?php echo $filesuploaded;?>
-                        </div><br>
+                        <img style="border: 1px solid white; width: 15em;" src="/dynamic/pfp/<?php echo $user['pfp']; ?>">
+                    </center>
+                    <hr style="border-top: 1px dashed gray;">
+                    <div id="userinfo" style="padding-left: 20px;">
+                        <span style="color: gold;">Rank:</span> <?php echo $user['rank'];?><br>
+                        <span style="color: gold;">ID:</span> <?php echo $user['id'];?><br>
+                        <span style="color: gold;">Other Comments:</span> <?php echo $user['comments'];?><br>
+                        <span style="color: gold;">Profile Comments:</span> <?php echo $user['profilecomments'];?><br>
+                        <?php $userGroup = getGroup($user['currentgroup'], $conn);?>
+                        <span style="color: gold;">Current Group:</span> <a href="/view/group?id=<?php echo $userGroup['id'];?>"><?php echo $userGroup['title'];?></a><br>
+                        <span style="color: gold;">Files Uploaded:</span> <?php echo $user['filesuploaded'];?>
+                    </div><br>
                         <?php if (!isset($_GET["ed"])) { ?>
                             <audio autoplay controls>
-                                <source src="/dynamic/song/<?php echo $music; ?>">
+                                <source src="/dynamic/song/<?php echo $user['music']; ?>">
                             </audio> 
                         <?php } ?>
                     </div>
@@ -145,7 +82,7 @@
                     <div id="badges" class="notegray">
                         <h1>Badges</h1>
                         <?php
-                            foreach($badges as $badge) {
+                            foreach($user['badges'] as $badge) {
                                 if($badge == "good") {
                                     echo "<img width='70px;' height='70px;' src='https://cdn.discordapp.com/attachments/740680780740821105/740776214523936808/340juojg3h.png'>";
                                 }
@@ -166,7 +103,7 @@
                     </div><br>
                     <div id="bio" class="notegray">
                         <h1>Bio</h1>
-                        <?php echo validateMarkdown($bio); ?>
+                        <?php echo validateMarkdown($user['bio']); ?>
                     </div><br><br>
                     <div id='comments'>
                         <?php
