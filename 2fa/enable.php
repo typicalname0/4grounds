@@ -37,8 +37,8 @@
             $totp->setIssuer('4grounds');
             $_SESSION['otpsecret'] = $secret;
         ?>
-        <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/static/css/global.css">
+        <link rel="stylesheet" href="/static/css/header.css">
     </head>
     <body>
         <?php require(__DIR__ . "/../important/header.php"); ?>
