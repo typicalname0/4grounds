@@ -6,10 +6,10 @@
             require(__DIR__ . "/func/conn.php"); 
         ?>
         <title>4Grounds - Hub</title>
-        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/static/css/global.css">
         <script src='https://www.google.com/recaptcha/api.js' async defer></script>
         <script>function onLogin(token){ document.getElementById('submitform').submit(); }</script>
-        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/static/css/header.css">
     </head>
     <body> 
         <?php 

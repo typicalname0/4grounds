@@ -22,8 +22,8 @@
             $stmt->close();
         ?>
         <title>4Grounds - Hub</title>
-        <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/static/css/global.css">
+        <link rel="stylesheet" href="/static/css/header.css">
     </head>
     <body> 
         <?php require(__DIR__ . "/important/header.php"); 
@@ -156,7 +156,7 @@
 	}
 
 	function loadpfwin() {
-		profile_window = window.open( `${webroot}/index.php?id=${profile_id}&ed`, "4gpreviewCSS", "width=920,height=600" );
+		profile_window = window.open( `${webroot}/view/profile?id=${profile_id}&ed`, "4gpreviewCSS", "width=920,height=600" );
 
 		profile_window.window.onload = () => {
 			// Disable Open Preview button
