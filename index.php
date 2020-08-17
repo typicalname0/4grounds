@@ -57,7 +57,7 @@
 
                     <a href="/media">Featured</a><br>
                     <?php 
-                    if(isset($_SESSION['user'])) { echo "<a href='/home'>Manage</a><br><a href='/files'>Files<a>"; }
+                    if(isset($_SESSION['user'])) { echo "<a href='/home'>Manage</a><br><a href='/files'>Files</a>"; }
                     ?>
                 </div>
                 <br>
