@@ -2,8 +2,8 @@
 <html>
     <head>
         <?php
-            require(__DIR__ . "/func/conn.php");
-            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/../func/conn.php");
+            require(__DIR__ . "/../func/func.php");
             requireLogin();
             // check 2fa status
             $stmt = $conn->prepare("SELECT `otpsecret` FROM `users` WHERE `username` = ?");
@@ -11,7 +11,7 @@
             $stmt->execute();
             $result = $stmt->get_result();
             if (isset($result->fetch_assoc()['otpsecret'])) {
-                header("Location: /2fa.php"); die();
+                header("Location: /2fa"); die();
             }
 
             if (isset($_POST["set2fa"])) {
@@ -22,7 +22,7 @@
                     $stmt->bind_param("sss", $_SESSION['otpsecret'], $backupcode, $_SESSION['user']);
                     $stmt->execute();
                     unset($_SESSION['otpsecret']);
-                    header("Location: /2fa.php"); die();
+                    header("Location: /2fa"); die();
                 } else {
                     $err = "Invalid code. Please try again.";
                 }
@@ -41,7 +41,7 @@
         <link rel="stylesheet" href="/css/header.css">
     </head>
     <body>
-        <?php require(__DIR__ . "/important/header.php"); ?>
+        <?php require(__DIR__ . "/../important/header.php"); ?>
         <div class="container">
             <?php if (isset($err)) {echo "<b style='color:red;'>" . $err . "</b><br><br>";}?>
             To enable 2FA, scan the following QR code with your authenticator app:<br><br>

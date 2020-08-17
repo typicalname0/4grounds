@@ -20,7 +20,7 @@
                 $stmt->execute();
                 $result = $stmt->get_result();
                 while($row = $result->fetch_assoc()) {
-                    echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                    echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='/dynamic/pfp/" . getPFP($row['author'], $conn) . "'>
                     <small>
                     <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
                     <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
@@ -28,7 +28,7 @@
                     <br><br>" . $row['extrainfo'] . "</small>";
                     echo '<br>
                     <audio controls>
-                        <source src="musicfiles/' . $row['filename'] . '">
+                        <source src="/dynamic/song/' . $row['filename'] . '">
                     </audio><br>';
                 }
             ?>
@@ -39,13 +39,13 @@
                 $stmt->execute();
                 $result = $stmt->get_result();
                 while($row = $result->fetch_assoc()) {
-                    echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='pfp/" . getPFP($row['author'], $conn) . "'>
+                    echo "<br><img style='height: 5em;position: absolute;border: 1px solid white; width: 5em;' src='/dynamic/pfp/" . getPFP($row['author'], $conn) . "'>
                     <small>
                     <a href='view.php?id=" . $row['id'] . "'><span style='float:right;color: gold;'><i>[" . $row['agerating'] . "] " . $row['title'] . "</a></i></span><br>
                     <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a></i></span><br>
                     <span style='float:right;'>" . $row['date'] . "</small></span><br>
                     <br><br>" . $row['extrainfo'] . "</small><br>";
-                    echo '<embed src="gamefiles/' . $row['filename'] . '"  height="300px" width="500px"> </embed>';
+                    echo '<embed src="/dynamic/game/' . $row['filename'] . '"  height="300px" width="500px"> </embed>';
                 }
             ?>
         </div>

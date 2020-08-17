@@ -20,7 +20,7 @@ if(isset($_SESSION['user'])) {
 
         header("Location: index.php");
     } else {
-        header("Location: viewgroups.php");
+        header("Location: view/groups.php");
     }
 } else {
     die("you're not loged in");
