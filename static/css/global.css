@@ -39,3 +39,5 @@ a {
 .note h1, .notegray h1 {
     margin: 0px;
 }
+
+.commentText img {max-width: 100%;}

@@ -114,7 +114,7 @@
                             
                             while($row = $result->fetch_assoc()) { ?>
                                 <div class='commentRight' style='display: grid; grid-template-columns: 75% auto; padding:5px;'>
-                                    <div style="word-wrap: break-word;">
+                                    <div class="commentText" style="word-wrap: break-word;">
                                         <small><?php echo $row['date']; ?></small>
                                         <br>
                                         <?php echo validateMarkdown($row['text']); ?>

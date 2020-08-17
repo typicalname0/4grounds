@@ -109,11 +109,10 @@
                 <?php while($row = $result->fetch_assoc()) { ?>
                 <div class='commentRight' style='display: grid; grid-template-columns: auto 85%; padding:5px;'>
                     <div>
-                        <a style='float: left;' href='/view/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
-                        <br>
+                        <a style='float: left;' href='/view/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a><br>
                         <img class='commentPictures' style='float: left;' height='80px;'width='80px;'src='/dynamic/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                     </div>
-                    <div style="word-wrap: break-word;">
+                    <div class="commentText" style="word-wrap: break-word;">
                         <small><?php echo $row['date']; ?></small>
                         <?php echo validateMarkdown($row['text']);?>
                     </div>
