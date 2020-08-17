@@ -156,7 +156,7 @@
 	}
 
 	function loadpfwin() {
-		profile_window = window.open( `${webroot}/index.php?id=${profile_id}&ed`, "4gpreviewCSS", "width=920,height=600" );
+		profile_window = window.open( `${webroot}/view/profile?id=${profile_id}&ed`, "4gpreviewCSS", "width=920,height=600" );
 
 		profile_window.window.onload = () => {
 			// Disable Open Preview button
