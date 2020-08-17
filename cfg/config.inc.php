@@ -1,14 +1,14 @@
 <?php
-/*
-    *    ██   ██  ██████  ██████   ██████  ██    ██ ███    ██ ██████  ███████ 
-    *    ██   ██ ██       ██   ██ ██    ██ ██    ██ ████   ██ ██   ██ ██      
-    *    ███████ ██   ███ ██████  ██    ██ ██    ██ ██ ██  ██ ██   ██ ███████ 
-    *         ██ ██    ██ ██   ██ ██    ██ ██    ██ ██  ██ ██ ██   ██      ██ 
-    *         ██  ██████  ██   ██  ██████   ██████  ██   ████ ██████  ███████ 
-                                                                        
-    *   4Grounds configuration file. See default values and all options in defaults.inc.php
-    *   Uncomment values by removing the // before changing!
-*/
+//
+//    ██   ██  ██████  ██████   ██████  ██    ██ ███    ██ ██████  ███████ 
+//    ██   ██ ██       ██   ██ ██    ██ ██    ██ ████   ██ ██   ██ ██      
+//    ███████ ██   ███ ██████  ██    ██ ██    ██ ██ ██  ██ ██   ██ ███████ 
+//         ██ ██    ██ ██   ██ ██    ██ ██    ██ ██  ██ ██ ██   ██      ██ 
+//         ██  ██████  ██   ██  ██████   ██████  ██   ████ ██████  ███████ 
+//
+//   4Grounds configuration file. See default values and all options in defaults.inc.php
+//   Uncomment values by removing the // before changing!
+//
     $config = array();
 
     include("defaults.inc.php");
