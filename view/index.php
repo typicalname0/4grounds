@@ -64,151 +64,31 @@ e<!DOCTYPE html>
                 <br><br>" . $extrainfo . "</small><hr>";
             ?>
             <?php 
-            if($type == "song") {
-                echo '<audio controls>
-va                <source src="/dynamic/song/' . $filename . '">
-                </audio>';
-            } else if($type == "image") {
-              echo "<img style='max-width: 100%;' src='/dynamic/image/" . $filename . "'>";
-            } else if($type == "midi") {
-                echo "Note: It may take a few seconds for the MIDI to load.<br>";
-                echo "<a href='#' onClick=\"MIDIjs.play('/dynamic/midi/" . $filename . "');\">Play " . $title . "</a>";
-                echo "<br><a href='#' onClick='MIDIjs.stop();'>Stop MIDI Playback</a>";
-            } else if($type == "chiptune") {
-                //the way i did this absolutely sucks and im
-                echo '<script type="text/javascript">
-                window["libopenmpt"] = {};
-                libopenmpt.locateFile = function (filename) {
-                  return "//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/" + filename;
-                };
-                libopenmpt.onRuntimeInitialized = function () {
-                  var player;
-            
-                  function init() {
-                    if (player == undefined) {
-                      player = new ChiptuneJsPlayer(new ChiptuneJsConfig(-1));
-                    }
-                    else {
-                      player.stop();
-                      playPauseButton();
-                    }
-                  }
-            
-                  function setMetadata(filename) {
-                    var metadata = player.metadata();
-                    if (metadata["title"] != "") {
-                      document.getElementById("title").innerHTML = metadata["title"];
-                    }
-                    else {
-                      document.getElementById("title").innerHTML = filename;
-                    }
-            
-                    if (metadata["artist"] != "") {
-                      document.getElementById("artist").innerHTML = "<br />" + metadata["artist"];
-                    }
-                    else {
-                      document.getElementById("artist").innerHTML = "";
-                    }
-                  }
-            
-                  function afterLoad(path, buffer) {
-                    document.querySelectorAll("#pitch,#tempo").forEach(e => e.value = 1);
-                    player.play(buffer);
-                    setMetadata(path);
-                    pausePauseButton();
-                  }
-            
-                  function loadURL(path) {
-                    init();
-                    player.load(path, afterLoad.bind(this, path));
-                  }
-            
-                  function pauseButton() {
-                    player.togglePause();
-                    switchPauseButton();
-                  }
-            
-                  function switchPauseButton() {
-                    var button = document.getElementById("pause")
-                    if (button) {
-                      button.id = "play_tmp";
-                    }
-                    button = document.getElementById("play")
-                    if (button) {
-                      button.id = "pause";
-                    }
-                    button = document.getElementById("play_tmp")
-                    if (button) {
-                      button.id = "play";
-                    }
-                  }
-            
-                  function playPauseButton() {
-                    var button = document.getElementById("pause")
-                    if (button) {
-                      button.id = "play";
-                    }
-                  }
-            
-                  function pausePauseButton() {
-                    var button = document.getElementById("play")
-                    if (button) {
-                      button.id = "pause";
-                    }
-                  }
-            
-                  var fileaccess = document.querySelector("*");
-                  fileaccess.ondrop = function (e) {
-                    e.preventDefault();
-                    var file = e.dataTransfer.files[0];
-                    init();
-            
-                    player.load(file, afterLoad.bind(this, path));
-                  }
-            
-                  fileaccess.ondragenter = function (e) { e.preventDefault(); }
-                  fileaccess.ondragover = function (e) { e.preventDefault(); }
-            
-                  document.querySelectorAll(".song").forEach(function (e) {
-                    e.addEventListener("click", function (evt) {
-                      modurl = evt.target.getAttribute("data-modurl");
-                      loadURL(modurl);
-                    }, false);
-                  });
-            
-                  document.querySelector("input[name=files]").addEventListener("change", function (evt) {
-                    loadURL(evt.target.files[0]);
-                  });
-            
-                  document.querySelector("input[name=submiturl]").addEventListener("click", function () {
-                    var exturl = document.querySelector("input[name=exturl]");
-                    modurl = exturl.value;
-                    loadURL(modurl);
-                    exturl.value = null;
-                  });
-            
-                  document.querySelector("#play").addEventListener("click", pauseButton, false);
-            
-                  document.querySelector("#pitch").addEventListener("input", function (e) {
-                    player.module_ctl_set("play.pitch_factor", e.target.value.toString());
-                  }, false);
-            
-                  document.querySelector("#tempo").addEventListener("input", function (e) {
-                    player.module_ctl_set("play.tempo_factor", e.target.value.toString());
-                  }, false);
-                };
-            </script>
-            <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/libopenmpt.js"></script>
-            <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"></script>';
-            echo '<a class="song" data-modurl="/dynamic/chiptune/' . $filename . '" href="#">Play ' . $title . '</a>';
-            } else if($type == "news" || $type == "review") {
-              //do nothing
-            } else if($type == "video") {
-              echo ' <video width="640" height="400" controls>
-                  <source src="/dynamic/video/' . $filename . '" type="video/mp4">
-                </video> ';
-            } else {
-                echo '<embed src="/dynamic/game/' . $filename . '"  height="300px" width="500px"> </embed>';
+            switch($type) {
+                case "song":
+                    echo '<audio controls> <source src="/dynamic/song/' . $filename . '"> </audio>';
+                    break;
+                case "image":
+                    echo "<img style='max-width: 100%;' src='/dynamic/image/" . $filename . "'>";
+                    break;
+                case "midi":
+                    echo "Note: It may take a few seconds for the MIDI to load.<br>";
+                    echo "<a href='#' onClick=\"MIDIjs.play('/dynamic/midi/" . $filename . "');\">Play " . $title . "</a>";
+                    echo "<br><a href='#' onClick='MIDIjs.stop();'>Stop MIDI Playback</a>";
+                    break;
+                case "chiptune":
+                    // fixed - bloxxite
+                    echo '<script type="text/javascript" src="/static/js/chiptune.js"></script>
+                        <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/libopenmpt.js"></script>
+                        <script type="text/javascript" src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"></script>';
+                    echo '<a class="song" data-modurl="/dynamic/chiptune/' . $filename . '" href="#">Play ' . $title . '</a>';
+                    break;
+                case "video":
+                    echo ' <video width="640" height="400" controls> <source src="/dynamic/video/' . $filename . '" type="video/mp4"> </video> ';
+                    break;
+                case "game":
+                    echo '<embed src="/dynamic/game/' . $filename . '"  height="300px" width="500px"> </embed>';
+                    break;
             }
             ?>
             <h2>User Submitted Comments</h2>
