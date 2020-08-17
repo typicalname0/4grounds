@@ -58,8 +58,8 @@
 
                 echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='/dynamic/pfp/" . getPFP($author, $conn) . "'>
                 <small>
-                <a href='/view?id=" . $id . "'><span style='float:right;color: gold;'><i>" . $title . "</a></i></span><br>
-                <span style='float:right;'><small><i>Posted by <a href='index.php?id=" . getID($author, $conn) . "'>" . $author . "</a></i></span><br>
+                <a href='/view/?id=" . $id . "'><span style='float:right;color: gold;'><i>" . $title . "</a></i></span><br>
+                <span style='float:right;'><small><i>Posted by <a href='/view/profile?id=" . getID($author, $conn) . "'>" . $author . "</a></i></span><br>
                 <span style='float:right;'>" . $date . "</small></span><br>
                 <br><br>" . $extrainfo . "</small><hr>";
             ?>
