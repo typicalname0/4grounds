@@ -12,6 +12,22 @@
     <body> 
         <?php require(__DIR__ . "/../important/header.php"); 
         
+        if($_SERVER['REQUEST_METHOD'] == 'POST') 
+        {
+            if(!isset($_SESSION['user'])){ $error = "you are not logged in"; goto skipcomment; }
+            if(!$_POST['comment']){ $error = "your comment cannot be blank"; goto skipcomment; }
+            if(strlen($_POST['comment']) > 500){ $error = "your comment must be shorter than 500 characters"; goto skipcomment; }
+
+            $stmt = $conn->prepare("INSERT INTO `comments` (toid, author, text) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $_GET['id'], $_SESSION['user'], $text);
+            $unprocessedText = replaceBBcodes($_POST['comment']);
+//                $text = str_replace(PHP_EOL, "<br>", $unprocessedText);
+            $text = $_POST['comment'];
+            $stmt->execute();
+            $stmt->close();
+        }
+        skipcomment:
+
         $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->bind_param("i", $_GET['id']);
         $stmt->execute();
