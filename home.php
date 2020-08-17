@@ -44,10 +44,10 @@
             header("Location: home.php");
         } else if(@$_POST['submit']) {
             $target_dir = "dynamic/pfp/";
-            $target_name = md5_file($_FILES["fileToUpload"]["tmp_name"]);
             $imageFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
+            $target_name = md5_file($_FILES["fileToUpload"]["tmp_name"]) . "." . $imageFileType;
 
-            $target_file = $target_dir . $target_name . "." . $imageFileType;
+            $target_file = $target_dir . $target_name;
             
             $uploadOk = true;
             $movedFile = false;
@@ -67,8 +67,7 @@
             if ($uploadOk) {
                 if ($movedFile) {
                     $stmt = $conn->prepare("UPDATE users SET pfp = ? WHERE `users`.`username` = ?;");
-                    $stmt->bind_param("ss", $filename, $_SESSION['user']);
-                    $filename = getID($_SESSION['user'], $conn) . "." . $imageFileType;
+                    $stmt->bind_param("ss", $target_name, $_SESSION['user']);
                     $stmt->execute(); 
                     $stmt->close();
                 } else {
@@ -80,10 +79,11 @@
             $movedFile = false;
 
             $target_dir = "dynamic/song/";
-            $target_name = md5_file($_FILES["fileToUpload"]["tmp_name"]);
             $songFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
+            $target_name = md5_file($_FILES["fileToUpload"]["tmp_name"]) . "." . $songFileType;
+           
 
-            $target_file = $target_dir . $target_name . "." . $imageFileType;
+            $target_file = $target_dir . $target_name;
 
             if($songFileType != "ogg" && $songFileType != "mp3") {
                 echo 'unsupported file type. must be mp3 or ogg<hr>';
@@ -99,8 +99,7 @@
             if ($uploadOk) {
                 if ($movedFile) {
                     $stmt = $conn->prepare("UPDATE users SET music = ? WHERE `users`.`username` = ?;");
-                    $stmt->bind_param("ss", $filename, $_SESSION['user']);
-                    $filename = getID($_SESSION['user'], $conn) . "." . $songFileType;
+                    $stmt->bind_param("ss", $target_name, $_SESSION['user']);
                     $stmt->execute(); 
                     $stmt->close();
                 } else {
