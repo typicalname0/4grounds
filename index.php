@@ -64,7 +64,7 @@
                 <div style='width: 18em;word-wrap: break-word;' class="note">
                     <h1>Reviews</h1>
                     <?php
-                        $stmt = $conn->prepare("SELECT * FROM files WHERE type='review' AND status='y' ORDER BY RAND() LIMIT 1");
+                        $stmt = $conn->prepare("SELECT * FROM files WHERE type='review' AND status='y' ORDER BY id DESC LIMIT 1");
                         $stmt->execute();
                         $result = $stmt->get_result();
                         while($row = $result->fetch_assoc()) {
@@ -80,7 +80,7 @@
                 <div style='width: 18em;word-wrap: break-word;' class="note">
                     <h1>News</h1>
                     <?php
-                        $stmt = $conn->prepare("SELECT * FROM files WHERE type='news' AND status='y' ORDER BY RAND() LIMIT 1");
+                        $stmt = $conn->prepare("SELECT * FROM files WHERE type='news' AND status='y' ORDER BY id DESC LIMIT 1");
                         $stmt->execute();
                         $result = $stmt->get_result();
                         while($row = $result->fetch_assoc()) {
@@ -114,7 +114,7 @@
                 <div class="note" style='background-color: #404040;'>
                     <h1>Images</h1>
                     <?php
-                    $stmt = $conn->prepare("SELECT * FROM files WHERE type='image' AND status='y' ORDER BY RAND() LIMIT 6");
+                    $stmt = $conn->prepare("SELECT * FROM files WHERE type='image' AND status='y' ORDER BY id DESC LIMIT 6");
                     $stmt->execute();
                     $result = $stmt->get_result();
                     while($row = $result->fetch_assoc()) {

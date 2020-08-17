@@ -3,7 +3,7 @@
 \#*\#
 
 # config
-/cfg/config.inc.php
+cfg/config.inc.php
 
 # oooo we're so fancy
 # we make our OS put useless files everywhere
@@ -17,9 +17,3 @@ thumbs.db
 /vendor/
 composer.phar
 composer.lock
-
-# user profile pictures and songs
-/dynamic/pfp/*
-!/dynamic/pfp/default.jpg
-/dynamic/song/*
-!/dynamic/song/default.mp3
