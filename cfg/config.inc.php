@@ -8,10 +8,10 @@
 //
 //   4Grounds configuration file. See default values and all options in defaults.inc.php
 //   Uncomment values by removing the // before changing!
-//
+
     $config = array();
 
-    include("defaults.inc.php");
+    include(__DIR__ . "/defaults.inc.php");
 
     // $config['database_host'] = 'localhost';
     // $config['database_database'] = 'fourground';
@@ -21,4 +21,3 @@
     // $config['use_recaptcha'] = false;
     // $config['recaptcha_secret'] = '';
     // $config['recaptcha_sitekey'] = '';    
-?>
