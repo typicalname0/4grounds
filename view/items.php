@@ -33,7 +33,7 @@
                     } else if($row['type'] == "image") {
                         //im sorry for this abomination
                         echo "<div style='display: inline-block;' class='notegray'>
-                            <a href='/view?id=" . $row['id'] . "'><img style='width: 10em;height: 10em;' src='images/" . $row['filename'] . "'>
+                            <a href='/view?id=" . $row['id'] . "'><img style='width: 10em;height: 10em;' src='/dynamic/images/" . $row['filename'] . "'>
                             <br><center><b>" . htmlspecialchars($row['title']) . "</b><br><span style='color: gray;'>By " . $row['author'] . "</span></center>
                             </a>
                         </div> ";  
