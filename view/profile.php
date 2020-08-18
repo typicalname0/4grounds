@@ -9,7 +9,7 @@
 
             $user = getUser($_GET['id'], $conn);
             echo '<style id="userCSS">' . $user['css'] . '</style>';
-            echo '<meta property="og:title" content="' . $user['username'] . ' \'s 4Grounds profile" />';
+            echo '<meta property="og:title" content="' . $user['username'] . '\'s 4Grounds profile" />';
             echo '<meta property="og:description" content="' . htmlspecialchars($user['bio']) . '" />';
             echo '<meta property="og:image" content="https://spacemy.xyz/dynamic/pfp/' . $user['pfp'] . '" />';
         ?>
