@@ -17,15 +17,14 @@ function validateCSS($validate) {
     return $validated;
 }
 function validateMarkdown($comment) {
-	$markdown = new Michelf\Markdown;
-	$markdown->no_markup = true;
-	$transformed = $markdown->transform($comment);
-	return preg_replace(
-		"/<a href=(?:'|\")javascript:(.*?)(?:'|\")>(.*?)<\/a>/i",
-		"Attempted XSS: $2 ($1)",
-		$transformed
-	);
+	$comment = htmlspecialchars($comment);
+	$Parsedown = new Parsedown();
+	$Parsedown->setSafeMode(true);
+	
+	$filtered = $Parsedown->line($comment);
+	return str_replace(PHP_EOL, "<br>", $filtered);
 }
+
 
 function validateCaptcha($privatekey, $response) {
 	$responseData = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$privatekey.'&response='.$response));
