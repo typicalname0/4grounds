@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../css/global.css">
-        <link rel="stylesheet" href="../css/header.css">
+        <link rel="stylesheet" href="/static/css/global.css">
+        <link rel="stylesheet" href="/static/css/header.css">
+		<link rel="stylesheet" href="/static/css/index.css">
         <?php
-            require(__DIR__ . "/../func/func.php");
-            require(__DIR__ . "/../func/conn.php"); 
+            require(__DIR__ . "/func/func.php");
+            require(__DIR__ . "/func/conn.php"); 
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM files WHERE id = ?");
