@@ -29,6 +29,19 @@
     &bull; <a href="/view/items?type=review">Reviews</a>
     &bull; <a href="/files">Files</a>
     &bull; <a href="/view/groups">Groups</a>
+	 &bull; <div class="dropdown">
+        <a href="#">Upload</a>
+		  <div class="dropdown-content">
+		      <ul>
+				    <a href="/upload/image"><li>Image</li></a>
+				    <a href="/upload/video"><li>Video</li></a>
+				    <a href="/upload/song"><li>Song</li></a>
+				    <a href="/upload/game"><li>Game</li></a>
+				    <a href="/upload/midi"><li>MIDI</li></a>
+				    <a href="/upload/chiptune"><li>Chiptune</li></a>
+				</ul>
+		  </div>
+    </div>
 
     <span style="float:right;">
         <?php if(isset($_SESSION['user'])) {?>
