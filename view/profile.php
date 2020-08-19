@@ -103,7 +103,7 @@
                     </div><br>
                     <div id="bio" class="notegray">
                         <h1>Bio</h1>
-                        <?php echo validateMarkdown($user['bio']); ?>
+                        <?php echo validateMarkdown($user['bio'], "profile"); ?>
                     </div><br><br>
                     <div id='comments'>
                         <?php

@@ -16,12 +16,16 @@ function validateCSS($validate) {
 	$validated = str_replace($DISALLOWED, "", $validate);
     return $validated;
 }
-function validateMarkdown($comment) {
+function validateMarkdown($comment, $type = "comment") {
 	$comment = htmlspecialchars($comment);
 	$Parsedown = new Parsedown();
 	$Parsedown->setSafeMode(true);
 
-	return $Parsedown->parse($comment);
+	if ($type === "profile") {
+		return $Parsedown->parse($comment);
+	} else {
+		return $Parsedown->line($comment);
+	}
 }
 
 
