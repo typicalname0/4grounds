@@ -115,7 +115,7 @@
                         <img class='commentPictures' style='float: left;' height='80px;'width='80px;'src='/dynamic/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                     </div>
                     <div style="word-wrap: break-word;">
-                        <small><?php echo $row['date']; ?></small>
+                        <small><?php echo $row['date']; ?></small><br>
                         <?php echo validateMarkdown($row['text']);?>
                     </div>
                 </div>
