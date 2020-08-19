@@ -5,7 +5,7 @@
         $stmt->execute();
         $result = $stmt->get_result();
     
-        if($result->num_rows == 0) echo('welcome to gamestop how may i help you');
+        if($result->num_rows == 0) die('welcome to gamestop how may i help you');
     }
 ?>
 

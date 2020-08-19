@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../static/css/global.css">
-        <link rel="stylesheet" href="../static/css/header.css">
+        <link rel="stylesheet" href="../css/global.css">
+        <link rel="stylesheet" href="../css/header.css">
         <?php
             require(__DIR__ . "/../func/func.php");
             require(__DIR__ . "/../func/conn.php"); 
@@ -58,7 +58,7 @@
 
                 echo "<br><img style='position: absolute;border: 1px solid white; width: 5em;' src='/dynamic/pfp/" . getPFP($author, $conn) . "'>
                 <small>
-                <a href='/view/?id=" . $id . "'><span style='float:right;color: gold;'><i>" . $title . "</a></i></span><br>
+                <a href='/view?id=" . $id . "'><span style='float:right;color: gold;'><i>" . $title . "</a></i></span><br>
                 <span style='float:right;'><small><i>Posted by <a href='/view/profile?id=" . getID($author, $conn) . "'>" . $author . "</a></i></span><br>
                 <span style='float:right;'>" . $date . "</small></span><br>
                 <br><br>" . $extrainfo . "</small><hr>";
@@ -87,7 +87,7 @@
                     echo ' <video width="640" height="400" controls> <source src="/dynamic/video/' . $filename . '" type="video/mp4"> </video> ';
                     break;
                 case "game":
-                    echo '<embed src="/dynamic/game/' . $filename . '"  height="300px" width="500px"> </embed>';
+                    echo '<embed src="/dynamic/game/' . $filename . '"  height="480px" width="640px"> </embed>';
                     break;
             }
             ?>
@@ -109,10 +109,11 @@
                 <?php while($row = $result->fetch_assoc()) { ?>
                 <div class='commentRight' style='display: grid; grid-template-columns: auto 85%; padding:5px;'>
                     <div>
-                        <a style='float: left;' href='/view/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a><br>
+                        <a style='float: left;' href='/view/profile?id=<?php echo getID($row['author'], $conn); ?>'><?php echo $row['author']; ?></a>
+                        <br>
                         <img class='commentPictures' style='float: left;' height='80px;'width='80px;'src='/dynamic/pfp/<?php echo getPFP($row['author'], $conn); ?>'>
                     </div>
-                    <div class="commentText" style="word-wrap: break-word;">
+                    <div style="word-wrap: break-word;">
                         <small><?php echo $row['date']; ?></small>
                         <?php echo validateMarkdown($row['text']);?>
                     </div>
