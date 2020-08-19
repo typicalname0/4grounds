@@ -20,9 +20,8 @@ function validateMarkdown($comment) {
 	$comment = htmlspecialchars($comment);
 	$Parsedown = new Parsedown();
 	$Parsedown->setSafeMode(true);
-	
-	$filtered = $Parsedown->line($comment);
-	return str_replace(PHP_EOL, "<br>", $filtered);
+
+	return $Parsedown->parse($comment);
 }
 
 
