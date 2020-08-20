@@ -40,7 +40,7 @@
                 </center>
             </div>
             <div class="leftHalf">
-                <div class="notegray">
+                <div class="notegray" style="background-color: #202020;">
                     <center>
                         <br>
                         <img style="border: 1px solid white; width: 15em;" src="/dynamic/pfp/<?php echo $user['pfp']; ?>">
@@ -62,7 +62,7 @@
                         <?php } ?>
                     </div>
                     <br>
-                    <div class="notegray">
+                    <div class="notegray" style="background-color: #202020;">
                     <?php if(isset($error)) { echo "<small style='color:red'>".$error."</small>"; } ?>
                     <h2>Comment</h2>
                     <form method="post" enctype="multipart/form-data">
@@ -79,7 +79,7 @@
                       }
                 </script>
                 <div class="rightHalf">
-                    <div id="badges" class="notegray">
+                    <div id="badges" class="notegray" style="background-color: #202020;">
                         <h1>Badges</h1>
                         <?php
                             foreach($user['badges'] as $badge) {
@@ -89,7 +89,7 @@
                             }
                         ?>
                     </div><br>
-                    <div id="files" class="notegray">
+                    <div id="files" class="notegray" style="background-color: #202020;">
                         <?php
                         $stmt = $conn->prepare("SELECT * FROM `files` WHERE author = ? AND status='y' ORDER BY id DESC ");
                         $stmt->bind_param("s", $username);
@@ -101,7 +101,7 @@
                             echo '<a href="/view?id=' . $row['id'] . '">' . $row['title'] . ' [' , $row['type'] . ']</a><br>';
                         }?> 
                     </div><br>
-                    <div id="bio" class="notegray">
+                    <div id="bio" class="notegray" style="background-color: #202020;">
                         <h1>Bio</h1>
                         <?php echo validateMarkdown($user['bio'], "profile"); ?>
                     </div><br><br>

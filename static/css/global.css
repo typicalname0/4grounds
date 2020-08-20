@@ -1,5 +1,5 @@
 body {
-    background-color: #181818;
+    background-color: #313131;
     color: white;
     font-family: sans-serif;
 }
@@ -10,7 +10,7 @@ a {
 }
 
 .container {
-    width: 40em;
+    width: 45em;
     margin: auto;
 }
 
@@ -25,13 +25,13 @@ a {
 }
 
 .note {
-    background-color: darkred;
+    background-color: #414141;
     padding: 5px;
     border-radius: 15px;
 }
 
 .notegray {
-    background-color: #202020;
+    background-color: #313131;
     padding: 5px;
     border-radius: 15px;
 }
