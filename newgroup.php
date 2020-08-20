@@ -33,9 +33,9 @@
         
         <div class="container"><br>
             <form method="post" enctype="multipart/form-data">
-                <input size="69" type="text" placeholder="News Title" name="title"><br><br>
-                <textarea required cols="81" placeholder="Information about your news" name="description"></textarea><br><br>
-                <input type="submit" value="Submit" name="submit">  <small>Note: News Posts are manually approved.</small>
+                <input size="69" type="text" placeholder="Group Title" name="title"><br><br>
+                <textarea required cols="81" placeholder="Information about your group" name="description"></textarea><br><br>
+                <input type="submit" value="Make Group" name="submit">
             </form>
         </div>
     </body>
