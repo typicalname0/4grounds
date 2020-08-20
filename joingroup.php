@@ -18,10 +18,10 @@ if(isset($_SESSION['user'])) {
         $stmt->execute();
         $stmt->close();
 
-        header("Location: index.php");
+        header("Location: /view/group.php?id=" . $_GET['id']);
     } else {
-        header("Location: view/groups.php");
+        header("Location: /view/groups.php");
     }
 } else {
-    die("you're not loged in");
+    die("you're not logged in");
 }
