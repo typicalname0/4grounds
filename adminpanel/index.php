@@ -2,7 +2,7 @@
 require("dependencies.php");
 
 if(isset($_SESSION['user'])) {
-    if(isAdmin($_SESSION['user'], $conn) == "admin") {
+    if(isAdmin($_SESSION['user'], $conn)) {
         echo "<h1>Welcome</h1>";
     } else {
         die("not a admin");
@@ -35,7 +35,7 @@ echo memory_get_usage() . " bytes of RAM allocated to PHP";
     $result = $stmt->get_result();
     if($result->num_rows === 0) echo('There are no items waiting for approval.');
     while($row = $result->fetch_assoc()) {
-        echo "" . $row['title'] . " by " . $row['author'] . " @ " . $row['date'] . " | <a href='approve.php?id=" . $row['id'] . "'>Approve</a> | <a href='deny.php?id=" . $row['id'] . "'>Deny</a><br>";
+        echo "<a href='/view/?id=" . $row['id'] . "'>" . $row['title'] . "</a> by <a href='/view/profile?id=" . getID($row['author'], $conn) . "'>" . $row['author'] . "</a> @ " . $row['date'] . " | <a href='approve.php?id=" . $row['id'] . "'>Approve</a> | <a href='deny.php?id=" . $row['id'] . "'>Deny</a><br>";
     }
 ?>
 

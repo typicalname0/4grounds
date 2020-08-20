@@ -98,6 +98,22 @@ function checkIfFriended($friend1, $friend2, $connection)
 	return false;
 }
 
+function isAdmin($user, $conn) {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $user);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if($result->num_rows === 0) return false;
+    while($row = $result->fetch_assoc()) {
+        if($row['rank'] == "Admin" || $row['rank'] == "Owner") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    $stmt->close();
+}
+
 function getUser($id, $connection) {
 	$userResult = array();
 	$stmt = $connection->prepare("SELECT * FROM users WHERE id = ?");

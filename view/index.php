@@ -5,8 +5,8 @@
         <link rel="stylesheet" href="/static/css/header.css">
 		<link rel="stylesheet" href="/static/css/index.css">
         <?php
-            require(__DIR__ . "/func/func.php");
-            require(__DIR__ . "/func/conn.php"); 
+            require(__DIR__ . "/../func/func.php");
+            require(__DIR__ . "/../func/conn.php"); 
 
             if(isset($_GET['id'])) {
                 $stmt = $conn->prepare("SELECT * FROM files WHERE id = ?");
@@ -24,7 +24,7 @@
                     $status = $row['status'];
                     $filename = $row['filename'];
 
-                    if($status != "y") {
+                    if($status != "y" && !@isAdmin($_SESSION['user'], $conn)) {
                         die("Item is not approved yet.");
                     }
                 }

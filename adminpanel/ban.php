@@ -3,7 +3,7 @@ require("dependencies.php");
 
 if(isset($_SESSION['user'])) {
     if(isset($_GET['id'])) {
-        if(isAdmin($_SESSION['user'], $conn) == "admin") {
+        if(isAdmin($_SESSION['user'], $conn)) {
             $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
             $stmt->bind_param("i", $_GET['id']);
             $stmt->execute();
