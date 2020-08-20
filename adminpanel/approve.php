@@ -1,5 +1,5 @@
 <?php
-require("dependencies.php");
+require(__DIR__ . "/dependencies.php");
 
 if(isset($_SESSION['user'])) {
     if(isset($_GET['id'])) {
